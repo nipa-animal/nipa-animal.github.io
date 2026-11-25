@@ -43,9 +43,17 @@
     nav.inert = true;
     nav.innerHTML = `
       <button class="menu__fechar" type="button" aria-label="Fechar menu">&times;</button>
+      <a href="index.html">Homepage</a>
       <a href="sobre.html">Sobre</a>
       <a href="adocao.html">Adoção</a>
       <a href="ajudar.html">Ajudar</a>`;
+    // Destaca a página atual também no menu
+    const atual = document.querySelector(".header__nav [aria-current]");
+    const nome = location.pathname.split("/").pop() || "index.html";
+    nav.querySelectorAll("a[href]").forEach((a) => {
+      const h = a.getAttribute("href");
+      if (h === nome || (atual && h === atual.getAttribute("href")) || (h === "index.html" && nome === "index.html")) a.setAttribute("aria-current", "page");
+    });
     document.body.append(bg, nav);
     const fechar = nav.querySelector(".menu__fechar");
     const set = (aberto) => {

@@ -41,8 +41,8 @@ body {
   background: var(--creme);
   color: var(--verde);
   font-family: var(--fonte);
-  font-size: 1.1rem;
-  line-height: 1.24rem;
+  font-size: 1.24rem;
+  line-height: 1.42rem;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
   display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh;
@@ -61,7 +61,7 @@ button { font: inherit; color: inherit; cursor: pointer; padding: 0; border: 0; 
   display: inline-flex; align-items: center; justify-content: center;
   height: 1.9rem; min-width: 6.2rem; padding: 0 1.2rem;
   border-radius: 0.33rem;
-  font-size: 1rem; font-weight: 800; line-height: 1; white-space: nowrap;
+  font-size: 1.12rem; font-weight: 800; line-height: 1; white-space: nowrap;
 }
 .btn--creme { background: var(--creme); color: var(--verde); }
 .btn--verde { background: var(--verde); color: var(--creme); }
@@ -72,7 +72,7 @@ button { font: inherit; color: inherit; cursor: pointer; padding: 0; border: 0; 
 body > main { flex: 1 0 auto; }
 body > .footer { flex: none; }
 .header__logo { position: absolute; left: 2.66rem; top: 2.85rem; font-size: 1.6rem; line-height: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
-.header__nav a { position: absolute; top: 3.85rem; font-size: 1.13rem; line-height: 1.13rem; }
+.header__nav a { position: absolute; top: 3.85rem; font-size: 1.26rem; line-height: 1.26rem; }
 .header__nav a:nth-child(1) { left: 14.37rem; }
 .header__nav a:nth-child(2) { left: 21.89rem; }
 .header__nav a:nth-child(3) { left: 30.29rem; }
@@ -93,15 +93,19 @@ body > .footer { flex: none; }
 .menu-aberto .menu { transform: none; }
 .menu-aberto .menu-bg { opacity: 1; pointer-events: auto; }
 .menu__fechar { align-self: flex-end; font-size: 3rem; line-height: 1; color: var(--creme); }
-.menu a { font-size: 2rem; line-height: 2.4rem; font-weight: 700; }
+.menu a { font-size: 2rem; line-height: 2.4rem; font-weight: 700; text-underline-offset: 0.45rem; text-decoration-thickness: 0.16rem; }
+.menu a[aria-current="page"] { text-decoration-line: underline; }
+/* Página atual sublinhada no header */
+.header__nav a { text-underline-offset: 0.38rem; text-decoration-thickness: 0.1rem; }
+.header__nav a[aria-current="page"] { text-decoration-line: underline; }
 
 /* ---------- Footer ---------- */
 .footer { background: var(--verde); color: var(--creme); height: 14.4rem; padding-top: 3.3rem; }
 .footer--claro { background: var(--creme); color: var(--verde); }
 .footer dl { margin: 0; width: 28.3rem; margin-left: 2.77rem; }
 .footer__linha { display: flex; justify-content: space-between; align-items: baseline; height: 3.2rem; }
-.footer dt { font-size: 1.55rem; line-height: 1.55rem; font-weight: 700; }
-.footer dd { margin: 0; font-size: 1.3rem; line-height: 1.3rem; }
+.footer dt { font-size: 1.62rem; line-height: 1.62rem; font-weight: 700; }
+.footer dd { margin: 0; font-size: 1.42rem; line-height: 1.42rem; }
 
 /* ---------- Moldura (foto que "sai" do quadrado) ---------- */
 .moldura { position: relative; width: 13.65rem; height: 13.65rem; }
@@ -122,7 +126,7 @@ body > .footer { flex: none; }
 .hero::before { content: ""; position: absolute; inset: 0; background: rgba(139, 153, 95, .42); }
 .hero > * { position: relative; }
 .hero h1 { position: absolute; left: 2.8rem; top: 9.4rem; font-size: 2.6rem; line-height: 2.93rem; }
-.hero p { position: absolute; left: 2.8rem; top: 16.5rem; width: 41rem; font-size: 1.1rem; line-height: 1.28rem; }
+.hero p { position: absolute; left: 2.8rem; top: 16.5rem; width: 41rem; font-size: 1.24rem; line-height: 1.45rem; }
 .hero .btn { position: absolute; right: 2.75rem; top: 21.17rem; }
 
 .cards { padding: 6rem 2.67rem 5rem; }
@@ -132,14 +136,14 @@ body > .footer { flex: none; }
 }
 .card + .card { margin-top: 5.6rem; }
 .card h2 { position: absolute; top: 4.2rem; font-size: 1.35rem; line-height: 1.35rem; }
-.card p { position: absolute; font-size: 1.1rem; }
+.card p { position: absolute; font-size: 1.24rem; }
 .card .btn { position: absolute; }
 .card--adocao h2 { left: 1.83rem; }
-.card--adocao p { left: 1.83rem; top: 6.55rem; width: 21.6rem; line-height: 1.24rem; }
+.card--adocao p { left: 1.83rem; top: 6.55rem; width: 21.6rem; line-height: 1.42rem; }
 .card--adocao .btn { left: 1.73rem; top: 16rem; height: 1.76rem; }
 .card--adocao img { position: absolute; left: 15.46rem; bottom: 0; height: 23.7rem; width: auto; }
 .card--ajuda h2 { right: 2.53rem; top: 5.1rem; }
-.card--ajuda p { right: 2.48rem; top: 7.35rem; width: 21.75rem; line-height: 1.36rem; text-align: right; }
+.card--ajuda p { right: 2.48rem; top: 7.35rem; width: 21.75rem; line-height: 1.52rem; text-align: right; }
 .card--ajuda .btn { right: 2.58rem; top: 16.95rem; height: 1.75rem; }
 .card--ajuda img { position: absolute; left: 0; top: 0; width: 100%; height: auto; }
 
@@ -150,12 +154,12 @@ body > .footer { flex: none; }
 .bloco h2 { font-size: 2.6rem; line-height: 2.9rem; margin-bottom: 1.8rem; }
 .bloco h3 { font-size: 1.35rem; line-height: 1.6rem; margin: 1.8rem 0 0.6rem; }
 .bloco h2 + h3 { margin-top: 0; }
-.bloco p { font-size: 1.1rem; line-height: 1.24rem; }
+.bloco p { font-size: 1.24rem; line-height: 1.42rem; }
 .news { display: flex; gap: 0.7rem; margin-top: 1.8rem; }
 .news input {
   flex: 1; min-width: 0; height: 1.9rem; padding: 0 0.9rem;
   border: 0.12rem solid var(--verde); border-radius: 0.33rem; background: transparent;
-  color: var(--verde); font: inherit; font-size: 1.05rem;
+  color: var(--verde); font: inherit; font-size: 1.18rem;
 }
 .news input::placeholder { color: var(--verde-claro); }
 
@@ -165,7 +169,7 @@ body > .footer { flex: none; }
 .facts { padding: 4.75rem 2.75rem 0 2.66rem; }
 .facts h2 { font-size: 2.7rem; line-height: 2.7rem; }
 .facts__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin-top: 2.05rem; }
-.fact { border: 0.12rem solid var(--creme); border-radius: 1.16rem; padding: 1.6rem 1.5rem; font-size: 1.1rem; line-height: 1.24rem; }
+.fact { border: 0.12rem solid var(--creme); border-radius: 1.16rem; padding: 1.6rem 1.5rem; font-size: 1.24rem; line-height: 1.42rem; }
 .fact strong { display: block; font-size: 2.6rem; line-height: 2.6rem; margin-bottom: 0.6rem; }
 .pag-sobre { background: var(--verde); color: var(--creme); }
 .sobre-logo { text-align: center; font-size: 9rem; line-height: 9rem; letter-spacing: -0.03em; padding-top: 4.3rem; height: 16.73rem; }
@@ -174,7 +178,7 @@ body > .footer { flex: none; }
   background: var(--creme); color: var(--verde); border-radius: 1.45rem;
 }
 .historia h2 { font-size: 2.6rem; line-height: 2.6rem; }
-.historia__texto { margin-top: 1.8rem; font-size: 1.1rem; line-height: 1.25rem; hyphens: auto; }
+.historia__texto { margin-top: 1.8rem; font-size: 1.24rem; line-height: 1.42rem; hyphens: auto; }
 .historia__texto p + p, .historia__texto p + cite, .historia__texto cite + p { margin-top: 1.25rem; }
 .historia__texto cite { display: block; font-style: normal; }
 .voluntarios { padding: 4.85rem 2.75rem 0 2.66rem; height: 31.96rem; }
@@ -188,15 +192,20 @@ body > .footer { flex: none; }
    ADOÇÃO
    ========================================================= */
 .titulo-pag { text-align: center; font-size: 2.6rem; line-height: 2.6rem; padding-top: 3.25rem; }
-.adocao-texto { padding: 3.3rem 2.75rem 0 2.7rem; font-size: 1.1rem; line-height: 1.24rem; }
+.adocao-texto { padding: 3.3rem 2.75rem 0 2.7rem; font-size: 1.24rem; line-height: 1.42rem; }
 .adocao-texto p + p { margin-top: 1.24rem; }
 .secao-head { display: flex; justify-content: space-between; align-items: baseline; padding: 0 2.8rem 0 2.7rem; }
 .secao-head h2 { font-size: 2.7rem; line-height: 2.7rem; }
-.secao-head a, .secao-head button { font-size: 1rem; }
+.secao-head a, .secao-head button { font-size: 1.15rem; }
 .secao-head--adote { margin-top: 5.6rem; }
-.secao-head--salvos { margin-top: 7.4rem; }
+.secao-head--salvos { padding-top: 4.6rem; }
+/* Amigos salvos com as cores invertidas (faixa verde, molduras e textos claros) */
+.faixa-salvos { margin-top: 5.2rem; background: var(--verde); color: var(--creme); }
+.faixa-salvos .grade__vazio { color: var(--creme); }
 .grade { display: grid; grid-template-columns: repeat(2, 13.65rem); column-gap: 9.4rem; row-gap: 3.95rem; justify-content: center; padding-top: 5.35rem; }
-.grade--salvos { padding-top: 6.15rem; padding-bottom: 4.55rem; }
+.grade--salvos { padding-top: 6.15rem; padding-bottom: 5.6rem; }
+/* Fade na última linha: dá a impressão de que há mais amigos */
+.grade--fade { -webkit-mask-image: linear-gradient(to bottom, #000 52%, rgba(0,0,0,.35) 80%, transparent 100%); mask-image: linear-gradient(to bottom, #000 52%, rgba(0,0,0,.35) 80%, transparent 100%); }
 .grade__vazio { grid-column: 1 / -1; text-align: center; padding: 0 2.7rem; }
 .animal { display: block; text-align: center; }
 .animal h3 { font-size: 1.95rem; line-height: 1.95rem; margin-top: 1.4rem; }
@@ -252,12 +261,12 @@ body > .footer { flex: none; }
 .ficha__topo { position: relative; height: 26.5rem; margin-top: -7.05rem; pointer-events: none; }
 .ficha__topo .moldura { position: absolute; left: 2.48rem; top: 10.7rem; width: 15.8rem; height: 15.8rem; }
 .ficha__nome { position: absolute; left: 19.67rem; top: 10.95rem; font-size: 2.75rem; line-height: 2.75rem; }
-.ficha__dados { position: absolute; left: 19.67rem; top: 14.25rem; margin: 0; padding: 0; list-style: none; font-size: 1.15rem; line-height: 1.36rem; }
-.ficha__historia { padding: 2.05rem 3.1rem 0 2.4rem; font-size: 1.1rem; line-height: 1.24rem; }
+.ficha__dados { position: absolute; left: 19.67rem; top: 14.25rem; margin: 0; padding: 0; list-style: none; font-size: 1.28rem; line-height: 1.52rem; }
+.ficha__historia { padding: 2.05rem 3.1rem 0 2.4rem; font-size: 1.24rem; line-height: 1.42rem; }
 .ficha__historia p + p { margin-top: 1.24rem; }
 .atributos { margin: 2.85rem 3.13rem 0 2.14rem; height: 18.8rem; border-radius: 1.5rem; background: var(--verde); color: var(--creme); padding: 2.65rem 0 0 3.37rem; }
 .atributo { height: 3.7rem; }
-.atributo__label { display: flex; align-items: center; gap: 0.85rem; padding-left: 0.2rem; font-size: 1.15rem; line-height: 1.15rem; }
+.atributo__label { display: flex; align-items: center; gap: 0.85rem; padding-left: 0.2rem; font-size: 1.28rem; line-height: 1.15rem; }
 .atributo__label svg { width: 0.8rem; height: 0.8rem; flex: none; }
 .barra { margin-top: 0.9rem; width: 26.6rem; height: 0.34rem; border-radius: 0.2rem; background: var(--verde-claro); overflow: hidden; }
 .barra i { display: block; height: 100%; width: 0; border-radius: 0.2rem; background: var(--creme); transition: width .7s ease; }
@@ -267,21 +276,21 @@ body > .footer { flex: none; }
 .btn-salvar .cheio { opacity: 0; }
 .btn-salvar[aria-pressed="true"] .cheio { opacity: 1; }
 .ficha__acoes .btn { height: 1.85rem; }
-.ficha__nota { padding: 2.25rem 2rem 0 2.4rem; font-size: 0.92rem; line-height: 1.1rem; }
+.ficha__nota { padding: 2.25rem 2rem 0 2.4rem; font-size: 1.04rem; line-height: 1.26rem; }
 
 /* Questionário / notificação (sem layout próprio: seguem o estilo da ficha) */
 .form { padding: 2rem 2.6rem 0 2.6rem; }
 .form h3 { font-size: 1.5rem; line-height: 1.5rem; margin: 1.6rem 0 1rem; }
 .form h3:first-child { margin-top: 0; }
-.form label { display: block; font-size: 1.05rem; line-height: 1.3rem; margin-bottom: 0.9rem; }
+.form label { display: block; font-size: 1.18rem; line-height: 1.46rem; margin-bottom: 0.9rem; }
 .form input, .form textarea {
   display: block; width: 100%; margin-top: 0.35rem; padding: 0.6rem 0.8rem;
   border: 0.12rem solid var(--verde); border-radius: 0.5rem; background: transparent;
-  color: var(--verde); font: inherit; font-size: 1.1rem;
+  color: var(--verde); font: inherit; font-size: 1.24rem;
 }
 .form textarea { min-height: 5.5rem; resize: vertical; }
 .form__acoes { display: flex; justify-content: flex-end; margin-top: 1.6rem; }
-.form__intro { padding: 2rem 2.6rem 0; font-size: 1.1rem; line-height: 1.3rem; }
+.form__intro { padding: 2rem 2.6rem 0; font-size: 1.24rem; line-height: 1.46rem; }
 
 /* =========================================================
    AMIGOS SALVOS
@@ -295,7 +304,7 @@ body > .footer { flex: none; }
 .salvo--ativo { background: var(--verde); color: var(--creme); border-color: var(--verde); }
 .salvo .moldura { position: absolute; left: 1.52rem; top: 2.86rem; }
 .salvo__nome { position: absolute; left: 16.78rem; top: 3.0rem; font-size: 1.95rem; line-height: 1.95rem; }
-.salvo__info { position: absolute; left: 16.78rem; top: 5.5rem; font-size: 1.15rem; line-height: 1.34rem; }
+.salvo__info { position: absolute; left: 16.78rem; top: 5.5rem; font-size: 1.28rem; line-height: 1.5rem; }
 .salvo__info .linha2 { margin-top: 0.43rem; }
 .salvo__info strong { display: block; font-weight: 700; }
 .salvo__acoes { position: absolute; left: 16.78rem; top: 14.56rem; display: flex; gap: 0.47rem; }
@@ -326,7 +335,7 @@ body > .footer { flex: none; }
 .faixa--verde .ajuda { background: var(--creme); color: var(--verde); }
 .faixa--creme .ajuda { background: var(--verde); color: var(--creme); }
 .ajuda h2 { position: absolute; font-size: 2.65rem; line-height: 3.1rem; }
-.ajuda p { position: absolute; font-size: 1.1rem; line-height: 1.24rem; }
+.ajuda p { position: absolute; font-size: 1.24rem; line-height: 1.42rem; }
 .ajuda .btn { position: absolute; height: 1.93rem; }
 .ajuda img { position: absolute; }
 
@@ -347,33 +356,33 @@ body > .footer { flex: none; }
 .ajuda--itens .btn { right: 2.83rem; top: 14.6rem; }
 
 .faixa--voluntario { padding: 4.16rem 0 4.19rem; }
-.ajuda--voluntario { height: 23.51rem; overflow: hidden; }
+.ajuda--voluntario { height: 24.4rem; overflow: hidden; }
 .ajuda--voluntario img { left: 0; top: 0; width: 100%; height: auto; }
 .ajuda--voluntario h2 { left: 1.55rem; top: 2.32rem; }
-.ajuda--voluntario p { left: 1.67rem; top: 6.75rem; width: 24.6rem; line-height: 1.26rem; }
-.ajuda--voluntario .btn { left: 1.67rem; top: 17.53rem; }
+.ajuda--voluntario p { left: 1.67rem; top: 6.75rem; width: 24.6rem; line-height: 1.44rem; }
+.ajuda--voluntario .btn { left: 1.67rem; top: 18.45rem; }
 
 .faixa--parcerias { padding: 4.58rem 0 4.61rem; }
-.parcerias { margin: 0 2.3rem 0 2.69rem; height: 41.08rem; border-radius: 1.37rem; background: var(--verde); color: var(--creme); text-align: center; padding-top: 2.75rem; }
+.parcerias { margin: 0 2.3rem 0 2.69rem; height: 42.9rem; border-radius: 1.37rem; background: var(--verde); color: var(--creme); text-align: center; padding-top: 2.75rem; }
 .parcerias h2 { font-size: 2.65rem; line-height: 2.65rem; }
-.parcerias p { font-size: 1.1rem; line-height: 1.24rem; }
+.parcerias p { font-size: 1.24rem; line-height: 1.42rem; }
 .parcerias__p1 { margin-top: 1.75rem; }
 .parcerias__p2 { margin-top: 1.23rem; }
 .parcerias__grid { display: flex; justify-content: space-between; padding: 0 2.75rem 0 2.95rem; margin-top: 2.05rem; }
 .parceiro { width: 9.85rem; }
 .parceiro__logo { height: 9.82rem; border-radius: 1.37rem; background: var(--creme); }
-.parceiro h3 { font-size: 1.12rem; line-height: 1.37rem; margin-top: 1.05rem; }
+.parceiro h3 { font-size: 1.26rem; line-height: 1.5rem; margin-top: 1.05rem; }
 .parcerias__p3 { margin-top: 3.4rem; padding: 0 3rem; }
 .parcerias .btn { margin-top: 2.9rem; }
 
 .faixa--loja { padding: 4.14rem 0 4.13rem; }
 
 .faixa--rifas { padding: 3.29rem 0 6.7rem; }
-.ajuda--rifas { margin-left: 2.5rem; height: 21.26rem; overflow: hidden; }
+.ajuda--rifas { margin-left: 2.5rem; height: 22.1rem; overflow: hidden; }
 .ajuda--rifas img { left: -7.1rem; top: 0.2rem; width: 31rem; height: auto; }
 .ajuda--rifas h2 { right: 2.8rem; top: 2.05rem; text-align: right; line-height: 3.15rem; }
-.ajuda--rifas p { right: 2.77rem; top: 9.85rem; width: 23.4rem; text-align: right; line-height: 1.25rem; }
-.ajuda--rifas .btn { right: 2.77rem; top: 16.26rem; }
+.ajuda--rifas p { right: 2.77rem; top: 9.85rem; width: 23.4rem; text-align: right; line-height: 1.42rem; }
+.ajuda--rifas .btn { right: 2.77rem; top: 17.1rem; }
 .ajuda--loja { height: 18.65rem; }
 .ajuda--loja h2 { left: 1.5rem; top: 2.0rem; width: 27rem; }
 .ajuda--loja p { left: 1.67rem; top: 9.25rem; width: 24.6rem; }
@@ -386,9 +395,9 @@ body > .footer { flex: none; }
 .pix__wrap { overflow: hidden; }
 .pix__card { margin-top: 2rem; background: var(--creme); color: var(--verde); border-radius: 1.37rem; padding: 2.2rem 1.67rem 2.4rem; }
 .pix h3 { font-size: 2.65rem; line-height: 3.1rem; }
-.pix__rotulo { display: block; font-weight: 700; font-size: 1.1rem; margin: 1.6rem 0 0.7rem; }
+.pix__rotulo { display: block; font-weight: 700; font-size: 1.24rem; margin: 1.6rem 0 0.7rem; }
 .valores { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem; }
-.valores button { height: 2.6rem; border: 0.12rem solid var(--verde); border-radius: 0.33rem; font-weight: 800; font-size: 1.1rem; color: var(--verde); }
+.valores button { height: 2.6rem; border: 0.12rem solid var(--verde); border-radius: 0.33rem; font-weight: 800; font-size: 1.24rem; color: var(--verde); }
 .valores button[aria-pressed="true"] { background: var(--verde); color: var(--creme); }
 .pix__outro { position: relative; margin-top: 0.7rem; }
 .pix__outro span { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); font-weight: 700; }
@@ -404,7 +413,7 @@ body > .footer { flex: none; }
 .copiavel .btn { height: 2.6rem; min-width: 8rem; }
 .pix__qr { margin: 2rem auto 0; width: 22rem; padding: 1.4rem; background: #fff; border-radius: 1.37rem; }
 .pix__qr svg { display: block; width: 100%; height: auto; }
-.pix__valor { text-align: center; margin-top: 1rem; font-size: 1.1rem; }
+.pix__valor { text-align: center; margin-top: 1rem; font-size: 1.24rem; }
 .pix__valor strong { display: block; font-size: 1.6rem; line-height: 2rem; }
 
 /* =========================================================
