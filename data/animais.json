@@ -1,0 +1,80 @@
+[
+  {
+    "nome": "Spike",
+    "foto": "assets/animais/spike.png",
+    "idade": "Idade",
+    "sexo": "sexo",
+    "raca": "raça",
+    "historia": "Olá pessoal! este é o Spike, um cachorrinho que viveu 3 anos de sua vida acorrentado e sofrendo maus tratos. Seu comportamento anda mudando no lar temporário e ele está bem mais calmo do que quando p resgatamos! É um cãozinho cheio de energia e muito carinhoso!\n\nEle já está vermifugado e castrado, e nós já estamos começando as entrevistas com os interessados na adoção :)",
+    "energia": 35,
+    "carencia": 53,
+    "brincalhao": 85,
+    "rebeldia": 68,
+    "adotado": false
+  },
+  {
+    "nome": "Skar",
+    "foto": "assets/animais/skar.png",
+    "idade": "Idade",
+    "sexo": "sexo",
+    "raca": "raça",
+    "historia": "História do animal.",
+    "energia": 50,
+    "carencia": 50,
+    "brincalhao": 50,
+    "rebeldia": 50,
+    "adotado": false
+  },
+  {
+    "nome": "Nome1",
+    "foto": "assets/animais/nome1.png",
+    "idade": "Idade",
+    "sexo": "sexo",
+    "raca": "raça",
+    "historia": "História do animal.",
+    "energia": 50,
+    "carencia": 50,
+    "brincalhao": 50,
+    "rebeldia": 50,
+    "adotado": false
+  },
+  {
+    "nome": "Nome2",
+    "foto": "assets/animais/nome2.png",
+    "idade": "Idade",
+    "sexo": "sexo",
+    "raca": "raça",
+    "historia": "História do animal.",
+    "energia": 50,
+    "carencia": 50,
+    "brincalhao": 50,
+    "rebeldia": 50,
+    "adotado": false
+  },
+  {
+    "nome": "Nome3",
+    "foto": "assets/animais/nome3.png",
+    "idade": "Idade",
+    "sexo": "sexo",
+    "raca": "raça",
+    "historia": "História do animal.",
+    "energia": 50,
+    "carencia": 50,
+    "brincalhao": 50,
+    "rebeldia": 50,
+    "adotado": false
+  },
+  {
+    "nome": "Nome4",
+    "foto": "assets/animais/nome4.png",
+    "idade": "Idade",
+    "sexo": "sexo",
+    "raca": "raça",
+    "historia": "História do animal.",
+    "energia": 50,
+    "carencia": 50,
+    "brincalhao": 50,
+    "rebeldia": 50,
+    "adotado": false
+  }
+]

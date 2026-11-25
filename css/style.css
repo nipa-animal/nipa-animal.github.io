@@ -44,7 +44,8 @@ body {
   font-size: 1.1rem;
   line-height: 1.24rem;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
+  display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh;
 }
 body.travado { overflow: hidden; }
 img { display: block; max-width: none; }
@@ -66,7 +67,10 @@ button { font: inherit; color: inherit; cursor: pointer; padding: 0; border: 0; 
 .btn--verde { background: var(--verde); color: var(--creme); }
 
 /* ---------- Header (medidas do layout) ---------- */
-.header { position: relative; height: 7.27rem; background: var(--creme); }
+.header { position: sticky; top: 0; z-index: 80; flex: none; height: 7.27rem; background: var(--creme); transition: box-shadow .25s; }
+.header.rolou { box-shadow: 0 0.4rem 1.6rem rgba(47, 56, 24, .12); }
+body > main { flex: 1 0 auto; }
+body > .footer { flex: none; }
 .header__logo { position: absolute; left: 2.66rem; top: 2.85rem; font-size: 1.6rem; line-height: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
 .header__nav a { position: absolute; top: 3.85rem; font-size: 1.13rem; line-height: 1.13rem; }
 .header__nav a:nth-child(1) { left: 14.37rem; }
@@ -135,7 +139,7 @@ button { font: inherit; color: inherit; cursor: pointer; padding: 0; border: 0; 
 .card--adocao .btn { left: 1.73rem; top: 16rem; height: 1.76rem; }
 .card--adocao img { position: absolute; left: 15.46rem; bottom: 0; height: 23.7rem; width: auto; }
 .card--ajuda h2 { right: 2.53rem; top: 5.1rem; }
-.card--ajuda p { right: 2.48rem; top: 7.35rem; width: 21.75rem; line-height: 1.36rem; text-align: justify; text-align-last: right; }
+.card--ajuda p { right: 2.48rem; top: 7.35rem; width: 21.75rem; line-height: 1.36rem; text-align: right; }
 .card--ajuda .btn { right: 2.58rem; top: 16.95rem; height: 1.75rem; }
 .card--ajuda img { position: absolute; left: 0; top: 0; width: 100%; height: auto; }
 
@@ -446,3 +450,11 @@ html:active-view-transition-type(voltar)::view-transition-new(root) { animation-
   *, *::before, *::after { transition: none !important; animation: none !important; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
+
+/* =========================================================
+   ADOTE UM AMIGO (lista completa, mesmo estilo de Amigos salvos)
+   ========================================================= */
+.ico--salvar { --ico: url("../assets/Asset%2016Icones.svg"); width: 0.8rem; height: 1.05rem; }
+.salvo__foto { position: absolute; left: 1.52rem; top: 2.86rem; display: block; }
+.salvo__foto .moldura { position: relative; left: 0; top: 0; }
+.salvo__foto:focus-visible { outline-offset: 0.4rem; border-radius: 1.4rem; }

@@ -5,8 +5,9 @@
 (function () {
   "use strict";
 
-  const animais = window.ANIMAIS || [];
-  const porId = (id) => animais.find((a) => a.id === id);
+  // Lista de animais (carregada de data/animais.json por js/dados.js)
+  const lista = () => window.ANIMAIS || [];
+  const porId = (id) => lista().find((a) => a.id === id);
 
   // ---------- Armazenamento local ----------
   const ler = (k) => { try { return JSON.parse(localStorage.getItem(k)) || []; } catch { return []; } };
@@ -51,6 +52,17 @@
     </svg>`;
   const VOLTAR = '<img src="assets/Asset%2015Icones.svg" alt="">';
   const moldura = (a, extra = "") => `<div class="moldura ${extra}"><img src="${a.foto}" alt="Foto de ${a.nome}"></div>`;
+
+  // Mini gráfico de barras verticais (cards de Amigos salvos / Adote um amigo)
+  const ORDEM_ATR = ["energia", "carencia", "brincalhao", "rebeldia"];
+  const X_ATR = [1.17, 2.33, 3.58, 4.82]; // posição das barras no layout (rem)
+  const mini = (a) => `
+    <div class="mini" role="img" aria-label="Energia ${a.atributos.energia}, Carência ${a.atributos.carencia}, Brincalhão ${a.atributos.brincalhao}, Rebeldia ${a.atributos.rebeldia}">
+      ${ORDEM_ATR.map((k, i) => `
+        <span class="mini__barra" style="left:${X_ATR[i]}rem"><i style="height:${a.atributos[k]}%"></i></span>
+        <span class="mini__ico" style="left:${X_ATR[i]}rem">${ICONES[k]}</span>`).join("")}
+    </div>`;
+  const juntar = (a) => `${a.idade}, ${a.sexo} e ${a.raca}`;
 
   // ---------- Folha sobreposta ----------
   const fundo = document.querySelector("[data-folha-bg]");
@@ -153,24 +165,34 @@
   }
 
   function animarEntrada() {
-    if (animacao) animacao.cancel();
+    // Limpa qualquer animação anterior (ex.: fechou e reabriu rápido)
+    folha.getAnimations().forEach((an) => an.cancel());
+    animacao = null;
     if (semMovimento()) return;
     const { x, y, s } = vetorOrigem();
-    const ease = "cubic-bezier(.3,.6,.4,1)";
-    animacao = folha.animate([
-      { transform: `translate(${x}px, ${y}px) scale(${s}) rotateY(180deg) rotateZ(-10deg)`, offset: 0, easing: "ease-out" },
-      { transform: `translate(${x * 0.8}px, ${y * 0.8 - 20}px) scale(${s * 1.15}) rotateY(170deg) rotateZ(-9deg)`, offset: 0.12, easing: ease },
-      { transform: `translate(${x * 0.3}px, ${y * 0.3 - 50}px) scale(${(s + 1) / 2}) rotateY(90deg) rotateZ(-4deg)`, offset: 0.45, easing: ease },
-      { transform: "translate(0, -16px) scale(1.05) rotateY(-14deg) rotateZ(1.5deg)", offset: 0.72, easing: "ease-in-out" },
-      { transform: "translate(0, 4px) scale(0.99) rotateY(5deg) rotateZ(-0.5deg)", offset: 0.87, easing: "ease-in-out" },
-      { transform: "none", offset: 1 },
-    ], { duration: 1100, easing: "linear" });
+    // Trajetória calculada como uma mola amortecida: o giro desacelera
+    // de forma contínua (sem paradas entre as voltas) e "assenta" no fim.
+    const N = 36;
+    const quadros = [];
+    for (let i = 0; i <= N; i++) {
+      const t = i / N;
+      const p = 1 - Math.pow(1 - t, 3);                       // ease-out para posição/escala
+      const mola = Math.exp(-4 * t) * Math.cos(4.2 * t) * (1 - Math.pow(t, 6));
+      const tx = x * (1 - p);
+      const ty = y * (1 - p) - 44 * Math.sin(Math.PI * p) * (1 - t);
+      const sc = s + (1 - s) * p + 0.035 * Math.sin(Math.PI * p);
+      quadros.push({
+        transform: i === N ? "none"
+          : `translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px) scale(${sc.toFixed(4)}) rotateY(${(180 * mola).toFixed(2)}deg) rotateZ(${(-10 * mola).toFixed(2)}deg)`,
+      });
+    }
+    animacao = folha.animate(quadros, { duration: 950, easing: "linear" });
     // Brilho holográfico passando pela carta quando ela vira de frente
     brilho.animate([
       { backgroundPosition: "150% 0", opacity: 0 },
       { opacity: 1, offset: 0.3 },
       { backgroundPosition: "-50% 0", opacity: 0 },
-    ], { duration: 900, delay: 560, easing: "ease-out" });
+    ], { duration: 850, delay: 380, easing: "ease-out" });
     animacao.onfinish = () => { animacao = null; };
   }
 
@@ -212,15 +234,25 @@
     aoFechar = callback || null;
     focoAnterior = document.activeElement;
     origem = elOrigem || null;
+    folha.getAnimations().forEach((an) => an.cancel());
+    animacao = null;
     if (tipo === "ficha") mostrar(htmlFicha(a));
     else if (tipo === "questionario") mostrar(htmlQuestionario(a, false));
     else if (tipo === "notificar") mostrar(htmlNotificar(a));
     fundo.hidden = false;
     document.body.classList.add("travado");
     fundo.classList.add("aberta");
-    animarEntrada();
-    const alvo = frente.querySelector("[data-fechar], [data-ver-ficha]");
-    if (alvo) alvo.focus({ preventScroll: true });
+    // Espera a foto estar decodificada (até 200 ms) para o giro não engasgar
+    folha.style.visibility = "hidden";
+    const foto = frente.querySelector("img[src*='Imagens'], .moldura img");
+    const pronta = foto && foto.decode ? foto.decode().catch(() => {}) : Promise.resolve();
+    Promise.race([pronta, new Promise((r) => setTimeout(r, 200))]).then(() => {
+      if (atual !== a) return;
+      folha.style.visibility = "";
+      animarEntrada();
+      const alvo = frente.querySelector("[data-fechar], [data-ver-ficha]");
+      if (alvo) alvo.focus({ preventScroll: true });
+    });
   }
 
   function fechar() {
@@ -271,5 +303,5 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") fechar(); });
   }
 
-  window.NIPAFolha = { Store, abrir, fechar, ICONES, moldura, porId };
+  window.NIPAFolha = { Store, abrir, fechar, ICONES, MARCADOR, moldura, mini, juntar, porId };
 })();

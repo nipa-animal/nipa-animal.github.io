@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /salvos.html
+
+Sitemap: https://nihmurata-web.github.io/nipa/sitemap.xml

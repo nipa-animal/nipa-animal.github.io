@@ -1,20 +1,9 @@
 /* Página "Amigos salvos.": status, Remover, Adotar, Notificar e Fixar */
-(function () {
+window.NIPA_DADOS.then(() => {
   "use strict";
 
-  const { Store, abrir, moldura, ICONES } = window.NIPAFolha;
+  const { Store, abrir, moldura, mini, juntar } = window.NIPAFolha;
   const lista = document.querySelector("[data-salvos]");
-  const ORDEM = ["energia", "carencia", "brincalhao", "rebeldia"];
-  const X = [1.17, 2.33, 3.58, 4.82]; // posição das barras no layout (rem)
-
-  const juntar = (a) => `${a.idade}, ${a.sexo} e ${a.raca}`;
-
-  const mini = (a) => `
-    <div class="mini" aria-label="Energia ${a.atributos.energia}, Carência ${a.atributos.carencia}, Brincalhão ${a.atributos.brincalhao}, Rebeldia ${a.atributos.rebeldia}">
-      ${ORDEM.map((k, i) => `
-        <span class="mini__barra" style="left:${X[i]}rem"><i style="height:${a.atributos[k]}%"></i></span>
-        <span class="mini__ico" style="left:${X[i]}rem">${ICONES[k]}</span>`).join("")}
-    </div>`;
 
   function cartao(a) {
     if (a.adotado) {
@@ -59,4 +48,4 @@
   });
 
   render();
-})();
+});

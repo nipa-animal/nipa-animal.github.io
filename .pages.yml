@@ -1,0 +1,65 @@
+# Painel de edição do site da NIPA (Pages CMS — https://app.pagescms.org)
+# A NIPA edita os animais por aqui, pelo celular ou computador.
+# Cada alteração salva atualiza o site em cerca de 1 minuto.
+
+media:
+  input: assets/animais
+  output: assets/animais
+  rename: safe
+  categories: [image]
+
+content:
+  - name: animais
+    label: Animais
+    type: file
+    path: data/animais.json
+    format: json
+    list: true
+    fields:
+      - name: nome
+        label: Nome
+        type: string
+        required: true
+        description: Nome do animal, como aparece no site.
+      - name: foto
+        label: Foto
+        type: image
+        description: De preferência uma foto com fundo transparente (PNG), com o animal de frente.
+      - name: adotado
+        label: Já foi adotado?
+        type: boolean
+        default: false
+        description: Marque quando o animal for adotado. Ele sai da lista de adoção e aparece como "Adotado." para quem o salvou.
+      - name: idade
+        label: Idade
+        type: string
+        description: Ex.: 2 anos, 8 meses.
+      - name: sexo
+        label: Sexo
+        type: select
+        options:
+          values: [Macho, Fêmea]
+      - name: raca
+        label: Raça
+        type: string
+        description: Ex.: SRD (vira-lata), Persa.
+      - name: historia
+        label: História
+        type: text
+        description: Deixe uma linha em branco entre os parágrafos.
+      - name: energia
+        label: Energia (0 a 100)
+        type: number
+        options: { min: 0, max: 100 }
+      - name: carencia
+        label: Carência (0 a 100)
+        type: number
+        options: { min: 0, max: 100 }
+      - name: brincalhao
+        label: Brincalhão (0 a 100)
+        type: number
+        options: { min: 0, max: 100 }
+      - name: rebeldia
+        label: Rebeldia (0 a 100)
+        type: number
+        options: { min: 0, max: 100 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adote um amigo — NIPA</title>
+  <meta name="theme-color" content="#fff2cb">
+  <meta name="description" content="Veja todos os cães e gatos do NIPA disponíveis para adoção em São Paulo e preencha o questionário para adotar.">
+  <link rel="canonical" href="https://nihmurata-web.github.io/nipa/adote.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="NIPA — Núcleo Independente de Proteção Animal">
+  <meta property="og:title" content="Adote um amigo — NIPA">
+  <meta property="og:description" content="Veja todos os cães e gatos do NIPA disponíveis para adoção em São Paulo e preencha o questionário para adotar.">
+  <meta property="og:url" content="https://nihmurata-web.github.io/nipa/adote.html">
+  <meta property="og:image" content="https://nihmurata-web.github.io/nipa/assets/Asset%201Imagens.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="header__logo" href="index.html">Logo</a>
+    <nav class="header__nav" aria-label="Principal">
+      <a href="sobre.html">Sobre</a>
+      <a href="adocao.html">Adoção</a>
+      <a href="ajudar.html">Ajudar</a>
+    </nav>
+    <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" data-menu-abrir><span></span><span></span><span></span></button>
+  </header>
+
+  <main>
+    <h1 class="titulo-pag">Adote Um Amigo.</h1>
+    <div class="salvos" data-adote></div>
+  </main>
+
+  <footer class="footer">
+    <dl>
+      <div class="footer__linha"><dt>NIPA</dt><dd>Núcleo Independente de Proteção Animal</dd></div>
+      <div class="footer__linha"><dt>Telefone</dt><dd><a href="tel:+5511968337340">+55 (11) 96833-7340</a></dd></div>
+      <div class="footer__linha"><dt>Instagram</dt><dd><a href="https://instagram.com/nipa_nucleoindependente" target="_blank" rel="noopener">@nipa_nucleoindependente</a></dd></div>
+    </dl>
+  </footer>
+
+  <div class="folha-bg" data-folha-bg hidden>
+    <div class="folha" role="dialog" aria-modal="true" aria-labelledby="folha-titulo" data-folha></div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/dados.js"></script>
+  <script src="js/folha.js"></script>
+  <script src="js/adote.js"></script>
+</body>
+</html>

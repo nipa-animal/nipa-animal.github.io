@@ -137,7 +137,17 @@
     });
   }
 
+  // Header fixo: ganha uma sombra suave quando a página rola
+  function ligarHeader() {
+    const h = document.querySelector(".header");
+    if (!h) return;
+    const atualizar = () => h.classList.toggle("rolou", window.scrollY > 4);
+    window.addEventListener("scroll", atualizar, { passive: true });
+    atualizar();
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
+    ligarHeader();
     montarMenu();
     ligarNewsletter();
     ligarWhats();
