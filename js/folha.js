@@ -151,6 +151,7 @@
   const semMovimento = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let origem = null;     // elemento de onde a carta "sai"
   let animacao = null;
+  let simples = false;   // true = abre sem o giro de carta (ex.: Notificar)
 
   // Deslocamento e escala da folha até o elemento de origem
   function vetorOrigem() {
@@ -169,6 +170,14 @@
     folha.getAnimations().forEach((an) => an.cancel());
     animacao = null;
     if (semMovimento()) return;
+    if (simples) {
+      animacao = folha.animate([
+        { transform: "translateY(2.4rem) scale(.97)", opacity: 0 },
+        { transform: "none", opacity: 1 },
+      ], { duration: 380, easing: "cubic-bezier(.2,.8,.2,1)" });
+      animacao.onfinish = () => { animacao = null; };
+      return;
+    }
     const { x, y, s } = vetorOrigem();
     // Trajetória calculada como uma mola amortecida: o giro desacelera
     // de forma contínua (sem paradas entre as voltas) e "assenta" no fim.
@@ -199,6 +208,14 @@
   function animarSaida(depois) {
     if (animacao) animacao.cancel();
     if (semMovimento()) return depois();
+    if (simples) {
+      animacao = folha.animate([
+        { transform: "none", opacity: 1 },
+        { transform: "translateY(1.6rem) scale(.98)", opacity: 0 },
+      ], { duration: 220, easing: "ease-in", fill: "forwards" });
+      animacao.onfinish = () => { animacao = null; depois(); };
+      return;
+    }
     const { x, y, s } = vetorOrigem();
     animacao = folha.animate([
       { transform: "none" },
@@ -234,6 +251,7 @@
     aoFechar = callback || null;
     focoAnterior = document.activeElement;
     origem = elOrigem || null;
+    simples = tipo === "notificar";
     folha.getAnimations().forEach((an) => an.cancel());
     animacao = null;
     if (tipo === "ficha") mostrar(htmlFicha(a));
