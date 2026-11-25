@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nos Ajude a Ajudar — NIPA</title>
+  <meta name="theme-color" content="#fff2cb">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="header__logo" href="index.html">Logo</a>
+    <nav class="header__nav" aria-label="Principal">
+      <a href="sobre.html">Sobre</a>
+      <a href="adocao.html">Adoção</a>
+      <a href="ajudar.html" aria-current="page">Ajudar</a>
+    </nav>
+    <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" data-menu-abrir><span></span><span></span><span></span></button>
+  </header>
+
+  <main>
+    <section class="faixa faixa--verde faixa--dinheiro">
+      <h1 class="ajudar-titulo">Nos Ajude a Ajudar.</h1>
+      <article class="ajuda ajuda--dinheiro">
+        <img src="assets/Asset%2011Imagens.png" alt="Buldogue francês com notas de dinheiro">
+        <h2>Doação em dinheiro.</h2>
+        <p>Você pode fazer um depósito de qualquer valor em nossa conta.</p>
+        <button class="btn btn--verde" type="button" aria-expanded="false" aria-controls="pix" data-pix-abrir>Doe Aqui</button>
+      </article>
+
+      <div class="pix" id="pix" data-pix>
+        <div class="pix__wrap">
+          <div class="pix__card">
+            <h3>Doe via Pix</h3>
+            <span class="pix__rotulo" id="valor-rotulo">Valor</span>
+            <div class="valores" role="group" aria-labelledby="valor-rotulo">
+              <button type="button" data-valor="20" aria-pressed="false">R$ 20</button>
+              <button type="button" data-valor="50" aria-pressed="false">R$ 50</button>
+              <button type="button" data-valor="100" aria-pressed="false">R$ 100</button>
+              <button type="button" data-valor="outro" aria-pressed="false">Outro</button>
+            </div>
+            <div class="pix__outro" data-pix-outro hidden>
+              <label class="sr-only" for="valor-outro">Outro valor em reais</label>
+              <span aria-hidden="true">R$</span>
+              <input id="valor-outro" inputmode="decimal" placeholder="0,00" autocomplete="off">
+              <p class="pix__erro" data-pix-erro hidden>Digite um valor entre R$ 1,00 e R$ 100.000,00.</p>
+            </div>
+
+            <div class="pix__qr" data-pix-qr></div>
+            <p class="pix__valor">Doação de <strong data-pix-valor></strong></p>
+
+            <span class="pix__rotulo">Chave Pix</span>
+            <div class="copiavel">
+              <code data-pix-chave></code>
+              <button class="btn btn--verde" type="button" data-copiar-chave>Copiar</button>
+            </div>
+
+            <span class="pix__rotulo">Pix copia e cola</span>
+            <div class="copiavel">
+              <label class="sr-only" for="pix-codigo">Código Pix copia e cola</label>
+              <input id="pix-codigo" readonly data-pix-codigo>
+              <button class="btn btn--verde" type="button" data-copiar-codigo>Copiar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faixa faixa--creme faixa--itens">
+      <article class="ajuda ajuda--itens">
+        <img src="assets/Asset%2012Imagens.png" alt="Cachorro espiando atrás de uma tigela cheia de ração">
+        <h2>Doação de remédios,<br>rações ou itens pet</h2>
+        <p>Caso prefira nos doar qualquer item pet, recolhemos as doações na Grande São Paulo.</p>
+        <a class="btn btn--creme" href="#" data-whats="Olá, NIPA! Gostaria de doar remédios, ração ou itens pet. Como posso entregar?">Doe Aqui</a>
+      </article>
+    </section>
+
+    <section class="faixa faixa--verde faixa--voluntario">
+      <article class="ajuda ajuda--voluntario">
+        <img src="assets/Asset%2013Imagens.png" alt="Filhote recebendo um petisco da mão de uma pessoa">
+        <h2>Trabalho voluntário</h2>
+        <p>Caso tenha tempo disponível você também poderá doá-lo para o NIPA! Você pode nos ajudar de muitas formas: Dog walking, banho e tosa, disponibilizando lar temporário, compartilhando nossas publicações e animais para adoção, carona solidária e voluntariado em eventos de adoção, bazares entre outros! Basta entrar em contato conosco ;)</p>
+        <a class="btn btn--verde" href="#" data-whats="Olá, NIPA! Tenho interesse em ser voluntário(a). Como posso ajudar?">Entre em contato conosco</a>
+      </article>
+    </section>
+
+    <section class="faixa faixa--creme faixa--parcerias">
+      <article class="parcerias">
+        <h2>Parcerias para eventos</h2>
+        <p class="parcerias__p1">Vocês e seus negócios e profissões também são bem-vindos e podem nos ajudar!</p>
+        <p class="parcerias__p2">Parcerias realizadas anteriormente:</p>
+        <div class="parcerias__grid">
+          <div class="parceiro"><div class="parceiro__logo"></div><h3>Estúdio de<br>tatuagem</h3></div>
+          <div class="parceiro"><div class="parceiro__logo"></div><h3>Sindicato dos<br>professores do<br>ABC</h3></div>
+          <div class="parceiro"><div class="parceiro__logo"></div><h3>Shopping na<br>Zona Sul de SP</h3></div>
+        </div>
+        <p class="parcerias__p3">Precisamos muito de mais parcerias! Você pode nos ajudar muito promovendo nossos eventos em seus estabelecimentos! Gostou da nossa ideia?</p>
+        <a class="btn btn--creme" href="#" data-whats="Olá, NIPA! Gostaria de propor uma parceria para eventos.">Entre em contato conosco</a>
+      </article>
+    </section>
+
+    <section class="faixa faixa--verde faixa--loja">
+      <article class="ajuda ajuda--loja">
+        <img src="assets/Asset%2014Imagens.png" alt="Gato empurrando um carrinho de compras">
+        <h2>Compre algum item<br>em nossa loja!</h2>
+        <p>Você também pode nos ajudar adquirindo algum dos itens que vendemos em nossa loja!</p>
+        <a class="btn btn--verde" href="#">Acesse a nossa loja</a>
+      </article>
+    </section>
+
+    <section class="faixa faixa--creme faixa--rifas">
+      <article class="ajuda ajuda--rifas">
+        <img src="assets/Asset%2026Imagens.png" alt="Gato segurando um bilhete de rifa">
+        <h2>Rifas em prol da causa<br>animal</h2>
+        <p>De tempos em tempos organizamos rifas com prêmios doados por parceiros, e toda a renda vai para o cuidado dos nossos resgatados. Fale com a gente para saber qual rifa está aberta!</p>
+        <a class="btn btn--creme" href="#" data-whats="Olá, NIPA! Quero participar da rifa. Qual está aberta no momento?">Quero Participar</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer footer--claro">
+    <dl>
+      <div class="footer__linha"><dt>NIPA</dt><dd>Núcleo Independente de Proteção Animal</dd></div>
+      <div class="footer__linha"><dt>Telefone</dt><dd><a href="tel:+5511968337340">+55 (11) 96833-7340</a></dd></div>
+      <div class="footer__linha"><dt>Instagram</dt><dd><a href="https://instagram.com/nipa_nucleoindependente" target="_blank" rel="noopener">@nipa_nucleoindependente</a></dd></div>
+    </dl>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/qrcode.js"></script>
+  <script src="js/pix.js"></script>
+</body>
+</html>

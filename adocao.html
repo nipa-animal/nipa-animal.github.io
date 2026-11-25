@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adoção — NIPA</title>
+  <meta name="theme-color" content="#fff2cb">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="header__logo" href="index.html">Logo</a>
+    <nav class="header__nav" aria-label="Principal">
+      <a href="sobre.html">Sobre</a>
+      <a href="adocao.html" aria-current="page">Adoção</a>
+      <a href="ajudar.html">Ajudar</a>
+    </nav>
+    <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" data-menu-abrir><span></span><span></span><span></span></button>
+  </header>
+
+  <main>
+    <h1 class="titulo-pag">Adoção</h1>
+    <div class="adocao-texto">
+      <p>Está pensando em adotar um melhor amigo? Então você está no lugar certo!</p>
+      <p>Antes de tudo gostaríamos de parabenizá-lo(a) pela atitude! Adotar um animalzinho é um ato de cidadania e amor. Afinal, todo cão e gato merece uma família consciente e responsável! Aqui em baixo estão alguns de nossos animais para adoção e também alguns dos resgatados por outros protetores, que também ajudamos na divulgação.</p>
+      <p>Lembrando que todos já estão castrados, vermifugados e vacinados (exigências que estipulamos para doações). Caso se interesse por algum dos nossos amigos e queira conhece-lo ao vivo, entre em contato conosco! Temos um processo de entrevista que nos ajuda na seleção de potenciais candidatos à adoção. Veja abaixo alguns dos animais que aguardam uma família.</p>
+    </div>
+
+    <section aria-labelledby="adote-titulo">
+      <div class="secao-head secao-head--adote">
+        <h2 id="adote-titulo">Adote um amigo.</h2>
+        <button type="button" data-ver-mais>Ver Mais</button>
+      </div>
+      <div class="grade" data-grade-adote></div>
+    </section>
+
+    <section aria-labelledby="salvos-titulo">
+      <div class="secao-head secao-head--salvos">
+        <h2 id="salvos-titulo">Amigos salvos.</h2>
+        <a href="salvos.html">Ver Mais</a>
+      </div>
+      <div class="grade grade--salvos" data-grade-salvos></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <dl>
+      <div class="footer__linha"><dt>NIPA</dt><dd>Núcleo Independente de Proteção Animal</dd></div>
+      <div class="footer__linha"><dt>Telefone</dt><dd><a href="tel:+5511968337340">+55 (11) 96833-7340</a></dd></div>
+      <div class="footer__linha"><dt>Instagram</dt><dd><a href="https://instagram.com/nipa_nucleoindependente" target="_blank" rel="noopener">@nipa_nucleoindependente</a></dd></div>
+    </dl>
+  </footer>
+
+  <div class="folha-bg" data-folha-bg hidden>
+    <div class="folha" role="dialog" aria-modal="true" aria-labelledby="folha-titulo" data-folha></div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/animais.js"></script>
+  <script src="js/folha.js"></script>
+  <script src="js/adocao.js"></script>
+</body>
+</html>

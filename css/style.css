@@ -1,0 +1,448 @@
+/* =========================================================
+   NIPA — versão mobile, fiel ao layout (prancheta de 480 pt).
+   Escala: 1rem = 10 pt do layout (a página inteira escala com a
+   largura da tela). Ex.: 26 pt no layout = 2.6rem.
+   ========================================================= */
+
+@font-face {
+  font-family: "Milligram";
+  src: local("Milligram Regular"), local("Milligram-Regular"),
+       url("../assets/fonts/Milligram-Regular.woff2") format("woff2"),
+       url("../assets/fonts/Milligram-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Milligram";
+  src: local("Milligram Bold"), local("Milligram-Bold"),
+       url("../assets/fonts/Milligram-Bold.woff2") format("woff2"),
+       url("../assets/fonts/Milligram-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --creme: #fff2cb;
+  --verde: #65753c;
+  --verde-claro: #8b995f;
+  --fonte: "Milligram", "Inter Tight", "Inter", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  font-size: min(calc(100vw / 48), 12.5px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--creme);
+}
+body {
+  margin: 0 auto;
+  max-width: 48rem;
+  background: var(--creme);
+  color: var(--verde);
+  font-family: var(--fonte);
+  font-size: 1.1rem;
+  line-height: 1.24rem;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body.travado { overflow: hidden; }
+img { display: block; max-width: none; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, p { margin: 0; font-weight: 400; }
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; }
+button { font: inherit; color: inherit; cursor: pointer; padding: 0; border: 0; background: none; }
+:focus-visible { outline: 0.2rem solid var(--verde-claro); outline-offset: 0.2rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 1.9rem; min-width: 6.2rem; padding: 0 1.2rem;
+  border-radius: 0.33rem;
+  font-size: 1rem; font-weight: 800; line-height: 1; white-space: nowrap;
+}
+.btn--creme { background: var(--creme); color: var(--verde); }
+.btn--verde { background: var(--verde); color: var(--creme); }
+
+/* ---------- Header (medidas do layout) ---------- */
+.header { position: relative; height: 7.27rem; background: var(--creme); }
+.header__logo { position: absolute; left: 2.66rem; top: 2.85rem; font-size: 1.6rem; line-height: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
+.header__nav a { position: absolute; top: 3.85rem; font-size: 1.13rem; line-height: 1.13rem; }
+.header__nav a:nth-child(1) { left: 14.37rem; }
+.header__nav a:nth-child(2) { left: 21.89rem; }
+.header__nav a:nth-child(3) { left: 30.29rem; }
+.burger { position: absolute; left: 43.1rem; top: 3.3rem; width: 2.4rem; height: 1.6rem; }
+.burger span { position: absolute; left: 0.2rem; width: 2.05rem; height: 0.284rem; border-radius: 0.2rem; background: var(--verde); }
+.burger span:nth-child(1) { top: 0.24rem; }
+.burger span:nth-child(2) { top: 0.86rem; }
+.burger span:nth-child(3) { top: 1.48rem; }
+
+/* Menu (hambúrguer) */
+.menu-bg { position: fixed; inset: 0; z-index: 90; background: rgba(47, 56, 24, .45); opacity: 0; pointer-events: none; transition: opacity .25s; }
+.menu {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; width: 26rem;
+  background: var(--verde); color: var(--creme); padding: 2.6rem 2.6rem;
+  display: flex; flex-direction: column; gap: 1.6rem;
+  transform: translateX(100%); transition: transform .3s;
+}
+.menu-aberto .menu { transform: none; }
+.menu-aberto .menu-bg { opacity: 1; pointer-events: auto; }
+.menu__fechar { align-self: flex-end; font-size: 3rem; line-height: 1; color: var(--creme); }
+.menu a { font-size: 2rem; line-height: 2.4rem; font-weight: 700; }
+
+/* ---------- Footer ---------- */
+.footer { background: var(--verde); color: var(--creme); height: 14.4rem; padding-top: 3.3rem; }
+.footer--claro { background: var(--creme); color: var(--verde); }
+.footer dl { margin: 0; width: 28.3rem; margin-left: 2.77rem; }
+.footer__linha { display: flex; justify-content: space-between; align-items: baseline; height: 3.2rem; }
+.footer dt { font-size: 1.55rem; line-height: 1.55rem; font-weight: 700; }
+.footer dd { margin: 0; font-size: 1.3rem; line-height: 1.3rem; }
+
+/* ---------- Moldura (foto que "sai" do quadrado) ---------- */
+.moldura { position: relative; width: 13.65rem; height: 13.65rem; }
+.moldura::before { content: ""; position: absolute; inset: 0; background: var(--verde); border-radius: 1.4rem; }
+.moldura--creme::before { background: var(--creme); }
+.moldura img {
+  position: absolute; left: 0; bottom: 0; width: 100%; height: auto;
+  clip-path: inset(-100% 0 0 0 round 0 0 1.4rem 1.4rem);
+}
+
+/* =========================================================
+   HOME
+   ========================================================= */
+.hero {
+  position: relative; height: 24.83rem; color: var(--creme);
+  background: url("../assets/Asset 1Imagens.png") center / cover no-repeat;
+}
+.hero::before { content: ""; position: absolute; inset: 0; background: rgba(139, 153, 95, .42); }
+.hero > * { position: relative; }
+.hero h1 { position: absolute; left: 2.8rem; top: 9.4rem; font-size: 2.6rem; line-height: 2.93rem; }
+.hero p { position: absolute; left: 2.8rem; top: 16.5rem; width: 41rem; font-size: 1.1rem; line-height: 1.28rem; }
+.hero .btn { position: absolute; right: 2.75rem; top: 21.17rem; }
+
+.cards { padding: 6rem 2.67rem 5rem; }
+.card {
+  position: relative; height: 21.8rem; border-radius: 1.4rem;
+  background: var(--verde); color: var(--creme); overflow: hidden;
+}
+.card + .card { margin-top: 5.6rem; }
+.card h2 { position: absolute; top: 4.2rem; font-size: 1.35rem; line-height: 1.35rem; }
+.card p { position: absolute; font-size: 1.1rem; }
+.card .btn { position: absolute; }
+.card--adocao h2 { left: 1.83rem; }
+.card--adocao p { left: 1.83rem; top: 6.55rem; width: 21.6rem; line-height: 1.24rem; }
+.card--adocao .btn { left: 1.73rem; top: 16rem; height: 1.76rem; }
+.card--adocao img { position: absolute; left: 15.46rem; bottom: 0; height: 23.7rem; width: auto; }
+.card--ajuda h2 { right: 2.53rem; top: 5.1rem; }
+.card--ajuda p { right: 2.48rem; top: 7.35rem; width: 21.75rem; line-height: 1.36rem; text-align: justify; text-align-last: right; }
+.card--ajuda .btn { right: 2.58rem; top: 16.95rem; height: 1.75rem; }
+.card--ajuda img { position: absolute; left: 0; top: 0; width: 100%; height: auto; }
+
+/* Blocos do fluxo sem layout próprio (seguem o estilo dos cards) */
+.bloco { margin-top: 5.6rem; border-radius: 1.4rem; padding: 3rem 2.5rem 3.2rem 1.83rem; }
+.bloco--verde { background: var(--verde); color: var(--creme); }
+.bloco--contorno { border: 0.12rem solid var(--verde); }
+.bloco h2 { font-size: 2.6rem; line-height: 2.9rem; margin-bottom: 1.8rem; }
+.bloco h3 { font-size: 1.35rem; line-height: 1.6rem; margin: 1.8rem 0 0.6rem; }
+.bloco h2 + h3 { margin-top: 0; }
+.bloco p { font-size: 1.1rem; line-height: 1.24rem; }
+.news { display: flex; gap: 0.7rem; margin-top: 1.8rem; }
+.news input {
+  flex: 1; min-width: 0; height: 1.9rem; padding: 0 0.9rem;
+  border: 0.12rem solid var(--verde); border-radius: 0.33rem; background: transparent;
+  color: var(--verde); font: inherit; font-size: 1.05rem;
+}
+.news input::placeholder { color: var(--verde-claro); }
+
+/* =========================================================
+   SOBRE
+   ========================================================= */
+.facts { padding: 4.75rem 2.75rem 0 2.66rem; }
+.facts h2 { font-size: 2.7rem; line-height: 2.7rem; }
+.facts__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin-top: 2.05rem; }
+.fact { border: 0.12rem solid var(--creme); border-radius: 1.16rem; padding: 1.6rem 1.5rem; font-size: 1.1rem; line-height: 1.24rem; }
+.fact strong { display: block; font-size: 2.6rem; line-height: 2.6rem; margin-bottom: 0.6rem; }
+.pag-sobre { background: var(--verde); color: var(--creme); }
+.sobre-logo { text-align: center; font-size: 9rem; line-height: 9rem; letter-spacing: -0.03em; padding-top: 4.3rem; height: 16.73rem; }
+.historia {
+  margin: 0 2.8rem 0 2.69rem; padding: 2.1rem 2.75rem 2.6rem 1.84rem;
+  background: var(--creme); color: var(--verde); border-radius: 1.45rem;
+}
+.historia h2 { font-size: 2.6rem; line-height: 2.6rem; }
+.historia__texto { margin-top: 1.8rem; font-size: 1.1rem; line-height: 1.25rem; hyphens: auto; }
+.historia__texto p + p, .historia__texto p + cite, .historia__texto cite + p { margin-top: 1.25rem; }
+.historia__texto cite { display: block; font-style: normal; }
+.voluntarios { padding: 4.85rem 2.75rem 0 2.66rem; height: 31.96rem; }
+.voluntarios h2 { font-size: 2.7rem; line-height: 2.7rem; }
+.voluntarios__grid { display: flex; justify-content: space-between; margin-top: 2.05rem; }
+.voluntario { width: 11.3rem; text-align: center; }
+.voluntario__foto { height: 11.3rem; background: var(--creme); border-radius: 1.16rem; }
+.voluntario h3 { font-size: 1.5rem; line-height: 1.5rem; margin-top: 1.65rem; }
+
+/* =========================================================
+   ADOÇÃO
+   ========================================================= */
+.titulo-pag { text-align: center; font-size: 2.6rem; line-height: 2.6rem; padding-top: 3.25rem; }
+.adocao-texto { padding: 3.3rem 2.75rem 0 2.7rem; font-size: 1.1rem; line-height: 1.24rem; }
+.adocao-texto p + p { margin-top: 1.24rem; }
+.secao-head { display: flex; justify-content: space-between; align-items: baseline; padding: 0 2.8rem 0 2.7rem; }
+.secao-head h2 { font-size: 2.7rem; line-height: 2.7rem; }
+.secao-head a, .secao-head button { font-size: 1rem; }
+.secao-head--adote { margin-top: 5.6rem; }
+.secao-head--salvos { margin-top: 7.4rem; }
+.grade { display: grid; grid-template-columns: repeat(2, 13.65rem); column-gap: 9.4rem; row-gap: 3.95rem; justify-content: center; padding-top: 5.35rem; }
+.grade--salvos { padding-top: 6.15rem; padding-bottom: 4.55rem; }
+.grade__vazio { grid-column: 1 / -1; text-align: center; padding: 0 2.7rem; }
+.animal { display: block; text-align: center; }
+.animal h3 { font-size: 1.95rem; line-height: 1.95rem; margin-top: 1.4rem; }
+
+/* =========================================================
+   FICHA (sobreposta à página) e demais folhas
+   ========================================================= */
+.folha-bg {
+  position: fixed; inset: 0; z-index: 200; overflow-y: auto;
+  background: rgba(47, 56, 24, .55); padding: 4rem 0;
+  opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.folha-bg.aberta { opacity: 1; pointer-events: auto; }
+.folha-bg { perspective: 1400px; }
+.folha {
+  position: relative; width: 38.5rem; margin: 0 auto; color: var(--verde);
+  transform-style: preserve-3d; will-change: transform;
+}
+.folha__frente {
+  position: relative; background: var(--creme); border-radius: 1.4rem; padding: 0 0 2.4rem;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  transition: transform .25s ease-out;
+  box-shadow: 0 1.6rem 4rem rgba(30, 36, 14, .35);
+}
+/* Verso da carta (aparece durante o giro) */
+.folha__verso {
+  position: absolute; inset: 0; border-radius: 1.4rem; transform: rotateY(180deg);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  pointer-events: none;
+  display: grid; place-items: center; color: var(--creme);
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 242, 203, .07) 0 1.2rem, transparent 1.2rem 2.4rem),
+    var(--verde);
+  box-shadow: inset 0 0 0 1.2rem var(--verde), inset 0 0 0 1.45rem var(--creme), 0 1.6rem 4rem rgba(30, 36, 14, .35);
+}
+.folha__verso span { font-size: 7rem; font-weight: 700; letter-spacing: -0.03em; }
+/* Brilho holográfico */
+.folha__brilho {
+  position: absolute; inset: 0; border-radius: 1.4rem; pointer-events: none; opacity: 0;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .7) 46%, rgba(255, 210, 235, .45) 50%, rgba(190, 255, 225, .45) 54%, transparent 62%);
+  background-size: 260% 100%; background-position: 150% 0;
+  transition: opacity .3s;
+}
+.folha__brilho.ativo {
+  opacity: .5;
+  background: radial-gradient(circle at var(--brilho-x, 50%) var(--brilho-y, 30%), rgba(255, 255, 255, .55), transparent 35%);
+}
+.folha__voltar { position: absolute; left: 2.2rem; top: 1.25rem; width: 1.8rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; }
+.folha__voltar img { width: 1.52rem; height: auto; }
+.folha__titulo { padding: 4.45rem 0 0 2.65rem; font-size: 2.6rem; line-height: 2.6rem; }
+
+.ficha__topo { position: relative; height: 26.5rem; margin-top: -7.05rem; pointer-events: none; }
+.ficha__topo .moldura { position: absolute; left: 2.48rem; top: 10.7rem; width: 15.8rem; height: 15.8rem; }
+.ficha__nome { position: absolute; left: 19.67rem; top: 10.95rem; font-size: 2.75rem; line-height: 2.75rem; }
+.ficha__dados { position: absolute; left: 19.67rem; top: 14.25rem; margin: 0; padding: 0; list-style: none; font-size: 1.15rem; line-height: 1.36rem; }
+.ficha__historia { padding: 2.05rem 3.1rem 0 2.4rem; font-size: 1.1rem; line-height: 1.24rem; }
+.ficha__historia p + p { margin-top: 1.24rem; }
+.atributos { margin: 2.85rem 3.13rem 0 2.14rem; height: 18.8rem; border-radius: 1.5rem; background: var(--verde); color: var(--creme); padding: 2.65rem 0 0 3.37rem; }
+.atributo { height: 3.7rem; }
+.atributo__label { display: flex; align-items: center; gap: 0.85rem; padding-left: 0.2rem; font-size: 1.15rem; line-height: 1.15rem; }
+.atributo__label svg { width: 0.8rem; height: 0.8rem; flex: none; }
+.barra { margin-top: 0.9rem; width: 26.6rem; height: 0.34rem; border-radius: 0.2rem; background: var(--verde-claro); overflow: hidden; }
+.barra i { display: block; height: 100%; width: 0; border-radius: 0.2rem; background: var(--creme); transition: width .7s ease; }
+.ficha__acoes { display: flex; justify-content: flex-end; align-items: center; gap: 1.55rem; margin: 3.2rem 3.25rem 0 0; }
+.btn-salvar { width: 1.4rem; height: 1.8rem; color: var(--verde); }
+.btn-salvar svg { width: 100%; height: 100%; display: block; }
+.btn-salvar .cheio { opacity: 0; }
+.btn-salvar[aria-pressed="true"] .cheio { opacity: 1; }
+.ficha__acoes .btn { height: 1.85rem; }
+.ficha__nota { padding: 2.25rem 2rem 0 2.4rem; font-size: 0.92rem; line-height: 1.1rem; }
+
+/* Questionário / notificação (sem layout próprio: seguem o estilo da ficha) */
+.form { padding: 2rem 2.6rem 0 2.6rem; }
+.form h3 { font-size: 1.5rem; line-height: 1.5rem; margin: 1.6rem 0 1rem; }
+.form h3:first-child { margin-top: 0; }
+.form label { display: block; font-size: 1.05rem; line-height: 1.3rem; margin-bottom: 0.9rem; }
+.form input, .form textarea {
+  display: block; width: 100%; margin-top: 0.35rem; padding: 0.6rem 0.8rem;
+  border: 0.12rem solid var(--verde); border-radius: 0.5rem; background: transparent;
+  color: var(--verde); font: inherit; font-size: 1.1rem;
+}
+.form textarea { min-height: 5.5rem; resize: vertical; }
+.form__acoes { display: flex; justify-content: flex-end; margin-top: 1.6rem; }
+.form__intro { padding: 2rem 2.6rem 0; font-size: 1.1rem; line-height: 1.3rem; }
+
+/* =========================================================
+   AMIGOS SALVOS
+   ========================================================= */
+.salvos { padding: 4.64rem 0 7.86rem 2.65rem; }
+.salvo {
+  position: relative; width: 41.35rem; height: 18.5rem; border-radius: 1.45rem;
+  border: 0.12rem solid var(--verde); background: var(--creme); color: var(--verde);
+}
+.salvo + .salvo { margin-top: 4.13rem; }
+.salvo--ativo { background: var(--verde); color: var(--creme); border-color: var(--verde); }
+.salvo .moldura { position: absolute; left: 1.52rem; top: 2.86rem; }
+.salvo__nome { position: absolute; left: 16.78rem; top: 3.0rem; font-size: 1.95rem; line-height: 1.95rem; }
+.salvo__info { position: absolute; left: 16.78rem; top: 5.5rem; font-size: 1.15rem; line-height: 1.34rem; }
+.salvo__info .linha2 { margin-top: 0.43rem; }
+.salvo__info strong { display: block; font-weight: 700; }
+.salvo__acoes { position: absolute; left: 16.78rem; top: 14.56rem; display: flex; gap: 0.47rem; }
+.salvo__acoes .btn { height: 1.9rem; }
+.salvo--ativo .salvo__acoes .btn { background: var(--creme); color: var(--verde); }
+.btn-ico { width: 2.21rem; height: 1.9rem; border-radius: 0.33rem; background: var(--creme); color: var(--verde); display: inline-flex; align-items: center; justify-content: center; }
+.btn-ico[aria-pressed="true"] { background: var(--verde-claro); color: var(--creme); }
+.ico { display: block; width: 0.9rem; height: 0.9rem; background: currentColor; -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat; }
+.ico--sino { --ico: url("../assets/Asset%2017Icones.svg"); }
+.ico--fixar { --ico: url("../assets/Asset%2018Icones.svg"); }
+.mini {
+  position: absolute; left: 33.47rem; top: 2.86rem; width: 6.02rem; height: 13.65rem;
+  border-radius: 0.9rem; background: var(--verde); color: var(--creme);
+}
+.salvo--ativo .mini { background: var(--creme); color: var(--verde); }
+.mini__barra { position: absolute; top: 1.35rem; width: 0.2rem; height: 9.75rem; border-radius: 0.1rem; background: var(--verde-claro); overflow: hidden; }
+.mini__barra i { position: absolute; left: 0; right: 0; bottom: 0; background: currentColor; }
+.mini__ico { position: absolute; top: 11.8rem; width: 0.6rem; height: 0.6rem; transform: translateX(-0.2rem); }
+.mini__ico svg { width: 100%; height: 100%; display: block; }
+
+/* =========================================================
+   AJUDAR
+   ========================================================= */
+.faixa { position: relative; }
+.faixa--verde { background: var(--verde); }
+.faixa--creme { background: var(--creme); }
+.ajuda { position: relative; margin: 0 2.3rem 0 2.69rem; border-radius: 1.37rem; }
+.faixa--verde .ajuda { background: var(--creme); color: var(--verde); }
+.faixa--creme .ajuda { background: var(--verde); color: var(--creme); }
+.ajuda h2 { position: absolute; font-size: 2.65rem; line-height: 3.1rem; }
+.ajuda p { position: absolute; font-size: 1.1rem; line-height: 1.24rem; }
+.ajuda .btn { position: absolute; height: 1.93rem; }
+.ajuda img { position: absolute; }
+
+.ajudar-titulo { text-align: center; color: var(--creme); font-size: 2.7rem; line-height: 2.7rem; padding-top: 4.15rem; height: 13.21rem; }
+
+.ajuda--dinheiro { height: 14.9rem; }
+.ajuda--dinheiro h2 { left: 1.61rem; top: 2.15rem; }
+.ajuda--dinheiro p { left: 1.7rem; top: 6.75rem; width: 23.5rem; }
+.ajuda--dinheiro .btn { left: 1.67rem; top: 10.36rem; }
+.ajuda--dinheiro img { left: 0; bottom: 0; width: 100%; height: auto; clip-path: inset(-100% 0 0 0 round 0 0 1.37rem 1.37rem); }
+.faixa--dinheiro { padding-bottom: 3.78rem; }
+
+.faixa--itens { padding: 3.28rem 0 3.33rem; }
+.ajuda--itens { height: 19.97rem; overflow: hidden; }
+.ajuda--itens img { left: 0; bottom: 0; width: 100%; height: auto; }
+.ajuda--itens h2 { right: 2.83rem; top: 2.03rem; text-align: right; }
+.ajuda--itens p { right: 2.78rem; top: 9.85rem; width: 26rem; text-align: right; }
+.ajuda--itens .btn { right: 2.83rem; top: 14.6rem; }
+
+.faixa--voluntario { padding: 4.16rem 0 4.19rem; }
+.ajuda--voluntario { height: 23.51rem; overflow: hidden; }
+.ajuda--voluntario img { left: 0; top: 0; width: 100%; height: auto; }
+.ajuda--voluntario h2 { left: 1.55rem; top: 2.32rem; }
+.ajuda--voluntario p { left: 1.67rem; top: 6.75rem; width: 24.6rem; line-height: 1.26rem; }
+.ajuda--voluntario .btn { left: 1.67rem; top: 17.53rem; }
+
+.faixa--parcerias { padding: 4.58rem 0 4.61rem; }
+.parcerias { margin: 0 2.3rem 0 2.69rem; height: 41.08rem; border-radius: 1.37rem; background: var(--verde); color: var(--creme); text-align: center; padding-top: 2.75rem; }
+.parcerias h2 { font-size: 2.65rem; line-height: 2.65rem; }
+.parcerias p { font-size: 1.1rem; line-height: 1.24rem; }
+.parcerias__p1 { margin-top: 1.75rem; }
+.parcerias__p2 { margin-top: 1.23rem; }
+.parcerias__grid { display: flex; justify-content: space-between; padding: 0 2.75rem 0 2.95rem; margin-top: 2.05rem; }
+.parceiro { width: 9.85rem; }
+.parceiro__logo { height: 9.82rem; border-radius: 1.37rem; background: var(--creme); }
+.parceiro h3 { font-size: 1.12rem; line-height: 1.37rem; margin-top: 1.05rem; }
+.parcerias__p3 { margin-top: 3.4rem; padding: 0 3rem; }
+.parcerias .btn { margin-top: 2.9rem; }
+
+.faixa--loja { padding: 4.14rem 0 4.13rem; }
+
+.faixa--rifas { padding: 3.29rem 0 6.7rem; }
+.ajuda--rifas { margin-left: 2.5rem; height: 21.26rem; overflow: hidden; }
+.ajuda--rifas img { left: -7.1rem; top: 0.2rem; width: 31rem; height: auto; }
+.ajuda--rifas h2 { right: 2.8rem; top: 2.05rem; text-align: right; line-height: 3.15rem; }
+.ajuda--rifas p { right: 2.77rem; top: 9.85rem; width: 23.4rem; text-align: right; line-height: 1.25rem; }
+.ajuda--rifas .btn { right: 2.77rem; top: 16.26rem; }
+.ajuda--loja { height: 18.65rem; }
+.ajuda--loja h2 { left: 1.5rem; top: 2.0rem; width: 27rem; }
+.ajuda--loja p { left: 1.67rem; top: 9.25rem; width: 24.6rem; }
+.ajuda--loja .btn { left: 1.67rem; top: 13.19rem; }
+.ajuda--loja img { left: 26.68rem; top: 1.9rem; width: 15.06rem; height: auto; }
+
+/* Doação via Pix (abre ao tocar em "Doe Aqui") */
+.pix { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s ease; margin: 0 2.3rem 0 2.69rem; }
+.pix.aberto { grid-template-rows: 1fr; }
+.pix__wrap { overflow: hidden; }
+.pix__card { margin-top: 2rem; background: var(--creme); color: var(--verde); border-radius: 1.37rem; padding: 2.2rem 1.67rem 2.4rem; }
+.pix h3 { font-size: 2.65rem; line-height: 3.1rem; }
+.pix__rotulo { display: block; font-weight: 700; font-size: 1.1rem; margin: 1.6rem 0 0.7rem; }
+.valores { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem; }
+.valores button { height: 2.6rem; border: 0.12rem solid var(--verde); border-radius: 0.33rem; font-weight: 800; font-size: 1.1rem; color: var(--verde); }
+.valores button[aria-pressed="true"] { background: var(--verde); color: var(--creme); }
+.pix__outro { position: relative; margin-top: 0.7rem; }
+.pix__outro span { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); font-weight: 700; }
+.pix__outro input { width: 100%; height: 2.8rem; padding: 0 0.9rem 0 3rem; border: 0.12rem solid var(--verde); border-radius: 0.33rem; background: transparent; color: var(--verde); font: inherit; font-size: 1.2rem; }
+.pix__erro { font-size: 0.95rem; margin-top: 0.4rem; }
+.copiavel { display: flex; gap: 0.7rem; }
+.copiavel code, .copiavel input {
+  flex: 1; min-width: 0; height: 2.6rem; display: flex; align-items: center; padding: 0 0.9rem;
+  border: 0.12rem dashed var(--verde-claro); border-radius: 0.33rem; background: transparent;
+  font-family: ui-monospace, Consolas, monospace; font-size: 1rem; color: var(--verde);
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.copiavel .btn { height: 2.6rem; min-width: 8rem; }
+.pix__qr { margin: 2rem auto 0; width: 22rem; padding: 1.4rem; background: #fff; border-radius: 1.37rem; }
+.pix__qr svg { display: block; width: 100%; height: auto; }
+.pix__valor { text-align: center; margin-top: 1rem; font-size: 1.1rem; }
+.pix__valor strong { display: block; font-size: 1.6rem; line-height: 2rem; }
+
+/* =========================================================
+   TRANSIÇÕES ENTRE PÁGINAS
+   Navegadores com View Transitions (Chrome, Edge, Safari 18+):
+   o header fica parado e o conteúdo desliza na direção da navegação.
+   ========================================================= */
+@view-transition { navigation: auto; }
+
+.header { view-transition-name: cabecalho; }
+
+::view-transition-group(root) { animation-duration: .6s; }
+::view-transition-old(root) { animation: pg-sair .32s cubic-bezier(.4, 0, 1, 1) both; }
+::view-transition-new(root) { animation: pg-entrar .6s cubic-bezier(.16, .84, .3, 1) .08s both; }
+
+/* Avançando no menu (ex.: Sobre → Adoção): conteúdo vem da direita */
+html:active-view-transition-type(avancar)::view-transition-old(root) { animation-name: pg-sair-esq; }
+html:active-view-transition-type(avancar)::view-transition-new(root) { animation-name: pg-entrar-dir; }
+/* Voltando (ex.: Ajudar → Sobre): conteúdo vem da esquerda */
+html:active-view-transition-type(voltar)::view-transition-old(root) { animation-name: pg-sair-dir; }
+html:active-view-transition-type(voltar)::view-transition-new(root) { animation-name: pg-entrar-esq; }
+
+/* O header só faz um leve "respiro" */
+::view-transition-old(cabecalho), ::view-transition-new(cabecalho) { animation: none; mix-blend-mode: normal; }
+::view-transition-group(cabecalho) { animation-duration: .5s; z-index: 2; }
+
+@keyframes pg-sair      { to   { opacity: 0; transform: translateY(-2.4rem) scale(.985); } }
+@keyframes pg-entrar    { from { opacity: 0; transform: translateY(4rem) scale(1.01); } }
+@keyframes pg-sair-esq  { to   { opacity: 0; transform: translateX(-18%) scale(.96); } }
+@keyframes pg-entrar-dir{ from { opacity: 0; transform: translateX(28%) scale(1.02); } }
+@keyframes pg-sair-dir  { to   { opacity: 0; transform: translateX(18%) scale(.96); } }
+@keyframes pg-entrar-esq{ from { opacity: 0; transform: translateX(-28%) scale(1.02); } }
+
+/* Alternativa para navegadores sem View Transitions (ex.: Firefox) */
+.sem-vt main, .sem-vt footer { animation: pg-entrar .6s cubic-bezier(.16, .84, .3, 1) both; }
+.sem-vt.saindo main, .sem-vt.saindo footer { animation: pg-sair .28s cubic-bezier(.4, 0, 1, 1) both; }
+
+/* Conteúdo que aparece com "Ver Mais" */
+.surgir { animation: surgir .5s cubic-bezier(.16, .84, .3, 1) both; }
+@keyframes surgir { from { opacity: 0; transform: translateY(2rem) scale(.96); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
