@@ -24,7 +24,7 @@ window.NIPA_DADOS.then(() => {
         <div class="salvo__info"><div>${juntar(a)}</div><div class="linha2">Status:<strong>Em busca de um lar.</strong></div></div>
         <div class="salvo__acoes">
           <button class="btn" type="button" data-adotar="${a.id}">Adotar</button>
-          <button class="btn-ico" type="button" data-notificar="${a.id}" aria-label="Notificar quando ${a.nome} for adotado"><span class="ico ico--sino"></span></button>
+          <button class="btn-ico" type="button" data-notificar="${a.id}" aria-pressed="${Store.estaNotificado(a.id)}" aria-label="Notificar quando ${a.nome} for adotado"><span class="ico ico--sino"></span></button>
           <button class="btn-ico" type="button" data-fixar="${a.id}" aria-pressed="${fixado}" aria-label="${fixado ? "Desafixar" : "Fixar como primeiro"}"><span class="ico ico--fixar"></span></button>
         </div>
         ${mini(a)}

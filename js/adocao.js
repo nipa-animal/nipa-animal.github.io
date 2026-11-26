@@ -1,4 +1,4 @@
-/* Página de Adoção: "Adote um amigo." (4 primeiros) e "Amigos salvos." (4 primeiros) */
+/* Página de Adoção: "Adote um amigo." e "Amigos salvos." em linha única deslizante */
 window.NIPA_DADOS.then((animais) => {
   "use strict";
 
@@ -12,16 +12,29 @@ window.NIPA_DADOS.then((animais) => {
       <h3>${a.nome}</h3>
     </button>`;
 
-  // Preenche a grade; com mais de uma linha, a última ganha o efeito de fade
-  function preencher(grade, itens, vazio, extra) {
-    grade.innerHTML = itens.length ? itens.map((a) => card(a, extra)).join("") : `<p class="grade__vazio">${vazio}</p>`;
-    grade.classList.toggle("grade--fade", itens.length > 2);
+  // Fade na última coluna enquanto houver mais amigos para o lado;
+  // some quando a pessoa desliza até o fim, para o último ficar visível.
+  function atualizarFade(grade) {
+    const resta = grade.scrollWidth - grade.clientWidth - grade.scrollLeft;
+    grade.classList.toggle("grade--fade", resta > 8);
   }
 
+  function preencher(grade, itens, vazio, extra) {
+    const x = grade.scrollLeft; // mantém a posição ao voltar da ficha
+    grade.innerHTML = itens.length ? itens.map((a) => card(a, extra)).join("") : `<p class="grade__vazio">${vazio}</p>`;
+    grade.style.scrollBehavior = "auto";
+    grade.scrollLeft = x;
+    grade.style.scrollBehavior = "";
+    atualizarFade(grade);
+  }
+
+  [gradeAdote, gradeSalvos].forEach((g) => g.addEventListener("scroll", () => atualizarFade(g), { passive: true }));
+  window.addEventListener("resize", () => [gradeAdote, gradeSalvos].forEach(atualizarFade));
+
   function render() {
-    preencher(gradeAdote, animais.filter((a) => !a.adotado).slice(0, 4),
+    preencher(gradeAdote, animais.filter((a) => !a.adotado).slice(0, 8),
       "No momento todos os nossos amigos encontraram um lar!");
-    preencher(gradeSalvos, Store.salvosOrdenados().slice(0, 4),
+    preencher(gradeSalvos, Store.salvosOrdenados().slice(0, 8),
       "Toque no marcador da ficha de um amigo para salvá-lo aqui.", "moldura--creme");
   }
 

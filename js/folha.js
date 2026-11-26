@@ -30,6 +30,8 @@
     },
     estaFixado: (id) => ler("nipa:fixados").includes(id),
     alternarFixado: (id) => alternar("nipa:fixados", id),
+    estaNotificado: (id) => ler("nipa:notificar").includes(id),
+    marcarNotificado: (id) => { const l = ler("nipa:notificar"); if (!l.includes(id)) { l.push(id); gravar("nipa:notificar", l); } },
     // Salvos com os fixados primeiro (o último fixado fica no topo)
     salvosOrdenados: () => {
       const fix = ler("nipa:fixados");
@@ -313,6 +315,7 @@
         window.NIPA.abrirWhats(linhas.join("\n"));
         fechar();
       } else if (form.matches("[data-notificar]")) {
+        Store.marcarNotificado(atual.id);
         window.NIPA.abrirWhats(`Olá, NIPA! Quero ser avisado(a) por e-mail quando ${atual.nome} for adotado.\nE-mail: ${form.email.value.trim()}`);
         fechar();
       }
