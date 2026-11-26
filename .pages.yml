@@ -21,6 +21,13 @@ content:
         type: string
         required: true
         description: Nome do animal, como aparece no site.
+      - name: especie
+        label: Cachorro ou gato?
+        type: select
+        required: true
+        options:
+          values: [Cachorro, Gato]
+        description: Define as cores do card no site (cachorro = fundo verde, gato = fundo laranja).
       - name: foto
         label: Foto
         type: image

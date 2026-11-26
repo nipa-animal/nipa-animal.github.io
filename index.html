@@ -47,45 +47,64 @@
   <main>
     <section class="hero">
       <h1>Núcleo Independente<br>de Proteção Animal</h1>
-      <p>O Núcleo Independente de Proteção Animal (NIPA) nasceu há muitos anos, porém foi formalizado apenas em 2018. Somos um grupo de amigos incomodados com a realidade dos animais em nossa sociedade (...)</p>
-      <a class="btn btn--creme" href="sobre.html">Leia Mais</a>
     </section>
 
-    <div class="cards">
-      <article class="card card--adocao">
-        <img src="assets/Asset%202Imagens.png" alt="Cachorro preto e branco sorrindo">
-        <h2>Adoção</h2>
-        <p>Está a procura de um melhor amigo? Então você está no lugar certo! Clique no botão abaixo e conheça nossos resgatados que estão aguardando ansiosos por famílias carinhosas e responsáveis!</p>
-        <a class="btn btn--creme" href="adocao.html">Adote Aqui</a>
-      </article>
+    <section class="home-meio">
+      <p class="home-intro">O Núcleo Independente de Proteção Animal (NIPA) nasceu há muitos anos, porém foi formalizado apenas em 2018. Somos um grupo de amigos incomodados com a realidade dos animais em nossa sociedade.</p>
+      <div class="home-cards">
+        <article class="mini-card mini-card--verde">
+          <h2>Adoção</h2>
+          <p>Está a procura de um melhor amigo? Então você está no lugar certo! Nossos resgatados estão aguardando por famílias carinhosas.</p>
+          <a class="btn btn--creme" href="adocao.html">Adote Aqui</a>
+        </article>
+        <article class="mini-card mini-card--laranja">
+          <h2>Ajude a Ajudar</h2>
+          <p>Nós só conseguimos ajudar protetores e animais com a sua participação! É isso mesmo, faça parte desse movimento de mudança!</p>
+          <a class="btn btn--creme-l" href="ajudar.html">Ajude Aqui</a>
+        </article>
+      </div>
+      <img class="home-cao" src="assets/Asset%202Imagens.png" alt="Cachorro preto e branco sorrindo">
+      <img class="home-gato" src="assets/Asset%203Imagens.png" alt="Gato laranja recebendo carinho na cabeça">
+    </section>
 
-      <article class="card card--ajuda">
-        <img src="assets/Asset%203Imagens.png" alt="Gato laranja recebendo carinho na cabeça">
-        <h2>Nos Ajude A Ajudar</h2>
-        <p>Nós só conseguimos ajudar protetores e animais com a sua participação! É isso mesmo, faça parte desse movimento de mudança! Clique no botão abaixo e saiba como você pode ajudar!</p>
-        <a class="btn btn--creme" href="ajudar.html">Ajude Aqui</a>
-      </article>
+    <section class="sobre-nos" aria-labelledby="sobre-nos-titulo">
+      <img class="sobre-nos__img" src="assets/sobre-nos.png" alt="Cachorro border collie olhando curioso">
+      <h2 id="sobre-nos-titulo">Sobre<br>Nós</h2>
+      <p>Somos um grupo de amigos sonhadores e amantes dos animais. A vida felizmente nos uniu e no ano de 2018 conseguimos firmar nosso projeto independente e tão sonhado de proteção animal.</p>
+      <a class="btn btn--creme-l" href="sobre.html">Nossa História</a>
+    </section>
 
-      <article class="bloco bloco--verde" aria-labelledby="missao-titulo">
+    <section class="home-extra">
+      <div aria-labelledby="missao-titulo">
         <h2 id="missao-titulo">Missão e valores</h2>
-        <h3>Nossa missão</h3>
-        <p>Fazer a diferença e tentar contribuir para acabarmos com o sofrimento animal, não permitindo o abandono e os maus tratos, que infelizmente são comuns em nossa sociedade.</p>
-        <h3>Como trabalhamos</h3>
-        <p>De forma voluntária, ajudando não só os nossos animais resgatados, mas também contribuindo e compartilhando nosso conhecimento, força de trabalho e doações com protetores carentes de São Paulo.</p>
-        <h3>Por que precisamos de você</h3>
-        <p>Dependemos apenas de doações para continuarmos na luta por eles. Precisamos muito da ajuda, seja financeira ou física.</p>
-      </article>
+        <div class="caixas">
+          <div class="caixa">
+            <h3>Nossa missão</h3>
+            <p>Fazer a diferença e tentar contribuir para acabarmos com o sofrimento animal, não permitindo o abandono e os maus tratos, que infelizmente são comuns em nossa sociedade.</p>
+          </div>
+          <div class="caixa">
+            <h3>Como trabalhamos</h3>
+            <p>De forma voluntária, ajudando não só os nossos animais resgatados, mas também contribuindo e compartilhando nosso conhecimento, força de trabalho e doações com protetores carentes de São Paulo.</p>
+          </div>
+          <div class="caixa">
+            <h3>Por que precisamos de você</h3>
+            <p>Dependemos apenas de doações para continuarmos na luta por eles. Precisamos muito da ajuda, seja financeira ou física.</p>
+          </div>
+        </div>
+      </div>
 
-      <article class="bloco bloco--contorno" aria-labelledby="news-titulo">
+      <div class="avisos" aria-labelledby="news-titulo">
         <h2 id="news-titulo">Receba nossos avisos</h2>
-        <p>Deixe seu e-mail e avisaremos quando o NIPA precisar de auxílio financeiro.</p>
-        <form class="news" data-newsletter>
-          <label class="sr-only" for="news-email">E-mail</label>
-          <input id="news-email" name="email" type="email" placeholder="Seu e-mail" required autocomplete="email">
-          <button class="btn btn--verde" type="submit">Inscrever</button>
-        </form>
-      </article>
-    </div>
+        <div class="caixa">
+          <p>Deixe seu e-mail e avisaremos quando o NIPA precisar de auxílio financeiro.</p>
+          <form class="news" data-newsletter>
+            <label class="sr-only" for="news-email">E-mail</label>
+            <input id="news-email" name="email" type="email" placeholder="Seu e-mail" required autocomplete="email">
+            <button class="btn btn--creme-l" type="submit">Inscrever</button>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">

@@ -25,6 +25,8 @@
       return {
         id,
         nome: texto(a.nome, "Sem nome"),
+        // "gato" ou "cachorro": define as cores do card (cachorro = verde/laranja, gato = laranja/verde)
+        especie: /gat/i.test(String(a.especie || "")) ? "gato" : "cachorro",
         foto: caminho(a.foto),
         idade: texto(a.idade, "Idade"),
         sexo: texto(a.sexo, "sexo"),
@@ -40,5 +42,16 @@
     .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(normalizar)
     .catch(() => [])
-    .then((lista) => { window.ANIMAIS = lista; return lista; });
+    .then((lista) => {
+      window.ANIMAIS = lista;
+      // Primeira visita: já mostra alguns "Amigos salvos" de exemplo,
+      // incluindo um animal adotado (a pessoa pode remover depois).
+      try {
+        if (localStorage.getItem("nipa:salvos") === null) {
+          const exemplo = ["geraldo", "katy-parry", "frida", "bartolomeu"].filter((id) => lista.some((a) => a.id === id));
+          localStorage.setItem("nipa:salvos", JSON.stringify(exemplo));
+        }
+      } catch { /* modo privado */ }
+      return lista;
+    });
 })();

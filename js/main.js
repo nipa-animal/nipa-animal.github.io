@@ -42,17 +42,19 @@
     nav.setAttribute("aria-label", "Menu");
     nav.inert = true;
     nav.innerHTML = `
-      <button class="menu__fechar" type="button" aria-label="Fechar menu">&times;</button>
-      <a href="index.html">Homepage</a>
+      <div class="menu__topo">
+        <a class="menu__logo" href="index.html" aria-label="Logo — página inicial">Logo</a>
+        <button class="menu__fechar" type="button" aria-label="Fechar menu">&times;</button>
+      </div>
       <a href="sobre.html">Sobre</a>
       <a href="adocao.html">Adoção</a>
+      <a class="menu__sub" href="adote.html">Adote um amigo</a>
+      <a class="menu__sub" href="salvos.html">Amigos salvos</a>
       <a href="ajudar.html">Ajudar</a>`;
     // Destaca a página atual também no menu
-    const atual = document.querySelector(".header__nav [aria-current]");
     const nome = location.pathname.split("/").pop() || "index.html";
-    nav.querySelectorAll("a[href]").forEach((a) => {
-      const h = a.getAttribute("href");
-      if (h === nome || (atual && h === atual.getAttribute("href")) || (h === "index.html" && nome === "index.html")) a.setAttribute("aria-current", "page");
+    nav.querySelectorAll("a[href]:not(.menu__logo)").forEach((a) => {
+      if (a.getAttribute("href") === nome) a.setAttribute("aria-current", "page");
     });
     document.body.append(bg, nav);
     const fechar = nav.querySelector(".menu__fechar");
@@ -145,6 +147,66 @@
     });
   }
 
+  // ---------- Rolagem mais fluida, com "boing" ao chegar no começo/fim ----------
+  // Com mouse/trackpad: a rolagem desliza suavemente até o destino e, se a
+  // pessoa continuar rolando no fim (ou no começo) da página, o conteúdo
+  // estica um pouco e volta quicando como uma mola. No celular, o próprio
+  // sistema já faz esse efeito (iPhone e Android).
+  function ligarRolagem() {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const elasticos = () => [document.querySelector("body > main"), document.querySelector("body > .footer")].filter(Boolean);
+    const maximo = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    let alvo = window.scrollY, atual = window.scrollY, rodando = false;
+    let estica = 0, vel = 0; // deslocamento da "mola" (px) e sua velocidade
+
+    // Algum elemento rolável por dentro (formulário, ficha) deve rolar sozinho
+    function rolavelInterno(el, dy) {
+      for (; el && el !== document.body; el = el.parentElement) {
+        const s = getComputedStyle(el).overflowY;
+        if ((s === "auto" || s === "scroll") && el.scrollHeight > el.clientHeight + 1) {
+          if ((dy < 0 && el.scrollTop > 0) || (dy > 0 && el.scrollTop + el.clientHeight < el.scrollHeight - 1)) return true;
+        }
+      }
+      return false;
+    }
+
+    window.addEventListener("wheel", (e) => {
+      if (e.ctrlKey || e.defaultPrevented) return;
+      if (document.body.classList.contains("travado")) return;
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // rolagem lateral (linhas de animais)
+      const dy = e.deltaY * (e.deltaMode === 1 ? 32 : e.deltaMode === 2 ? window.innerHeight : 1);
+      if (rolavelInterno(e.target instanceof Element ? e.target : null, dy)) return;
+      e.preventDefault();
+      if (!rodando) { alvo = atual = window.scrollY; }
+      alvo += dy;
+      const max = maximo();
+      if (alvo < 0) { estica += alvo * 0.3; alvo = 0; }
+      else if (alvo > max) { estica += (alvo - max) * 0.3; alvo = max; }
+      estica = Math.max(-140, Math.min(140, estica));
+      if (!rodando) { rodando = true; requestAnimationFrame(passo); }
+    }, { passive: false });
+
+    // Rolagem feita por teclado, barra de rolagem ou links: acompanha
+    window.addEventListener("scroll", () => { if (!rodando) alvo = atual = window.scrollY; }, { passive: true });
+
+    function passo() {
+      const max = maximo();
+      alvo = Math.min(Math.max(alvo, 0), max);
+      atual += (alvo - atual) * 0.14;
+      if (Math.abs(alvo - atual) < 0.5) atual = alvo;
+      window.scrollTo(0, atual);
+      // Mola subamortecida: volta ao lugar quicando ("boing boing")
+      vel += -estica * 0.11;
+      vel *= 0.78;
+      estica += vel;
+      const t = Math.abs(estica) < 0.3 && Math.abs(vel) < 0.3 ? "" : `translate3d(0, ${(-estica).toFixed(2)}px, 0)`;
+      elasticos().forEach((el) => { el.style.transform = t; });
+      if (atual !== alvo || t) requestAnimationFrame(passo);
+      else { estica = 0; vel = 0; rodando = false; }
+    }
+  }
+
   // Header fixo: ganha uma sombra suave quando a página rola
   function ligarHeader() {
     const h = document.querySelector(".header");
@@ -156,6 +218,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     ligarHeader();
+    ligarRolagem();
     montarMenu();
     ligarNewsletter();
     ligarWhats();

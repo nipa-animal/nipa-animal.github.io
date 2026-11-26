@@ -32,11 +32,14 @@
 
   <main>
     <h1 class="titulo-pag">Adoção</h1>
-    <div class="adocao-texto">
-      <p>Está pensando em adotar um melhor amigo? Então você está no lugar certo!</p>
-      <p>Antes de tudo gostaríamos de parabenizá-lo(a) pela atitude! Adotar um animalzinho é um ato de cidadania e amor. Afinal, todo cão e gato merece uma família consciente e responsável! Aqui em baixo estão alguns de nossos animais para adoção e também alguns dos resgatados por outros protetores, que também ajudamos na divulgação.</p>
-      <p>Lembrando que todos já estão castrados, vermifugados e vacinados (exigências que estipulamos para doações). Caso se interesse por algum dos nossos amigos e queira conhece-lo ao vivo, entre em contato conosco! Temos um processo de entrevista que nos ajuda na seleção de potenciais candidatos à adoção. Veja abaixo alguns dos animais que aguardam uma família.</p>
-    </div>
+    <section class="adocao-intro">
+      <div class="adocao-texto">
+        <p>Antes de tudo, <strong>parabéns pela iniciativa!</strong> Adotar um animal é um gesto de cidadania, responsabilidade e amor.</p>
+        <p>Todo cão e gato merece uma família consciente, disposta a oferecer carinho, cuidado e respeito.</p>
+        <p>Aqui você encontra alguns dos animais que estão sob nossos cuidados, além de outros resgatados por protetores parceiros, cuja adoção também ajudamos a divulgar.</p>
+      </div>
+      <img class="adocao-intro__img" src="assets/cao-e-gato.png" alt="Cachorro golden retriever abraçando um gatinho">
+    </section>
 
     <section aria-labelledby="adote-titulo">
       <div class="secao-head secao-head--adote">
@@ -48,14 +51,14 @@
 
     <section class="faixa-salvos" aria-labelledby="salvos-titulo">
       <div class="secao-head secao-head--salvos">
-        <h2 id="salvos-titulo">Amigos salvos.</h2>
+        <h2 id="salvos-titulo">Amigos Salvos</h2>
         <a href="salvos.html">Ver Mais</a>
       </div>
       <div class="grade grade--salvos" data-grade-salvos></div>
     </section>
   </main>
 
-  <footer class="footer footer--claro">
+  <footer class="footer footer--linha">
     <dl>
       <div class="footer__linha"><dt>NIPA</dt><dd>Núcleo Independente de Proteção Animal</dd></div>
       <div class="footer__linha"><dt>Telefone</dt><dd><a href="tel:+5511968337340">+55 (11) 96833-7340</a></dd></div>
@@ -66,7 +69,6 @@
   <div class="folha-bg" data-folha-bg hidden>
     <div class="folha" role="dialog" aria-modal="true" aria-labelledby="folha-titulo" data-folha></div>
   </div>
-
   <script src="js/main.js"></script>
   <script src="js/dados.js"></script>
   <script src="js/folha.js"></script>
