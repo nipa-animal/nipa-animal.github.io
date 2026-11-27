@@ -172,7 +172,7 @@ button { font: inherit; color: inherit; cursor: pointer; padding: 0; border: 0; 
 .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(101,117,60,0) 45%, rgba(101,117,60,.55) 100%); }
 .hero h1 { position: absolute; left: 2.8rem; top: 21.4rem; font-size: 2.7rem; line-height: 3.16rem; }
 
-.home-meio { position: relative; height: 45.8rem; overflow: hidden; }
+.home-meio { position: relative; height: 43.6rem; overflow: hidden; }
 .home-intro { padding: 1.8rem 4.2rem 0 2.7rem; }
 .home-cards { position: absolute; left: 5.1rem; right: 4.95rem; top: 9.7rem; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; column-gap: 6.4rem; }
 .mini-card {
@@ -184,8 +184,9 @@ button { font: inherit; color: inherit; cursor: pointer; padding: 0; border: 0; 
 .mini-card h2 { font-size: 1.5rem; line-height: 1.7rem; }
 .mini-card p { font-size: 1.12rem; line-height: 1.38rem; margin: 1.1rem 0 1.6rem; }
 .mini-card .btn { margin-top: auto; align-self: flex-start; }
-.home-cao { position: absolute; left: -1.48rem; bottom: 0; width: 27.6rem; height: auto; }
-.home-gato { position: absolute; left: 0.88rem; top: 26.4rem; width: 47.05rem; height: auto; transform: scaleX(-1); }
+/* Animais na frente dos cards (a cabeça passa por cima da borda de baixo) */
+.home-cao { position: absolute; z-index: 3; pointer-events: none; left: -1.48rem; bottom: 0; width: 27.6rem; height: auto; }
+.home-gato { position: absolute; z-index: 3; pointer-events: none; left: 0.88rem; top: 24.2rem; width: 47.05rem; height: auto; transform: scaleX(-1); }
 
 /* Missão e valores + avisos (textos em caixas laranja) */
 .home-extra { padding: 5.2rem 2.7rem 5.6rem; }
@@ -221,7 +222,7 @@ button { font: inherit; color: inherit; cursor: pointer; padding: 0; border: 0; 
 .historia__texto { margin-top: 1.8rem; font-size: 1.24rem; line-height: 1.42rem; hyphens: auto; }
 .historia__texto p + p, .historia__texto p + cite, .historia__texto cite + p { margin-top: 1.25rem; }
 .historia__texto cite { display: block; font-style: normal; }
-.facts { padding: 4.4rem 5.7rem 0 5rem; }
+.facts { background: var(--verde); color: var(--creme); padding: 4.7rem 5.7rem 0 5rem; }
 .facts h2 { font-size: 2.6rem; line-height: 2.6rem; }
 .facts__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-top: 1.8rem; }
 .fact { border: 0.13rem solid var(--creme); border-radius: 1.2rem; padding: 1.5rem 1.4rem; font-size: 1.18rem; line-height: 1.36rem; }
@@ -277,7 +278,8 @@ button { font: inherit; color: inherit; cursor: pointer; padding: 0; border: 0; 
 .ca--cachorro { background: var(--verde); }
 .ca--gato { background: var(--laranja); }
 .ca .moldura { --d: 14.7rem; }
-.ca--gato .moldura { --cor: var(--verde); }
+.ca--gato .moldura { --cor: var(--creme); }
+.ca--gato.ca--adotado .moldura { --cor: var(--laranja); } /* fundo claro: círculo laranja para não sumir */
 .ca--adotado { background: var(--creme); color: var(--verde); box-shadow: inset 0 0 0 0.13rem var(--verde); }
 .ca__foto { display: block; border-radius: 50%; }
 .ca__nome { font-size: 2.1rem; line-height: 2.2rem; margin-top: 1.2rem; }
@@ -510,3 +512,7 @@ html:active-view-transition-type(voltar)::view-transition-new(root) { animation-
 /* Ajustes finais */
 .btn-ico:disabled { opacity: .4; pointer-events: none; }
 body > main, body > .footer { will-change: auto; }
+
+/* Missão e valores em verde (os avisos continuam em laranja) */
+.missao h2 { color: var(--verde); }
+.missao .caixa { background: var(--verde); }
