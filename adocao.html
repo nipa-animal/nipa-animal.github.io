@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;800&display=swap" rel="stylesheet">
+  <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-anim");</script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -31,19 +32,19 @@
   </header>
 
   <main>
-    <h1 class="titulo-pag">Adoção</h1>
+    <h1 class="titulo-pag" data-anim="titulo">Adoção</h1>
     <section class="adocao-intro">
       <div class="adocao-texto">
-        <p>Antes de tudo, <strong>parabéns pela iniciativa!</strong> Adotar um animal é um gesto de cidadania, responsabilidade e amor.</p>
-        <p>Todo cão e gato merece uma família consciente, disposta a oferecer carinho, cuidado e respeito.</p>
-        <p>Aqui você encontra alguns dos animais que estão sob nossos cuidados, além de outros resgatados por protetores parceiros, cuja adoção também ajudamos a divulgar.</p>
+        <p data-anim="texto">Antes de tudo, <strong>parabéns pela iniciativa!</strong> Adotar um animal é um gesto de cidadania, responsabilidade e amor.</p>
+        <p data-anim="texto">Todo cão e gato merece uma família consciente, disposta a oferecer carinho, cuidado e respeito.</p>
+        <p data-anim="texto">Aqui você encontra alguns dos animais que estão sob nossos cuidados, além de outros resgatados por protetores parceiros, cuja adoção também ajudamos a divulgar.</p>
       </div>
       <img class="adocao-intro__img" data-som="ambos" src="assets/cao-e-gato.png" alt="Cachorro golden retriever abraçando um gatinho">
     </section>
 
     <section aria-labelledby="adote-titulo">
       <div class="secao-head secao-head--adote">
-        <h2 id="adote-titulo">Adote um amigo.</h2>
+        <h2 id="adote-titulo" data-anim="titulo">Adote um amigo.</h2>
         <a href="adote.html">Ver Mais</a>
       </div>
       <div class="grade" data-grade-adote></div>
@@ -51,7 +52,7 @@
 
     <section class="faixa-salvos" aria-labelledby="salvos-titulo">
       <div class="secao-head secao-head--salvos">
-        <h2 id="salvos-titulo">Amigos Salvos</h2>
+        <h2 id="salvos-titulo" data-anim="titulo">Amigos Salvos</h2>
         <a href="salvos.html">Ver Mais</a>
       </div>
       <div class="grade grade--salvos" data-grade-salvos></div>
@@ -71,6 +72,7 @@
   </div>
   <script src="js/sons.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/animacoes.js"></script>
   <script src="js/dados.js"></script>
   <script src="js/folha.js"></script>
   <script src="js/adocao.js"></script>

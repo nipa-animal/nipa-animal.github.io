@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;800&display=swap" rel="stylesheet">
+  <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-anim");</script>
   <link rel="stylesheet" href="css/style.css">
   <script type="application/ld+json">
   {
@@ -46,46 +47,46 @@
 
   <main>
     <section class="hero">
-      <h1>Núcleo Independente<br>de Proteção Animal</h1>
+      <h1 data-anim="titulo">Núcleo Independente<br>de Proteção Animal</h1>
     </section>
 
     <section class="home-meio">
-      <p class="home-intro">O Núcleo Independente de Proteção Animal (NIPA) nasceu há muitos anos, porém foi formalizado apenas em 2018. Somos um grupo de amigos incomodados com a realidade dos animais em nossa sociedade.</p>
+      <p class="home-intro" data-anim="texto">O Núcleo Independente de Proteção Animal (NIPA) nasceu há muitos anos, porém foi formalizado apenas em 2018. Somos um grupo de amigos incomodados com a realidade dos animais em nossa sociedade.</p>
       <div class="home-cards">
         <div class="home-col">
           <article class="mini-card mini-card--verde">
-            <h2>Adoção</h2>
-            <p>Está a procura de um melhor amigo? Então você está no lugar certo! Nossos resgatados estão aguardando por famílias carinhosas.</p>
-            <a class="btn btn--creme" href="adocao.html">Adote Aqui</a>
+            <h2 data-anim="titulo">Adoção</h2>
+            <p data-anim="texto">Está a procura de um melhor amigo? Então você está no lugar certo! Nossos resgatados estão aguardando por famílias carinhosas.</p>
+            <a class="btn btn--creme" data-anim="bloco" href="adocao.html">Adote Aqui</a>
           </article>
           <img class="home-cao" src="assets/Asset%202Imagens.png" alt="Cachorro preto e branco sorrindo">
           <button class="home-alvo" type="button" data-som="cachorro" data-alvo=".home-cao" aria-label="Cachorro preto e branco. Au au!"></button>
         </div>
         <div class="home-col">
           <article class="mini-card mini-card--laranja">
-            <h2>Ajude a Ajudar</h2>
-            <p>Nós só conseguimos ajudar protetores e animais com a sua participação! É isso mesmo, faça parte desse movimento de mudança!</p>
-            <a class="btn btn--creme-l" href="ajudar.html">Ajude Aqui</a>
+            <h2 data-anim="titulo">Ajude a Ajudar</h2>
+            <p data-anim="texto">Nós só conseguimos ajudar protetores e animais com a sua participação! É isso mesmo, faça parte desse movimento de mudança!</p>
+            <a class="btn btn--creme-l" data-anim="bloco" href="ajudar.html">Ajude Aqui</a>
           </article>
-          <img class="home-gato" src="assets/Asset%203Imagens.png" alt="Gato laranja recebendo carinho na cabeça">
+          <img class="home-gato" data-ancora="baixo-dir" src="assets/Asset%203Imagens.png" alt="Gato laranja recebendo carinho na cabeça">
           <button class="home-alvo" type="button" data-som="gato" data-alvo=".home-gato" aria-label="Gato laranja. Miau!"></button>
         </div>
       </div>
     </section>
 
     <section class="sobre-nos" aria-labelledby="sobre-nos-titulo">
-      <img class="sobre-nos__img" data-som="cachorro" src="assets/sobre-nos.png" alt="Cachorro border collie olhando curioso">
+      <img class="sobre-nos__img" data-som="cachorro" data-ancora="baixo-dir" src="assets/sobre-nos.png" alt="Cachorro border collie olhando curioso">
       <div class="grupo-texto">
-      <h2 id="sobre-nos-titulo">Sobre<br>Nós</h2>
-      <p>Somos um grupo de amigos sonhadores e amantes dos animais. A vida felizmente nos uniu e no ano de 2018 conseguimos firmar nosso projeto independente e tão sonhado de proteção animal.</p>
-      <a class="btn btn--creme-l" href="sobre.html">Nossa História</a>
+      <h2 id="sobre-nos-titulo" data-anim="titulo">Sobre<br>Nós</h2>
+      <p data-anim="texto">Somos um grupo de amigos sonhadores e amantes dos animais. A vida felizmente nos uniu e no ano de 2018 conseguimos firmar nosso projeto independente e tão sonhado de proteção animal.</p>
+      <a class="btn btn--creme-l" data-anim="bloco" href="sobre.html">Nossa História</a>
       </div>
     </section>
 
     <section class="home-extra">
       <div class="missao" aria-labelledby="missao-titulo">
-        <h2 id="missao-titulo">Missão e valores</h2>
-        <p class="missao__dica">Toque em uma bolha para ler</p>
+        <h2 id="missao-titulo" data-anim="titulo">Missão e valores</h2>
+        <p class="missao__dica" data-anim="texto">Toque em uma bolha para ler</p>
         <div class="bolhas bolhas--espera" data-bolhas>
           <button class="bolha" type="button" aria-expanded="false"><span class="bolha__titulo">Nossa missão</span><span class="bolha__texto" hidden>Fazer a diferença e tentar contribuir para acabarmos com o sofrimento animal, não permitindo o abandono e os maus tratos, que infelizmente são comuns em nossa sociedade.</span></button>
           <button class="bolha" type="button" aria-expanded="false"><span class="bolha__titulo">Como trabalhamos</span><span class="bolha__texto" hidden>De forma voluntária, ajudando não só os nossos animais resgatados, mas também contribuindo e compartilhando nosso conhecimento, força de trabalho e doações com protetores carentes de São Paulo.</span></button>
@@ -99,9 +100,9 @@
       </div>
 
       <div class="avisos" aria-labelledby="news-titulo">
-        <h2 id="news-titulo">Receba nossos avisos</h2>
+        <h2 id="news-titulo" data-anim="titulo">Receba nossos avisos</h2>
         <div class="caixa">
-          <p>Deixe seu e-mail e avisaremos quando o NIPA precisar de auxílio financeiro.</p>
+          <p data-anim="texto">Deixe seu e-mail e avisaremos quando o NIPA precisar de auxílio financeiro.</p>
           <form class="news" data-newsletter>
             <label class="sr-only" for="news-email">E-mail</label>
             <input id="news-email" name="email" type="email" placeholder="Seu e-mail" required autocomplete="email">
@@ -122,6 +123,7 @@
 
   <script src="js/sons.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/animacoes.js"></script>
   <script src="js/home.js"></script>
 </body>
 </html>

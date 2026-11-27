@@ -227,11 +227,20 @@
   // Qualquer elemento com data-som="cachorro" | "gato" | "ambos".
   // data-alvo (opcional) = seletor da imagem que deve "apertar" (quando o
   // clique é numa área invisível por cima do animal).
+  // data-ancora diz de que lado a foto está cortada (ex.: "baixo-dir"): esse lado
+  // fica parado durante o quique, então o corte nunca aparece.
   function apertarImagem(el) {
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    el.animate([
-      { scale: 1 }, { scale: 0.9, offset: 0.22 }, { scale: 1.06, offset: 0.55 }, { scale: 0.98, offset: 0.78 }, { scale: 1 },
-    ], { duration: 520, easing: "ease-out" });
+    const ancora = el.dataset.ancora || "baixo";
+    const ax = /dir/.test(ancora) ? 1 : /esq/.test(ancora) ? -1 : 0;
+    const ay = /baixo/.test(ancora) ? 1 : /cima/.test(ancora) ? -1 : 0;
+    const w = el.offsetWidth, h = el.offsetHeight;
+    const quadro = (k, offset) => {
+      const q = { scale: String(k), translate: `${(ax * (1 - k) * w / 2).toFixed(1)}px ${(ay * (1 - k) * h / 2).toFixed(1)}px` };
+      if (offset != null) q.offset = offset;
+      return q;
+    };
+    el.animate([quadro(1), quadro(0.94, 0.22), quadro(1.05, 0.55), quadro(0.985, 0.78), quadro(1)], { duration: 560, easing: "ease-out" });
   }
   function ligarImagensSom() {
     const tocar = (alvo) => {
@@ -258,14 +267,26 @@
   }
 
   // ---------- "Você sabia?": caixa com "?" que vira e revela a curiosidade ----------
+  // As cartas começam mostrando a resposta; quando aparecem na tela, viram
+  // de costas (com o "?") uma após a outra. Tocar vira de novo.
   function ligarCuriosidades() {
-    document.querySelectorAll(".fact").forEach((b) => {
-      b.addEventListener("click", () => {
-        const aberta = b.getAttribute("aria-pressed") !== "true";
-        b.setAttribute("aria-pressed", String(aberta));
-        b.setAttribute("aria-label", aberta ? b.querySelector(".fact__verso").textContent : "Curiosidade: toque para revelar");
-      });
+    const cartas = [...document.querySelectorAll(".fact")];
+    if (!cartas.length) return;
+    const virar = (b, aberta) => {
+      b.setAttribute("aria-pressed", String(aberta));
+      b.setAttribute("aria-label", aberta ? b.querySelector(".fact__verso").textContent : "Curiosidade: toque para revelar");
+    };
+    cartas.forEach((b) => {
+      virar(b, true);
+      b.addEventListener("click", () => { b.dataset.mexeu = "1"; virar(b, b.getAttribute("aria-pressed") !== "true"); });
     });
+    const grade = cartas[0].parentElement;
+    const obs = new IntersectionObserver((e) => {
+      if (!e[0].isIntersecting) return;
+      obs.disconnect();
+      cartas.forEach((b, i) => setTimeout(() => { if (!b.dataset.mexeu) virar(b, false); }, 900 + i * 220));
+    }, { threshold: 0.6 });
+    obs.observe(grade);
   }
 
   // Header fixo: ganha uma sombra suave quando a página rola

@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;800&display=swap" rel="stylesheet">
+  <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-anim");</script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -32,20 +33,20 @@
 
   <main>
     <section class="sobre-historia">
-      <h1 class="sobre-logo">LOGO</h1>
+      <h1 class="sobre-logo" data-anim="letras">LOGO</h1>
       <article class="historia">
-        <h2>Um sonho antigo...</h2>
+        <h2 data-anim="titulo">Um sonho antigo...</h2>
         <div class="historia__texto">
-          <p>Somos um grupo de amigos sonhadores e amantes dos animais. A vida felizmente nos uniu e no ano de 2018 conseguimos firmar nosso projeto independente e tão sonhado de proteção animal.</p>
-          <p>Os animais sempre fizeram parte da minha vida, e devo isso à minha amada mãe, que desde cedo me ensinou a importância de amar, valorizar e respeitar todas as formas de vida, humanas ou não.</p>
-          <p>Nasci há 29 anos em uma família que já acolhia 28 cães resgatados. Essa convivência acompanhou toda a minha vida e contribuiu para construir minha relação com a proteção animal. Sou bióloga formada pela Universidade Paulista e mestre em Evolução e Diversidade pela Universidade Federal do ABC</p>
-          <p>O NIPA sempre foi um sonho. Após atuar em outras organizações do terceiro setor, encontrei na proteção animal uma realização tanto profissional quanto pessoal. Com toda a experiência adquirida, desejo construir um grupo independente de proteção animal, capaz de contribuir efetivamente para enfrentar o abandono de animais em nossa cidade.</p>
-          <cite>Michaella Andrade (Diretora do NIPA)</cite>
-          <p>Atualmente não somos uma ONG pois não temos verba o suficiente nem espaço físico destinado a abrigar animais resgatados. Devido a todas essas dificuldades acabamos abrigando os animais dentro de nossas próprias casas e também contamos com a colaboração de amigos e colegas que nos ajudam oferecendo lar temporário, o que dificulta nosso trabalho e diminui nossas possibilidades de efetivar cada vez mais resgates.</p>
-          <p>Nossa missão é fazer a diferença e tentar contribuir para acabarmos com o sofrimento animal, não permitindo o abandono e os maus tratos, que infelizmente são comuns em nossa sociedade.</p>
-          <p>Trabalhamos de forma voluntária ajudando não só os nossos animais resgatados, mas também contribuindo e compartilhando nosso conhecimento, força de trabalho e doações com protetores carentes de São Paulo.</p>
-          <p>Dependendo apenas de doações para continuarmos na luta por eles, precisamos muito da ajuda seja financeira ou física.</p>
-          <p>Para maiores informações, entre em contato conosco!</p>
+          <p data-anim="correnteza">Somos um grupo de amigos sonhadores e amantes dos animais. A vida felizmente nos uniu e no ano de 2018 conseguimos firmar nosso projeto independente e tão sonhado de proteção animal.</p>
+          <p data-anim="correnteza">Os animais sempre fizeram parte da minha vida, e devo isso à minha amada mãe, que desde cedo me ensinou a importância de amar, valorizar e respeitar todas as formas de vida, humanas ou não.</p>
+          <p data-anim="correnteza">Nasci há 29 anos em uma família que já acolhia 28 cães resgatados. Essa convivência acompanhou toda a minha vida e contribuiu para construir minha relação com a proteção animal. Sou bióloga formada pela Universidade Paulista e mestre em Evolução e Diversidade pela Universidade Federal do ABC</p>
+          <p data-anim="correnteza">O NIPA sempre foi um sonho. Após atuar em outras organizações do terceiro setor, encontrei na proteção animal uma realização tanto profissional quanto pessoal. Com toda a experiência adquirida, desejo construir um grupo independente de proteção animal, capaz de contribuir efetivamente para enfrentar o abandono de animais em nossa cidade.</p>
+          <cite data-anim="correnteza">Michaella Andrade (Diretora do NIPA)</cite>
+          <p data-anim="correnteza">Atualmente não somos uma ONG pois não temos verba o suficiente nem espaço físico destinado a abrigar animais resgatados. Devido a todas essas dificuldades acabamos abrigando os animais dentro de nossas próprias casas e também contamos com a colaboração de amigos e colegas que nos ajudam oferecendo lar temporário, o que dificulta nosso trabalho e diminui nossas possibilidades de efetivar cada vez mais resgates.</p>
+          <p data-anim="correnteza">Nossa missão é fazer a diferença e tentar contribuir para acabarmos com o sofrimento animal, não permitindo o abandono e os maus tratos, que infelizmente são comuns em nossa sociedade.</p>
+          <p data-anim="correnteza">Trabalhamos de forma voluntária ajudando não só os nossos animais resgatados, mas também contribuindo e compartilhando nosso conhecimento, força de trabalho e doações com protetores carentes de São Paulo.</p>
+          <p data-anim="correnteza">Dependendo apenas de doações para continuarmos na luta por eles, precisamos muito da ajuda seja financeira ou física.</p>
+          <p data-anim="correnteza">Para maiores informações, entre em contato conosco!</p>
         </div>
       </article>
 
@@ -54,19 +55,19 @@
     <section class="facts" aria-labelledby="facts-titulo">
       <h2 id="facts-titulo">Você sabia?</h2>
       <div class="facts__grid">
-        <button class="fact" type="button" aria-pressed="false" aria-label="Curiosidade: toque para revelar"><span class="fact__giro"><span class="fact__frente" aria-hidden="true">?</span><span class="fact__verso"><strong>2018</strong>ano em que o NIPA foi formalizado</span></span></button>
-        <button class="fact" type="button" aria-pressed="false" aria-label="Curiosidade: toque para revelar"><span class="fact__giro"><span class="fact__frente" aria-hidden="true">?</span><span class="fact__verso"><strong>100%</strong>do nosso trabalho é voluntário</span></span></button>
-        <button class="fact" type="button" aria-pressed="false" aria-label="Curiosidade: toque para revelar"><span class="fact__giro"><span class="fact__frente" aria-hidden="true">?</span><span class="fact__verso"><strong>28</strong>cães resgatados viviam com a família da nossa diretora quando ela nasceu</span></span></button>
-        <button class="fact" type="button" aria-pressed="false" aria-label="Curiosidade: toque para revelar"><span class="fact__giro"><span class="fact__frente" aria-hidden="true">?</span><span class="fact__verso"><strong>SP</strong>ajudamos protetores carentes de São Paulo</span></span></button>
+        <button class="fact" type="button" aria-pressed="true"><span class="fact__giro"><span class="fact__frente" aria-hidden="true">?</span><span class="fact__verso"><strong>2018</strong>ano em que o NIPA foi formalizado</span></span></button>
+        <button class="fact" type="button" aria-pressed="true"><span class="fact__giro"><span class="fact__frente" aria-hidden="true">?</span><span class="fact__verso"><strong>100%</strong>do nosso trabalho é voluntário</span></span></button>
+        <button class="fact" type="button" aria-pressed="true"><span class="fact__giro"><span class="fact__frente" aria-hidden="true">?</span><span class="fact__verso"><strong>28</strong>cães resgatados viviam com a família da nossa diretora quando ela nasceu</span></span></button>
+        <button class="fact" type="button" aria-pressed="true"><span class="fact__giro"><span class="fact__frente" aria-hidden="true">?</span><span class="fact__verso"><strong>SP</strong>ajudamos protetores carentes de São Paulo</span></span></button>
       </div>
     </section>
 
     <section class="voluntarios" aria-labelledby="vol-titulo">
-      <h2 id="vol-titulo">Voluntários</h2>
+      <h2 id="vol-titulo" data-anim="titulo">Voluntários</h2>
       <div class="voluntarios__grid">
-        <div class="voluntario"><div class="voluntario__foto"></div><h3>Michaella</h3></div>
-        <div class="voluntario"><div class="voluntario__foto"></div><h3>Dayanne</h3></div>
-        <div class="voluntario"><div class="voluntario__foto"></div><h3>Celia</h3></div>
+        <div class="voluntario"><div class="voluntario__foto" data-anim="bloco"></div><h3 data-anim="titulo">Michaella</h3></div>
+        <div class="voluntario"><div class="voluntario__foto" data-anim="bloco"></div><h3 data-anim="titulo">Dayanne</h3></div>
+        <div class="voluntario"><div class="voluntario__foto" data-anim="bloco"></div><h3 data-anim="titulo">Celia</h3></div>
       </div>
     </section>
   </main>
@@ -81,5 +82,6 @@
 
   <script src="js/sons.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/animacoes.js"></script>
 </body>
 </html>

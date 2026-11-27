@@ -71,13 +71,16 @@
   function apertar(el, especie) {
     if (window.NIPASom) window.NIPASom.tocar(especie);
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    el.animate([
+    // Só a foto quica (presa pela base e um pouco maior que o círculo, ver CSS),
+    // então a borda cortada da foto nunca aparece e o animal não sai da forma
+    const fotos = el.matches(".moldura") ? el.querySelectorAll("img") : [el];
+    fotos.forEach((f) => f.animate([
       { transform: "scale(1)" },
-      { transform: "scale(.86)", offset: 0.22 },
-      { transform: "scale(1.08)", offset: 0.55 },
-      { transform: "scale(.97)", offset: 0.78 },
+      { transform: "scale(.95)", offset: 0.22 },
+      { transform: "scale(1.035)", offset: 0.55 },
+      { transform: "scale(.99)", offset: 0.78 },
       { transform: "scale(1)" },
-    ], { duration: 520, easing: "ease-out" });
+    ], { duration: 560, easing: "ease-out" }));
   }
 
   // ---------- Folha sobreposta ----------

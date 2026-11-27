@@ -542,7 +542,6 @@ body > main, body > .footer { will-change: auto; }
 }
 .bolha:nth-of-type(2) { width: 12.6rem; height: 12.6rem; background: var(--laranja); }
 /* Antes de aparecer na tela, as bolhas ficam "murchas" (depois entram com um pop) */
-.bolhas--espera .bolha { scale: 0; }
 .bolha:nth-of-type(3) { width: 13.4rem; height: 13.4rem; }
 .bolha__titulo { transition: transform .25s ease; }
 @media (hover: hover), (any-hover: hover), (pointer: fine) { .bolha:hover .bolha__titulo { transform: scale(1.08); } }
@@ -685,3 +684,68 @@ img[data-som]:focus-visible { outline: 0.2rem solid var(--laranja-claro); outlin
 .fact__verso strong { display: block; font-size: 2.4rem; line-height: 2.5rem; margin-bottom: 0.4rem; }
 @media (hover: hover), (any-hover: hover), (pointer: fine) { .fact:hover .fact__frente { background: rgba(255, 242, 203, .12); } }
 .fact:active .fact__giro { scale: .97; }
+
+/* =========================================================
+   RODADA 4: logo laranja, ícone salvar sem quadrado, fotos sem corte,
+   bolhas verdes em terços, animações de entrada
+   ========================================================= */
+
+/* Logo do header em laranja */
+.header__logo { color: var(--laranja); }
+
+/* Adoção: botão salvar só com o ícone (sem o quadrado) */
+.animal__salvar, .animal__salvar:hover, .animal__salvar:active, .animal__salvar:focus-visible {
+  border: 0; background: none; width: 2.2rem; height: 2.4rem; color: var(--c);
+}
+.animal__salvar .ico--salvar { width: 1.1rem; height: 1.45rem; transition: transform .2s ease; }
+@media (hover: hover), (any-hover: hover), (pointer: fine) { .animal__salvar:hover .ico--salvar { transform: scale(1.18); } }
+
+/* Fotos nas molduras: um pouco maiores e presas pela base, para que o "aperto"
+   nunca mostre a borda cortada da foto (e o recorte do círculo continua valendo) */
+.moldura img { transform-origin: 50% 100%; scale: 1.07; }
+
+/* Ajudar — remédios: caixa de texto mais estreita, longe da imagem */
+.ajuda--itens .grupo-texto { max-width: 23rem; }
+
+/* ---------- Missão e valores: todas verdes; bolhas abrem ocupando um terço ---------- */
+.bolhas { height: 40rem; }
+.bolha, .bolha:nth-of-type(2), .bolha:nth-of-type(3) { background: var(--verde); width: 12.2rem; height: 12.2rem; }
+.bolha:nth-of-type(2) { width: 11.6rem; height: 11.6rem; }
+.bolha--aberta { opacity: 0; pointer-events: none; }
+.missao-painel {
+  position: absolute; left: 0; right: 0; z-index: 5; height: calc(33.333% - 0.5rem);
+  background: var(--verde); color: var(--creme); border-radius: 1.6rem; padding: 1.8rem 4.4rem 1.8rem 2.2rem;
+  display: flex; flex-direction: column; justify-content: center;
+  transition: top .6s cubic-bezier(.22,1,.36,1);
+}
+.missao-painel h3 { font-size: 1.75rem; line-height: 2rem; }
+.missao-painel p { font-size: 1.16rem; line-height: 1.42rem; margin-top: 0.6rem; }
+.missao-painel__fechar { position: absolute; right: 1.5rem; top: 1.4rem; width: 1.9rem; height: 1.9rem; }
+.missao-painel__fechar::before, .missao-painel__fechar::after { content: ""; position: absolute; left: 0.1rem; right: 0.1rem; top: calc(50% - 0.11rem); height: 0.22rem; border-radius: 0.2rem; background: var(--creme); transform: rotate(45deg); }
+.missao-painel__fechar::after { transform: rotate(-45deg); }
+
+/* ---------- Animações de entrada ----------
+   Título: cada palavra fica dentro de uma "máscara" e sobe (como no site de referência:
+   máscara 100% → 0 em 2s e texto 110% → 0 em 1,5s, curva expo.out, 0,1s entre linhas). */
+:root { --expo: cubic-bezier(.16, 1, .3, 1); }
+.js-anim [data-anim]:not(.anim-pronto) { visibility: hidden; }
+.am { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.06em 0.16em; margin: 0 -0.06em -0.16em; }
+.at { display: inline-block; }
+[data-anim].anim-pronto .am { transition: transform 2s var(--expo) calc(var(--b, 0s) + var(--i, 0) * .1s); }
+[data-anim].anim-pronto .at { transition: transform 1.5s var(--expo) calc(var(--b, 0s) + var(--i, 0) * .1s), opacity .6s ease calc(var(--b, 0s) + var(--i, 0) * .1s); }
+[data-anim].anim-pronto:not(.anim-entrou) .am { transform: translateY(100%); }
+[data-anim].anim-pronto:not(.anim-entrou) .at { transform: translateY(110%); }
+
+/* Correnteza: as linhas entram da esquerda para a direita, bem rápido */
+[data-anim="correnteza"].anim-pronto .am { overflow: visible; transition: none; transform: none; }
+[data-anim="correnteza"].anim-pronto .at { transition: transform .5s cubic-bezier(.2,.8,.2,1) calc(var(--b, 0s) + var(--i, 0) * .035s + var(--w, 0) * .004s), opacity .35s ease calc(var(--b, 0s) + var(--i, 0) * .035s + var(--w, 0) * .004s); }
+[data-anim="correnteza"].anim-pronto:not(.anim-entrou) .am { transform: none; }
+[data-anim="correnteza"].anim-pronto:not(.anim-entrou) .at { transform: translateX(-2rem); opacity: 0; }
+
+/* Blocos (botões, círculos, fotos): sobem de dentro de uma máscara invisível */
+[data-anim="bloco"].anim-pronto { transition: transform 1.5s var(--expo) var(--b, 0s), clip-path 1.5s var(--expo) var(--b, 0s), opacity .5s ease var(--b, 0s); }
+[data-anim="bloco"].anim-pronto:not(.anim-entrou) { transform: translateY(100%); clip-path: inset(0 0 100% 0); }
+
+/* Letras (o "LOGO" do Sobre): cada letra pula para o lugar */
+.letra { display: inline-block; }
+.bolhas--espera .bolha { scale: 0; }

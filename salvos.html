@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;800&display=swap" rel="stylesheet">
+  <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-anim");</script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -32,7 +33,7 @@
   </header>
 
   <main>
-    <h1 class="titulo-pag">Amigos salvos.</h1>
+    <h1 class="titulo-pag" data-anim="titulo">Amigos salvos.</h1>
     <div class="cards-animais" data-cards="salvos"></div>
   </main>
 
@@ -49,6 +50,7 @@
   </div>
   <script src="js/sons.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/animacoes.js"></script>
   <script src="js/dados.js"></script>
   <script src="js/folha.js"></script>
   <script src="js/cards.js"></script>

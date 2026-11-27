@@ -15,7 +15,7 @@ window.NIPA_DADOS.then((animais) => {
   const gradeSalvos = document.querySelector("[data-grade-salvos]");
   const AUMENTO = 0.21;       // o da ponta fica 21% maior
   const VELOCIDADE = 16;      // px por segundo (bem devagar)
-  const ESPERA = 2600;        // ms parado depois que a pessoa mexe na linha
+  const ESPERA = 3200;        // ms parado depois que a pessoa mexe na linha (ou fecha a ficha)
   const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const porId = (id) => animais.find((a) => a.id === id);
 
@@ -33,8 +33,9 @@ window.NIPA_DADOS.then((animais) => {
   }
 
   // ---------- Uma linha que gira em loop ----------
-  function criarLinha(grade, obterItens, vazio) {
-    const estado = { pos: 0, volta: 0, pausadoAte: 0, sobre: false, visivel: true, loop: false };
+  // direcao: 1 = os animais andam para a esquerda; -1 = andam para a direita
+  function criarLinha(grade, obterItens, vazio, direcao) {
+    const estado = { pos: 0, volta: 0, pausadoAte: 0, visivel: true, loop: false, apareceu: false };
 
     function medirVolta() {
       const primeiro = grade.querySelector(".animal:not([data-clone])");
@@ -61,6 +62,17 @@ window.NIPA_DADOS.then((animais) => {
       grade.classList.toggle("grade--fade", estado.loop || resta > 8);
     }
 
+    // Os animais aparecem um de cada vez, com um quique bem suave
+    function quicarEntrada() {
+      if (semMovimento) return;
+      [...grade.querySelectorAll(".animal")].slice(0, 8).forEach((el, i) => el.animate([
+        { translate: "0 2.6rem", opacity: 0 },
+        { translate: "0 -0.45rem", opacity: 1, offset: 0.6 },
+        { translate: "0 0.12rem", offset: 0.82 },
+        { translate: "0 0", opacity: 1 },
+      ], { duration: 950, delay: 120 + i * 170, easing: "cubic-bezier(.33,.7,.4,1)", fill: "backwards" }));
+    }
+
     function preencher() {
       const itens = obterItens();
       const x = grade.scrollLeft;
@@ -70,24 +82,28 @@ window.NIPA_DADOS.then((animais) => {
         ? itens.map((a) => card(a, false)).join("") + (estado.loop ? itens.map((a) => card(a, true)).join("") : "")
         : `<p class="grade__vazio">${vazio}</p>`;
       medirVolta();
-      grade.scrollLeft = estado.volta ? x % estado.volta : x;
+      let novo = estado.volta ? x % estado.volta : x;
+      // A linha que anda para a direita começa no meio (para ter para onde ir)
+      if (estado.loop && direcao < 0 && novo < 2) novo = estado.volta;
+      grade.scrollLeft = novo;
       estado.pos = grade.scrollLeft;
       fade(); escala();
     }
 
-    // Manter dentro da "volta": ao passar do fim da primeira cópia, volta ao começo sem salto visível
+    // Mantém dentro da "volta": ao passar do fim (ou do começo) da primeira cópia,
+    // pula para o ponto equivalente da outra cópia, sem salto visível
     function normalizar() {
       if (!estado.loop || !estado.volta) return;
-      if (grade.scrollLeft >= estado.volta) { grade.scrollLeft -= estado.volta; estado.pos = grade.scrollLeft; }
+      if (grade.scrollLeft >= estado.volta * (direcao < 0 ? 1.5 : 1)) { grade.scrollLeft -= estado.volta; estado.pos = grade.scrollLeft; }
+      else if (direcao < 0 && grade.scrollLeft <= 1) { grade.scrollLeft += estado.volta; estado.pos = grade.scrollLeft; }
     }
 
+    // Depois que a pessoa toca, arrasta ou rola a linha: fica parada uns segundos e volta a girar
     const pausar = () => { estado.pausadoAte = performance.now() + ESPERA; };
     grade.addEventListener("pointerdown", pausar, { passive: true });
     grade.addEventListener("wheel", pausar, { passive: true });
     grade.addEventListener("touchstart", pausar, { passive: true });
     grade.addEventListener("focusin", pausar);
-    grade.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") estado.sobre = true; });
-    grade.addEventListener("pointerleave", () => { estado.sobre = false; pausar(); });
 
     let pedido = 0;
     grade.addEventListener("scroll", () => {
@@ -95,18 +111,23 @@ window.NIPA_DADOS.then((animais) => {
       pedido = requestAnimationFrame(() => { pedido = 0; normalizar(); fade(); escala(); });
     }, { passive: true });
 
-    new IntersectionObserver((e) => { estado.visivel = e[0].isIntersecting; }).observe(grade);
+    new IntersectionObserver((e) => {
+      estado.visivel = e[0].isIntersecting;
+      if (estado.visivel && !estado.apareceu && e[0].intersectionRatio > 0.25) { estado.apareceu = true; quicarEntrada(); estado.pausadoAte = performance.now() + 1200; }
+    }, { threshold: [0, 0.3] }).observe(grade);
 
     let ultimo = 0;
     function girar(t) {
       const dt = Math.min(0.25, (t - (ultimo || t)) / 1000);
       ultimo = t;
-      const parado = !estado.loop || !estado.visivel || estado.sobre || document.hidden
-        || document.body.classList.contains("travado") || t < estado.pausadoAte;
+      // Com a ficha aberta, a pausa vai se renovando: ao fechar, espera uns segundos e volta
+      if (document.body.classList.contains("travado")) estado.pausadoAte = t + ESPERA;
+      const parado = !estado.loop || !estado.visivel || document.hidden || t < estado.pausadoAte;
       if (parado) estado.pos = grade.scrollLeft; // retoma de onde a pessoa deixou
       else {
-        estado.pos += VELOCIDADE * dt;
-        if (estado.volta && estado.pos >= estado.volta) estado.pos -= estado.volta;
+        estado.pos += direcao * VELOCIDADE * dt;
+        if (estado.volta && estado.pos >= estado.volta * (direcao < 0 ? 1.5 : 1)) estado.pos -= estado.volta;
+        if (estado.volta && direcao < 0 && estado.pos <= 1) estado.pos += estado.volta;
         grade.scrollLeft = estado.pos;
       }
       requestAnimationFrame(girar);
@@ -119,8 +140,8 @@ window.NIPA_DADOS.then((animais) => {
 
   const disponiveis = () => Store.ordenar(animais.filter((a) => !a.adotado)).slice(0, 8);
   const salvos = () => Store.salvosOrdenados().slice(0, 8);
-  const linhaAdote = criarLinha(gradeAdote, disponiveis, "No momento todos os nossos amigos encontraram um lar!");
-  const linhaSalvos = criarLinha(gradeSalvos, salvos, "Toque no marcador de um amigo para salvá-lo aqui.");
+  const linhaAdote = criarLinha(gradeAdote, disponiveis, "No momento todos os nossos amigos encontraram um lar!", 1);
+  const linhaSalvos = criarLinha(gradeSalvos, salvos, "Toque no marcador de um amigo para salvá-lo aqui.", -1);
 
   function render() { linhaAdote.preencher(); linhaSalvos.preencher(); }
 

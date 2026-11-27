@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;800&display=swap" rel="stylesheet">
+  <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-anim");</script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -32,13 +33,13 @@
 
   <main>
     <section class="faixa faixa--verde faixa--dinheiro">
-      <h1 class="ajudar-titulo">Nos Ajude<br>a Ajudar.</h1>
+      <h1 class="ajudar-titulo" data-anim="titulo">Nos Ajude<br>a Ajudar.</h1>
       <article class="ajuda ajuda--dinheiro">
-        <img data-som="cachorro" src="assets/Asset%2011Imagens.png" alt="Buldogue francês com notas de dinheiro">
+        <img data-som="cachorro" data-ancora="baixo-dir" src="assets/Asset%2011Imagens.png" alt="Buldogue francês com notas de dinheiro">
         <div class="grupo-texto">
-        <h2>Doação em dinheiro.</h2>
-        <p>Você pode fazer um depósito de qualquer valor em nossa conta.</p>
-        <button class="btn btn--verde" type="button" aria-expanded="false" aria-controls="pix" data-pix-abrir>Doe Aqui</button>
+        <h2 data-anim="titulo">Doação em dinheiro.</h2>
+        <p data-anim="texto">Você pode fazer um depósito de qualquer valor em nossa conta.</p>
+        <button class="btn btn--verde" data-anim="bloco" type="button" aria-expanded="false" aria-controls="pix" data-pix-abrir>Doe Aqui</button>
         </div>
       </article>
 
@@ -81,57 +82,57 @@
     </section>
 
     <section class="voluntariado">
-      <img data-som="cachorro" src="assets/Asset%2013Imagens.png" alt="Filhote recebendo um petisco da mão de uma pessoa">
+      <img data-som="cachorro" data-ancora="dir" src="assets/Asset%2013Imagens.png" alt="Filhote recebendo um petisco da mão de uma pessoa">
       <div class="voluntariado__texto">
-        <h2>Trabalho voluntário</h2>
-        <p>Tem um tempinho livre? Que tal dedicar um pouco dele ao NIPA? Existem várias formas de ajudar, e <strong>toda contribuição faz a diferença</strong>!</p>
-        <p>Quer fazer parte dessa causa? Entre em contato conosco!</p>
-        <a class="btn btn--laranja" href="#" data-whats="Olá, NIPA! Tenho interesse em ser voluntário(a). Como posso ajudar?">Entre em contato conosco</a>
+        <h2 data-anim="titulo">Trabalho voluntário</h2>
+        <p data-anim="correnteza">Tem um tempinho livre? Que tal dedicar um pouco dele ao NIPA? Existem várias formas de ajudar, e <strong>toda contribuição faz a diferença</strong>!</p>
+        <p data-anim="correnteza">Quer fazer parte dessa causa? Entre em contato conosco!</p>
+        <a class="btn btn--laranja" data-anim="bloco" href="#" data-whats="Olá, NIPA! Tenho interesse em ser voluntário(a). Como posso ajudar?">Entre em contato conosco</a>
       </div>
     </section>
 
     <section class="faixa faixa--itens">
       <article class="ajuda ajuda--itens">
-        <img data-som="cachorro" src="assets/Asset%2012Imagens.png" alt="Cachorro espiando atrás de uma tigela cheia de ração">
+        <img data-som="cachorro" data-ancora="baixo-esq" src="assets/Asset%2012Imagens.png" alt="Cachorro espiando atrás de uma tigela cheia de ração">
         <div class="grupo-texto grupo-texto--dir">
-        <h2>Doação de remédios,<br>rações ou itens pet</h2>
-        <p>Caso prefira nos doar qualquer item pet, recolhemos as doações na Grande São Paulo.</p>
-        <a class="btn btn--creme" href="#" data-whats="Olá, NIPA! Gostaria de doar remédios, ração ou itens pet. Como posso entregar?">Doe Aqui</a>
+        <h2 data-anim="titulo">Doação de remédios,<br>rações ou itens pet</h2>
+        <p data-anim="texto">Caso prefira nos doar qualquer item pet, recolhemos as doações na Grande São Paulo.</p>
+        <a class="btn btn--creme" data-anim="bloco" href="#" data-whats="Olá, NIPA! Gostaria de doar remédios, ração ou itens pet. Como posso entregar?">Doe Aqui</a>
         </div>
       </article>
     </section>
 
     <section class="parcerias" aria-labelledby="parcerias-titulo">
       <div class="parcerias__conteudo">
-      <h2 id="parcerias-titulo">Parcerias para eventos</h2>
-      <p class="parcerias__p1">Vocês e seus negócios e profissões também são bem-vindos e podem nos ajudar!</p>
-      <p class="parcerias__p2">Parcerias realizadas anteriormente:</p>
+      <h2 id="parcerias-titulo" data-anim="titulo">Parcerias para eventos</h2>
+      <p class="parcerias__p1" data-anim="texto">Vocês e seus negócios e profissões também são bem-vindos e podem nos ajudar!</p>
+      <p class="parcerias__p2" data-anim="texto">Parcerias realizadas anteriormente:</p>
       <div class="parcerias__grid">
-        <div class="parceiro"><div class="parceiro__logo"></div><h3>Estúdio de<br>tatuagem</h3></div>
-        <div class="parceiro"><div class="parceiro__logo"></div><h3>Sindicato dos<br>professores do<br>ABC</h3></div>
-        <div class="parceiro"><div class="parceiro__logo"></div><h3>Shopping na<br>Zona Sul de SP</h3></div>
+        <div class="parceiro"><div class="parceiro__logo" data-anim="bloco"></div><h3 data-anim="texto">Estúdio de<br>tatuagem</h3></div>
+        <div class="parceiro"><div class="parceiro__logo" data-anim="bloco"></div><h3 data-anim="texto">Sindicato dos<br>professores do<br>ABC</h3></div>
+        <div class="parceiro"><div class="parceiro__logo" data-anim="bloco"></div><h3 data-anim="texto">Shopping na<br>Zona Sul de SP</h3></div>
       </div>
-      <p class="parcerias__p3">Precisamos muito de mais parcerias! Você pode nos ajudar muito promovendo nossos eventos em seus estabelecimentos! Gostou da nossa ideia?</p>
-      <a class="btn btn--creme-l" href="#" data-whats="Olá, NIPA! Gostaria de propor uma parceria para eventos.">Entre em contato conosco</a>
+      <p class="parcerias__p3" data-anim="texto">Precisamos muito de mais parcerias! Você pode nos ajudar muito promovendo nossos eventos em seus estabelecimentos! Gostou da nossa ideia?</p>
+      <a class="btn btn--creme-l" data-anim="bloco" href="#" data-whats="Olá, NIPA! Gostaria de propor uma parceria para eventos.">Entre em contato conosco</a>
       </div>
     </section>
 
     <section class="loja">
       <img data-som="gato" src="assets/Asset%2014Imagens.png" alt="Gato empurrando um carrinho de compras">
       <div class="grupo-texto">
-      <h2>Compre algum item<br>em nossa loja!</h2>
-      <p>Você também pode nos ajudar adquirindo algum dos itens que vendemos em nossa loja!</p>
-      <a class="btn btn--verde" href="#">Acesse a nossa loja</a>
+      <h2 data-anim="titulo">Compre algum item<br>em nossa loja!</h2>
+      <p data-anim="correnteza">Você também pode nos ajudar adquirindo algum dos itens que vendemos em nossa loja!</p>
+      <a class="btn btn--verde" data-anim="bloco" href="#">Acesse a nossa loja</a>
       </div>
     </section>
 
     <section class="faixa faixa--rifas">
       <article class="ajuda ajuda--rifas">
-        <img data-som="gato" src="assets/Asset%2026Imagens.png" alt="Gato segurando um bilhete de rifa">
+        <img data-som="gato" data-ancora="cima-esq" src="assets/Asset%2026Imagens.png" alt="Gato segurando um bilhete de rifa">
         <div class="grupo-texto grupo-texto--dir">
-        <h2>Rifas em prol da<br>causa animal</h2>
-        <p>Organizamos rifas com prêmios de parceiros para ajudar nossos resgatados. Entre em contato e confira as rifas abertas!</p>
-        <a class="btn btn--creme-l" href="#" data-whats="Olá, NIPA! Quero participar da rifa. Qual está aberta no momento?">Quero participar</a>
+        <h2 data-anim="titulo">Rifas em prol da<br>causa animal</h2>
+        <p data-anim="texto">Organizamos rifas com prêmios de parceiros para ajudar nossos resgatados. Entre em contato e confira as rifas abertas!</p>
+        <a class="btn btn--creme-l" data-anim="bloco" href="#" data-whats="Olá, NIPA! Quero participar da rifa. Qual está aberta no momento?">Quero participar</a>
         </div>
       </article>
     </section>
@@ -147,6 +148,7 @@
 
   <script src="js/sons.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/animacoes.js"></script>
   <script src="js/qrcode.js"></script>
   <script src="js/pix.js"></script>
   <script src="js/ajudar.js"></script>
