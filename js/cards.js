@@ -1,7 +1,7 @@
 /*
  * Cards verticais de "Amigos salvos." e "Adote Um Amigo."
- * Cachorro = fundo verde + orelhas caídas; gato = fundo laranja + orelhas em
- * triângulo. Círculo atrás do animal sempre bege. Adotado = fundo claro.
+ * Cachorro = fundo verde; gato = fundo laranja.
+ * Círculo atrás do animal sempre bege. Adotado = fundo claro.
  * Tocar no card faz o animal latir/miar; tocar na foto também a "aperta".
  * Em "Adote Um Amigo" há filtros e ordenação.
  */
@@ -132,7 +132,6 @@ window.NIPA_DADOS.then((animais) => {
     const salvo = Store.estaSalvo(a.id), fixado = Store.estaFixado(a.id), avisar = Store.estaNotificado(a.id);
     return `
       <article class="ca ca--${a.especie}${a.adotado ? " ca--adotado" : ""}" data-card="${a.id}" data-especie="${a.especie}">
-        <span class="orelha orelha--e" aria-hidden="true"></span><span class="orelha orelha--d" aria-hidden="true"></span>
         <button class="ca__foto" type="button" data-ficha="${a.id}" aria-label="Ver ficha de ${a.nome}">${moldura(a)}</button>
         <h2 class="ca__nome">${a.nome}</h2>
         <p class="ca__info">${juntar(a)}</p>

@@ -518,7 +518,7 @@ body > main, body > .footer { will-change: auto; }
 .missao .caixa { background: var(--verde); }
 
 /* =========================================================
-   INTERATIVIDADE (bolhas, orelhas, filtros, sons)
+   INTERATIVIDADE (bolhas, filtros, sons)
    ========================================================= */
 
 /* ---------- Home: cão e gato do mesmo tamanho, na frente dos cards sem cobrir o texto ---------- */
@@ -540,7 +540,9 @@ body > main, body > .footer { will-change: auto; }
   font-size: 1.55rem; line-height: 1.85rem; font-weight: 700; will-change: transform;
   box-shadow: 0 0.8rem 2rem rgba(47, 56, 24, .2); transition: opacity .3s ease;
 }
-.bolha:nth-of-type(2) { width: 12.6rem; height: 12.6rem; background: var(--verde-claro); }
+.bolha:nth-of-type(2) { width: 12.6rem; height: 12.6rem; background: var(--laranja); }
+/* Antes de aparecer na tela, as bolhas ficam "murchas" (depois entram com um pop) */
+.bolhas--espera .bolha { scale: 0; }
 .bolha:nth-of-type(3) { width: 13.4rem; height: 13.4rem; }
 .bolha__titulo { transition: transform .25s ease; }
 @media (hover: hover), (any-hover: hover), (pointer: fine) { .bolha:hover .bolha__titulo { transform: scale(1.08); } }
@@ -565,8 +567,8 @@ body > main, body > .footer { will-change: auto; }
 .grade--salvos { padding-top: 8.6rem; }
 .secao-head--adote { margin-top: 3rem; }
 
-/* ---------- Cards: menores, mais espaçados, círculo bege e orelhas ---------- */
-.cards-animais { position: relative; isolation: isolate; grid-template-columns: repeat(2, 18.4rem); column-gap: 5rem; row-gap: 7.2rem; padding-top: 6.8rem; }
+/* ---------- Cards: menores, mais espaçados e círculo bege ---------- */
+.cards-animais { position: relative; grid-template-columns: repeat(2, 18.4rem); column-gap: 4.4rem; row-gap: 4.6rem; padding-top: 4.6rem; }
 .ca { min-height: 28.6rem; padding: 2rem 1.3rem 1.9rem; }
 .ca .moldura { --d: 13.4rem; --cor: var(--creme); }
 .ca--gato .moldura, .ca--gato.ca--adotado .moldura { --cor: var(--creme); }
@@ -575,23 +577,6 @@ body > main, body > .footer { will-change: auto; }
 .ca__acoes { gap: 0.6rem; }
 .ca__acoes .btn { min-width: 5rem; }
 
-.orelha { position: absolute; z-index: -1; pointer-events: none; }
-.orelha::before { content: ""; position: absolute; inset: 0; background: var(--orelha); }
-.ca--cachorro { --orelha: var(--verde); }
-.ca--gato { --orelha: var(--laranja); }
-.ca--adotado { --orelha: var(--creme); }
-.ca--adotado .orelha { filter: drop-shadow(0.13rem 0 0 var(--verde)) drop-shadow(-0.13rem 0 0 var(--verde)) drop-shadow(0 -0.13rem 0 var(--verde)); }
-/* Gato: dois triângulos em cima */
-.ca--gato .orelha { top: -2.7rem; width: 5.2rem; height: 4rem; }
-.ca--gato .orelha--e { left: 1.5rem; }
-.ca--gato .orelha--d { right: 1.5rem; }
-.ca--gato .orelha--e::before { clip-path: polygon(0 100%, 24% 6%, 32% 0, 40% 6%, 100% 100%); }
-.ca--gato .orelha--d::before { clip-path: polygon(0 100%, 60% 6%, 68% 0, 76% 6%, 100% 100%); }
-/* Cachorro: orelhas caídas nas laterais */
-.ca--cachorro .orelha { top: 0.3rem; width: 4.4rem; height: 7.6rem; }
-.ca--cachorro .orelha--e { left: -1.35rem; transform: rotate(9deg); transform-origin: 100% 0; }
-.ca--cachorro .orelha--d { right: -1.35rem; transform: rotate(-9deg); transform-origin: 0 0; }
-.ca--cachorro .orelha::before { border-radius: 42% 42% 50% 50% / 26% 26% 74% 74%; }
 
 /* ---------- Filtros e ordenação (Adote Um Amigo) ---------- */
 .filtros-area { padding: 2.6rem 3.1rem 0; }
@@ -623,3 +608,80 @@ body > main, body > .footer { will-change: auto; }
 /* ---------- Menu: liga/desliga sons ---------- */
 .menu__som { margin-top: auto; text-align: left; font-size: 1.3rem; line-height: 1.6rem; color: var(--creme); padding: 1rem 0 0.4rem; text-decoration: underline; text-underline-offset: 0.3rem; }
 .bolha-aberta[hidden] { display: none; }
+
+/* =========================================================
+   RODADA 3: imagens clicáveis, grupos de texto ancorados às imagens,
+   destaque no Ajudar, linhas em loop, "Você sabia?" com "?"
+   ========================================================= */
+
+/* Imagens de animais clicáveis (latem/miam e "apertam") */
+[data-som] { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+img[data-som]:focus-visible { outline: 0.2rem solid var(--laranja-claro); outline-offset: 0.3rem; border-radius: 1rem; }
+/* Home: área clicável só sobre a parte visível do cão e do gato (não cobre os botões dos cards) */
+.home-alvo { position: absolute; bottom: 0; z-index: 4; height: 14.4rem; border-radius: 45% 45% 0 0; }
+.home-col:first-child .home-alvo { left: 50%; width: 11rem; margin-left: -5.5rem; }
+.home-col:last-child .home-alvo { right: -2.7rem; width: 18rem; }
+
+/* ---------- Grupos "título + texto + botão" ancorados às imagens ---------- */
+.grupo-texto { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; }
+.grupo-texto--dir { margin-left: auto; align-items: flex-end; text-align: right; }
+
+/* Cards do Ajudar: o grupo de texto fica centralizado na altura do card,
+   e a imagem presa à borda do card */
+.ajuda { display: flex; align-items: center; }
+.ajuda .grupo-texto { padding: 2.2rem 2.2rem; max-width: 27rem; }
+.ajuda .grupo-texto h2, .ajuda .grupo-texto p, .ajuda .grupo-texto .btn { position: static; width: auto; }
+.ajuda .grupo-texto p { margin-top: 1.1rem; }
+.ajuda .grupo-texto .btn { margin-top: 1.7rem; }
+.ajuda--dinheiro { height: auto; min-height: 16rem; }
+.ajuda--dinheiro .grupo-texto { max-width: 32rem; }
+.ajuda--dinheiro .grupo-texto p { max-width: 23.5rem; }
+.ajuda--itens { height: auto; min-height: 20.5rem; }
+.ajuda--itens .grupo-texto { max-width: 31rem; padding-right: 2.6rem; }
+.ajuda--rifas { height: auto; min-height: 21.2rem; }
+.ajuda--rifas .grupo-texto { max-width: 27rem; padding-right: 2.6rem; }
+
+/* Trabalho voluntário: texto centralizado na altura do filhote */
+.voluntariado { display: flex; align-items: center; }
+.voluntariado__texto { padding-top: 3.2rem; padding-bottom: 3.2rem; }
+
+/* Loja: texto e gato lado a lado, alinhados pelo centro */
+.loja { display: flex; align-items: center; gap: 1.2rem; padding: 4.6rem 3.4rem 2.4rem 4.2rem; min-height: 0; }
+.loja .grupo-texto { flex: 1; min-width: 0; }
+.loja img { position: static; order: 2; flex: none; width: 14.6rem; height: auto; }
+
+/* Home — Sobre Nós: grupo centralizado na altura da seção, ao lado do cachorro */
+.sobre-nos .grupo-texto { position: absolute; left: 4.6rem; top: 50%; transform: translateY(-50%); width: 19.6rem; }
+.sobre-nos .grupo-texto h2, .sobre-nos .grupo-texto p, .sobre-nos .grupo-texto .btn { position: static; width: auto; }
+.sobre-nos .grupo-texto p { margin-top: 1.4rem; }
+.sobre-nos .grupo-texto .btn { margin-top: 2.2rem; }
+
+/* Adoção — intro: texto e imagem alinhados pelo centro */
+.adocao-intro { display: flex; align-items: center; min-height: 0; padding-top: 2rem; }
+.adocao-texto { flex: 1; width: auto; padding: 0 0 0 3.33rem; }
+.adocao-intro__img { position: static; flex: none; width: 22.4rem; }
+
+/* ---------- Ajudar: opção do centro em destaque ---------- */
+.ajuda, .voluntariado__texto, .parcerias__conteudo, .loja .grupo-texto { transform-origin: 50% 50%; will-change: scale; }
+.ajuda { transition: box-shadow .35s ease; }
+.ajuda.em-destaque { box-shadow: 0 1.4rem 3.2rem rgba(47, 56, 24, .22); }
+
+/* ---------- Adoção: linhas em loop + botão salvar ao lado do nome ---------- */
+.grade { scroll-snap-type: none; }
+.grade > .animal { scroll-snap-align: none; }
+.animal__foto { display: block; border-radius: 50%; }
+.animal__rodape { display: flex; justify-content: center; align-items: center; gap: 0.7rem; margin-top: 1.8rem; }
+.animal__rodape .animal__nome { margin-top: 0; }
+.animal__salvar { width: 2rem; height: 2rem; flex: none; }
+.faixa-salvos .animal__salvar { --c: var(--creme); --f: var(--verde); }
+
+/* ---------- "Você sabia?": caixa com "?" que vira e revela ---------- */
+.fact { position: relative; height: 11.8rem; padding: 0; border: 0; background: none; color: var(--creme); text-align: left; perspective: 80rem; font: inherit; }
+.fact__giro { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .65s cubic-bezier(.3,.7,.3,1.25); }
+.fact[aria-pressed="true"] .fact__giro { transform: rotateY(180deg); }
+.fact__frente, .fact__verso { position: absolute; inset: 0; border-radius: 1.2rem; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; }
+.fact__frente { border: 0.13rem solid var(--creme); align-items: center; justify-content: center; font-size: 5.4rem; line-height: 1; font-weight: 700; transition: background-color .2s; }
+.fact__verso { transform: rotateY(180deg); background: var(--creme); color: var(--verde); flex-direction: column; justify-content: center; padding: 1.4rem 1.5rem; font-size: 1.18rem; line-height: 1.38rem; }
+.fact__verso strong { display: block; font-size: 2.4rem; line-height: 2.5rem; margin-bottom: 0.4rem; }
+@media (hover: hover), (any-hover: hover), (pointer: fine) { .fact:hover .fact__frente { background: rgba(255, 242, 203, .12); } }
+.fact:active .fact__giro { scale: .97; }

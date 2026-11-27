@@ -85,11 +85,29 @@
     else if (!deve) rodando = false;
   }
 
+  // "Pop" de entrada: na primeira vez que a seção aparece, as bolhas
+  // surgem uma a uma, crescendo e quicando
+  let apareceu = false;
+  function pop() {
+    apareceu = true;
+    area.classList.remove("bolhas--espera");
+    if (semMovimento) return;
+    bolhas.forEach((b, i) => {
+      b.animate([
+        { scale: 0, opacity: 0 },
+        { scale: 1.18, opacity: 1, offset: 0.55 },
+        { scale: 0.94, offset: 0.8 },
+        { scale: 1 },
+      ], { duration: 650, delay: 140 + i * 170, easing: "cubic-bezier(.3,.7,.4,1)", fill: "backwards" });
+    });
+  }
+
   // Só anima quando a seção está na tela (economiza bateria)
   new IntersectionObserver((entradas) => {
     visivel = entradas[0].isIntersecting;
+    if (visivel && !apareceu && entradas[0].intersectionRatio >= 0.35) pop();
     atualizarMovimento();
-  }).observe(area);
+  }, { threshold: [0, 0.35] }).observe(area);
 
   window.addEventListener("resize", () => { medir(); corpos.forEach((c) => { c.raio = c.el.offsetWidth / 2; }); });
 

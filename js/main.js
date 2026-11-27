@@ -51,9 +51,9 @@
       <a class="menu__sub" href="adote.html">Adote um amigo</a>
       <a class="menu__sub" href="salvos.html">Amigos salvos</a>
       <a href="ajudar.html">Ajudar</a>
-      <button class="menu__som" type="button" aria-pressed="true" data-som>Sons dos animais: <strong>ligados</strong></button>`;
+      <button class="menu__som" type="button" aria-pressed="true" data-som-toggle>Sons dos animais: <strong>ligados</strong></button>`;
     // Liga/desliga os latidos e miados
-    const som = nav.querySelector("[data-som]");
+    const som = nav.querySelector("[data-som-toggle]");
     const mostrarSom = () => {
       const on = !window.NIPASom || window.NIPASom.ligado();
       som.setAttribute("aria-pressed", String(on));
@@ -223,6 +223,51 @@
     }
   }
 
+  // ---------- Imagens de animais clicáveis: "apertam" e latem/miam ----------
+  // Qualquer elemento com data-som="cachorro" | "gato" | "ambos".
+  // data-alvo (opcional) = seletor da imagem que deve "apertar" (quando o
+  // clique é numa área invisível por cima do animal).
+  function apertarImagem(el) {
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    el.animate([
+      { scale: 1 }, { scale: 0.9, offset: 0.22 }, { scale: 1.06, offset: 0.55 }, { scale: 0.98, offset: 0.78 }, { scale: 1 },
+    ], { duration: 520, easing: "ease-out" });
+  }
+  function ligarImagensSom() {
+    const tocar = (alvo) => {
+      const som = alvo.dataset.som;
+      apertarImagem(alvo.dataset.alvo ? document.querySelector(alvo.dataset.alvo) : alvo);
+      if (!window.NIPASom) return;
+      if (som === "ambos") { window.NIPASom.tocar("cachorro"); setTimeout(() => window.NIPASom.tocar("gato"), 380); }
+      else window.NIPASom.tocar(som);
+    };
+    document.querySelectorAll("[data-som]").forEach((el) => {
+      if (el.tagName === "IMG") {
+        el.setAttribute("role", "button");
+        el.tabIndex = 0;
+        el.setAttribute("aria-label", `${el.alt}. ${el.dataset.som === "gato" ? "Miau!" : el.dataset.som === "ambos" ? "Au au! Miau!" : "Au au!"}`);
+      }
+    });
+    document.addEventListener("click", (e) => {
+      const alvo = e.target.closest("[data-som]");
+      if (alvo) tocar(alvo);
+    });
+    document.addEventListener("keydown", (e) => {
+      if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("img[data-som]")) { e.preventDefault(); tocar(e.target); }
+    });
+  }
+
+  // ---------- "Você sabia?": caixa com "?" que vira e revela a curiosidade ----------
+  function ligarCuriosidades() {
+    document.querySelectorAll(".fact").forEach((b) => {
+      b.addEventListener("click", () => {
+        const aberta = b.getAttribute("aria-pressed") !== "true";
+        b.setAttribute("aria-pressed", String(aberta));
+        b.setAttribute("aria-label", aberta ? b.querySelector(".fact__verso").textContent : "Curiosidade: toque para revelar");
+      });
+    });
+  }
+
   // Header fixo: ganha uma sombra suave quando a página rola
   function ligarHeader() {
     const h = document.querySelector(".header");
@@ -235,6 +280,8 @@
   document.addEventListener("DOMContentLoaded", () => {
     ligarHeader();
     ligarRolagem();
+    ligarImagensSom();
+    ligarCuriosidades();
     montarMenu();
     ligarNewsletter();
     ligarWhats();

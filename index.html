@@ -59,6 +59,7 @@
             <a class="btn btn--creme" href="adocao.html">Adote Aqui</a>
           </article>
           <img class="home-cao" src="assets/Asset%202Imagens.png" alt="Cachorro preto e branco sorrindo">
+          <button class="home-alvo" type="button" data-som="cachorro" data-alvo=".home-cao" aria-label="Cachorro preto e branco. Au au!"></button>
         </div>
         <div class="home-col">
           <article class="mini-card mini-card--laranja">
@@ -67,22 +68,25 @@
             <a class="btn btn--creme-l" href="ajudar.html">Ajude Aqui</a>
           </article>
           <img class="home-gato" src="assets/Asset%203Imagens.png" alt="Gato laranja recebendo carinho na cabeça">
+          <button class="home-alvo" type="button" data-som="gato" data-alvo=".home-gato" aria-label="Gato laranja. Miau!"></button>
         </div>
       </div>
     </section>
 
     <section class="sobre-nos" aria-labelledby="sobre-nos-titulo">
-      <img class="sobre-nos__img" src="assets/sobre-nos.png" alt="Cachorro border collie olhando curioso">
+      <img class="sobre-nos__img" data-som="cachorro" src="assets/sobre-nos.png" alt="Cachorro border collie olhando curioso">
+      <div class="grupo-texto">
       <h2 id="sobre-nos-titulo">Sobre<br>Nós</h2>
       <p>Somos um grupo de amigos sonhadores e amantes dos animais. A vida felizmente nos uniu e no ano de 2018 conseguimos firmar nosso projeto independente e tão sonhado de proteção animal.</p>
       <a class="btn btn--creme-l" href="sobre.html">Nossa História</a>
+      </div>
     </section>
 
     <section class="home-extra">
       <div class="missao" aria-labelledby="missao-titulo">
         <h2 id="missao-titulo">Missão e valores</h2>
         <p class="missao__dica">Toque em uma bolha para ler</p>
-        <div class="bolhas" data-bolhas>
+        <div class="bolhas bolhas--espera" data-bolhas>
           <button class="bolha" type="button" aria-expanded="false"><span class="bolha__titulo">Nossa missão</span><span class="bolha__texto" hidden>Fazer a diferença e tentar contribuir para acabarmos com o sofrimento animal, não permitindo o abandono e os maus tratos, que infelizmente são comuns em nossa sociedade.</span></button>
           <button class="bolha" type="button" aria-expanded="false"><span class="bolha__titulo">Como trabalhamos</span><span class="bolha__texto" hidden>De forma voluntária, ajudando não só os nossos animais resgatados, mas também contribuindo e compartilhando nosso conhecimento, força de trabalho e doações com protetores carentes de São Paulo.</span></button>
           <button class="bolha" type="button" aria-expanded="false"><span class="bolha__titulo">Por que precisamos de você</span><span class="bolha__texto" hidden>Dependemos apenas de doações para continuarmos na luta por eles. Precisamos muito da ajuda, seja financeira ou física.</span></button>

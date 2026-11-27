@@ -1,6 +1,6 @@
 /*
- * Latidos e miados sintetizados no próprio navegador (Web Audio API):
- * não dependem de arquivos de áudio. Uso: NIPASom.tocar("gato" | "cachorro").
+ * Latidos e miados: usa os arquivos da pasta sons/ (e, se não carregarem,
+ * um som sintetizado no próprio navegador). Uso: NIPASom.tocar("gato" | "cachorro").
  * Dá para desligar pelo menu (fica salvo no navegador).
  */
 (function () {
@@ -99,15 +99,55 @@
     osc.stop(t + dur + 0.02); lfo.stop(t + dur + 0.02);
   }
 
+  // ---------- Sons gravados (pasta sons/) ----------
+  const ARQUIVOS = { cachorro: "sons/latido-unico.mp3", gato: "sons/meow-1.mp3" };
+  const buffers = {};   // áudio já decodificado (Web Audio)
+  const carregando = {};
+
+  function carregar(especie) {
+    const c = contexto();
+    if (!c || buffers[especie] || carregando[especie]) return carregando[especie];
+    carregando[especie] = fetch(ARQUIVOS[especie])
+      .then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+      .then((dados) => new Promise((ok, erro) => c.decodeAudioData(dados, ok, erro)))
+      .then((buf) => { buffers[especie] = buf; return buf; })
+      .catch(() => { buffers[especie] = null; return null; });
+    return carregando[especie];
+  }
+
+  function tocarArquivo(c, buf, tom) {
+    const src = c.createBufferSource();
+    src.buffer = buf;
+    src.playbackRate.value = tom; // cada clique soa um pouquinho diferente
+    const g = c.createGain();
+    g.gain.value = 0.9;
+    src.connect(g).connect(c.destination);
+    src.start();
+  }
+
+  function tocarSintetizado(c, especie, tom) {
+    const t = c.currentTime + 0.01;
+    if (especie === "gato") miado(c, t, tom);
+    else latido(c, t, tom);
+  }
+
   function tocar(especie) {
     if (!ligado()) return;
     const c = contexto();
     if (!c) return;
-    const t = c.currentTime + 0.01;
-    const tom = 0.92 + Math.random() * 0.16; // cada clique soa um pouquinho diferente
-    if (especie === "gato") miado(c, t, tom);
-    else { latido(c, t, tom); if (Math.random() < 0.45) latido(c, t + 0.22, tom * 1.04); }
+    especie = especie === "gato" ? "gato" : "cachorro";
+    const tom = 0.94 + Math.random() * 0.12;
+    if (buffers[especie]) return tocarArquivo(c, buffers[especie], tom);
+    // Primeira vez: carrega o arquivo; se não der, usa o som sintetizado
+    Promise.resolve(carregar(especie)).then((buf) => {
+      if (buf) tocarArquivo(c, buf, tom); else tocarSintetizado(c, especie, tom);
+    });
   }
+
+  // Pré-carrega os dois sons no primeiro toque/clique na página (sem atraso depois)
+  const preCarregar = () => { if (ligado()) { carregar("cachorro"); carregar("gato"); } };
+  window.addEventListener("pointerdown", preCarregar, { once: true, passive: true });
+  window.addEventListener("keydown", preCarregar, { once: true });
 
   window.NIPASom = { tocar, ligado, definir };
 })();
