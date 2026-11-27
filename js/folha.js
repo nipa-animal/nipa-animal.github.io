@@ -68,8 +68,8 @@
   const juntar = (a) => `${a.idade}, ${String(a.sexo).toLowerCase()}, ${a.raca}`;
 
   // Foto "apertada": encolhe e volta como uma mola + latido/miado
-  function apertar(el, especie) {
-    if (window.NIPASom) window.NIPASom.tocar(especie);
+  function apertar(el, especie, mudo) {
+    if (!mudo && window.NIPASom) window.NIPASom.tocar(especie);
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     // Só a foto quica (presa pela base e um pouco maior que o círculo, ver CSS),
     // então a borda cortada da foto nunca aparece e o animal não sai da forma
@@ -444,5 +444,15 @@
     });
   }
 
-  window.NIPAFolha = { Store, abrir, fechar, apertar, ICONES, MARCADOR, PATA, moldura, juntar, porId };
+  // Entrada "do horizonte": o elemento surge de trás de uma linha na própria base,
+  // como se nascesse do chão (sobe e é revelado de cima para baixo ao mesmo tempo)
+  const C = (b) => `inset(-60% -30% ${b} -30%)`;
+  const HORIZONTE = [
+    { translate: "0 100%", clipPath: C("100%") },
+    { translate: "0 -3%", clipPath: C("0%"), offset: 0.62 },
+    { translate: "0 0.8%", clipPath: C("0%"), offset: 0.82 },
+    { translate: "0 0", clipPath: C("0%") },
+  ];
+
+  window.NIPAFolha = { Store, abrir, fechar, apertar, ICONES, MARCADOR, PATA, moldura, juntar, porId, HORIZONTE };
 })();

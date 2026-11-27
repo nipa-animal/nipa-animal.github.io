@@ -10,7 +10,7 @@
 window.NIPA_DADOS.then((animais) => {
   "use strict";
 
-  const { Store, abrir, apertar, moldura, PATA } = window.NIPAFolha;
+  const { Store, abrir, apertar, moldura, PATA, HORIZONTE } = window.NIPAFolha;
   const gradeAdote = document.querySelector("[data-grade-adote]");
   const gradeSalvos = document.querySelector("[data-grade-salvos]");
   const AUMENTO = 0.21;       // o da ponta fica 21% maior
@@ -62,15 +62,10 @@ window.NIPA_DADOS.then((animais) => {
       grade.classList.toggle("grade--fade", estado.loop || resta > 8);
     }
 
-    // Os animais aparecem um de cada vez, com um quique bem suave
+    // Os animais surgem do "horizonte" um de cada vez, com um quique bem suave
     function quicarEntrada() {
       if (semMovimento) return;
-      [...grade.querySelectorAll(".animal")].slice(0, 8).forEach((el, i) => el.animate([
-        { translate: "0 2.6rem", opacity: 0 },
-        { translate: "0 -0.45rem", opacity: 1, offset: 0.6 },
-        { translate: "0 0.12rem", offset: 0.82 },
-        { translate: "0 0", opacity: 1 },
-      ], { duration: 950, delay: 120 + i * 170, easing: "cubic-bezier(.33,.7,.4,1)", fill: "backwards" }));
+      [...grade.querySelectorAll(".animal")].slice(0, 8).forEach((el, i) => el.animate(HORIZONTE, { duration: 1100, delay: 120 + i * 170, easing: "cubic-bezier(.33,.7,.4,1)", fill: "backwards" }));
     }
 
     function preencher() {
@@ -146,12 +141,7 @@ window.NIPA_DADOS.then((animais) => {
       grade.scrollLeft = alvo;
       estado.pos = grade.scrollLeft;
       estado.pausadoAte = performance.now() + 1600;
-      copias.forEach((el) => el.animate([
-        { translate: "0 2.6rem", opacity: 0 },
-        { translate: "0 -0.45rem", opacity: 1, offset: 0.6 },
-        { translate: "0 0.12rem", offset: 0.82 },
-        { translate: "0 0", opacity: 1 },
-      ], { duration: 950, easing: "cubic-bezier(.33,.7,.4,1)" }));
+      copias.forEach((el) => el.animate(HORIZONTE, { duration: 1100, easing: "cubic-bezier(.33,.7,.4,1)" }));
     }
     return { preencher, grade, destacar };
   }
@@ -196,7 +186,7 @@ window.NIPA_DADOS.then((animais) => {
     }
     if (!e.target.closest("[data-ficha]")) return;
     // A foto encolhe e volta (com latido/miado) e logo depois a ficha abre
-    apertar(item.querySelector(".moldura"), a ? a.especie : "cachorro");
+    apertar(item.querySelector(".moldura"), a ? a.especie : "cachorro", true); // sem som ao abrir a ficha
     setTimeout(() => abrirFicha(item), 260);
   });
 

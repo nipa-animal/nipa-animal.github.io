@@ -2,13 +2,13 @@
  * Cards verticais de "Amigos salvos." e "Adote Um Amigo."
  * Cachorro = fundo verde; gato = fundo laranja.
  * Círculo atrás do animal sempre bege. Adotado = fundo claro.
- * Tocar no card faz o animal latir/miar; tocar na foto também a "aperta".
+ * Tocar na foto a "aperta" (sem som) e abre a ficha.
  * Em "Adote Um Amigo" há filtros e ordenação.
  */
 window.NIPA_DADOS.then((animais) => {
   "use strict";
 
-  const { Store, abrir, apertar, moldura, juntar } = window.NIPAFolha;
+  const { Store, abrir, apertar, moldura, juntar, HORIZONTE } = window.NIPAFolha;
   const lista = document.querySelector("[data-cards]");
   const pagina = lista.dataset.cards; // "salvos" ou "adote"
   const semMovimento = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -210,12 +210,12 @@ window.NIPA_DADOS.then((animais) => {
     const card = e.target.closest("[data-card]");
     if (!card) return;
     const b = e.target.closest("button");
-    // Tocar no card (fora dos botões de ação) faz o animal latir/miar
-    if (!b) { window.NIPASom && window.NIPASom.tocar(card.dataset.especie); return; }
+    // Tocar no card fora dos botões não faz nada (sem som)
+    if (!b) return;
     if (b.disabled) return;
     if (b.dataset.ficha) {
       const m = card.querySelector(".moldura");
-      apertar(m, card.dataset.especie);
+      apertar(m, card.dataset.especie, true); // sem som ao abrir a ficha
       setTimeout(() => abrir("ficha", b.dataset.ficha, render, m, ids()), 260);
     }
     else if (b.dataset.adotar) abrir("questionario", b.dataset.adotar, render, b);
@@ -249,11 +249,7 @@ window.NIPA_DADOS.then((animais) => {
         const el = e.target;
         obs.unobserve(el);
         el.classList.remove("ca--espera");
-        el.animate([
-          { transform: "translateY(3.5rem)", opacity: 0 },
-          { transform: "translateY(-0.3rem)", opacity: 1, offset: 0.7 },
-          { transform: "none", opacity: 1 },
-        ], { duration: 800, delay: 150 * fila++, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+        el.animate(HORIZONTE, { duration: 1100, delay: 150 * fila++, easing: "cubic-bezier(.25,.8,.35,1)", fill: "backwards" });
       });
       clearTimeout(zerar);
       zerar = setTimeout(() => { fila = 0; }, 300);

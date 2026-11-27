@@ -736,11 +736,9 @@ img[data-som]:focus-visible { outline: 0.2rem solid var(--laranja-claro); outlin
 [data-anim].anim-pronto:not(.anim-entrou) .am { transform: translateY(100%); }
 [data-anim].anim-pronto:not(.anim-entrou) .at { transform: translateY(110%); }
 
-/* Correnteza: as linhas entram da esquerda para a direita, bem rápido */
-[data-anim="correnteza"].anim-pronto .am { overflow: visible; transition: none; transform: none; }
-[data-anim="correnteza"].anim-pronto .at { transition: transform .5s cubic-bezier(.2,.8,.2,1) calc(var(--b, 0s) + var(--i, 0) * .035s + var(--w, 0) * .004s), opacity .35s ease calc(var(--b, 0s) + var(--i, 0) * .035s + var(--w, 0) * .004s); }
-[data-anim="correnteza"].anim-pronto:not(.anim-entrou) .am { transform: none; }
-[data-anim="correnteza"].anim-pronto:not(.anim-entrou) .at { transform: translateX(-2rem); opacity: 0; }
+/* Correnteza: o bloco inteiro sobe, bem suave (só transform/opacity = fluido no celular) */
+[data-anim="correnteza"].anim-pronto { transition: transform 1.3s var(--expo) var(--b, 0s), opacity .9s ease var(--b, 0s); }
+[data-anim="correnteza"].anim-pronto:not(.anim-entrou) { transform: translateY(2.4rem); opacity: 0; }
 
 /* Blocos (botões, círculos, fotos): sobem de dentro de uma máscara invisível */
 [data-anim="bloco"].anim-pronto { transition: transform 1.5s var(--expo) var(--b, 0s), clip-path 1.5s var(--expo) var(--b, 0s), opacity .5s ease var(--b, 0s); }
@@ -752,7 +750,7 @@ img[data-som]:focus-visible { outline: 0.2rem solid var(--laranja-claro); outlin
 
 /* ===== Rodada 5 ===== */
 .ca--espera { opacity: 0; }
-.ajuda--itens .grupo-texto { max-width: 27rem; }
+.ajuda--itens .grupo-texto { max-width: 30rem; }
 /* Adoção: o texto descritivo sobe todo de uma vez */
 .adocao-texto .am, .adocao-texto .at { --i: 0 !important; }
 /* Ajudar: título dos remédios mais largo, em 2 linhas */

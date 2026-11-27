@@ -4,7 +4,7 @@
  *   "titulo"     – cada linha sobe de dentro de uma máscara (como no site de referência:
  *                  máscara 100%→0 em 2s, texto 110%→0 em 1,5s, curva expo.out, 0,1s entre linhas)
  *   "texto"      – o mesmo efeito, começando um pouco depois do título
- *   "correnteza" – as linhas entram deslizando para a direita, bem rápido
+ *   "correnteza" – o bloco inteiro sobe suave (leve, sem quebrar em palavras)
  *   "bloco"      – botões, círculos e fotos sobem de dentro de uma máscara
  *   "letras"     – cada letra pula para o lugar, uma de cada vez (o "LOGO" do Sobre)
  * data-anim-atraso="0.3" acrescenta um atraso (segundos).
@@ -63,7 +63,7 @@
     // anima até a posição escondida e a entrada de quem já está na tela quase não aparece)
     el.style.transition = "none";
     el.classList.add("anim-pronto");
-    if (tipo === "titulo" || tipo === "texto" || tipo === "correnteza") {
+    if (tipo === "titulo" || tipo === "texto") {
       envolverPalavras(el);
       numerarLinhas(el);
     } else if (tipo === "letras") {
@@ -99,10 +99,17 @@
     // "veria" entrando na tela: para eles, observamos o elemento pai.
     const vigiado = new Map();
     const obs = new IntersectionObserver((entradas) => {
+      // Quem entra junto sobe em sequência (um pouquinho depois do anterior)
+      let k = 0;
       entradas.forEach((e) => {
         if (!e.isIntersecting) return;
         obs.unobserve(e.target);
-        (vigiado.get(e.target) || []).forEach(entrar);
+        (vigiado.get(e.target) || []).forEach((el) => {
+          if (el.dataset.anim === "correnteza") {
+            el.style.setProperty("--b", (parseFloat(el.style.getPropertyValue("--b")) || 0) + k++ * 0.09 + "s");
+          }
+          entrar(el);
+        });
       });
     }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
     alvos.forEach((el) => {
@@ -115,9 +122,9 @@
   // Espera as fontes (para medir as linhas) e a troca de página terminar, para que as
   // animações de quem abre a página aconteçam à vista e não escondidas pela transição.
   const espera = (ms) => new Promise((r) => setTimeout(r, ms));
-  const pronto = () => Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), espera(1200)])
+  const pronto = () => Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), espera(450)])
     .then(() => new Promise((r) => requestAnimationFrame(() => r())))
-    .then(() => window.NIPA_VT ? Promise.race([window.NIPA_VT.catch(() => {}), espera(800)]) : null)
+    .then(() => window.NIPA_VT ? Promise.race([window.NIPA_VT.catch(() => {}), espera(300)]) : null)
     .then(iniciar);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", pronto); else pronto();
 })();
