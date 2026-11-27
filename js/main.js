@@ -50,7 +50,23 @@
       <a href="adocao.html">Adoção</a>
       <a class="menu__sub" href="adote.html">Adote um amigo</a>
       <a class="menu__sub" href="salvos.html">Amigos salvos</a>
-      <a href="ajudar.html">Ajudar</a>`;
+      <a href="ajudar.html">Ajudar</a>
+      <button class="menu__som" type="button" aria-pressed="true" data-som>Sons dos animais: <strong>ligados</strong></button>`;
+    // Liga/desliga os latidos e miados
+    const som = nav.querySelector("[data-som]");
+    const mostrarSom = () => {
+      const on = !window.NIPASom || window.NIPASom.ligado();
+      som.setAttribute("aria-pressed", String(on));
+      som.querySelector("strong").textContent = on ? "ligados" : "desligados";
+    };
+    som.addEventListener("click", () => {
+      if (!window.NIPASom) return;
+      const on = !window.NIPASom.ligado();
+      window.NIPASom.definir(on);
+      mostrarSom();
+      if (on) window.NIPASom.tocar(Math.random() < 0.5 ? "gato" : "cachorro");
+    });
+    mostrarSom();
     // Destaca a página atual também no menu
     const nome = location.pathname.split("/").pop() || "index.html";
     nav.querySelectorAll("a[href]:not(.menu__logo)").forEach((a) => {

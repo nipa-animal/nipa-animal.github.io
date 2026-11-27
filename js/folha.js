@@ -67,6 +67,19 @@
     </div>`;
   const juntar = (a) => `${a.idade}, ${String(a.sexo).toLowerCase()}, ${a.raca}`;
 
+  // Foto "apertada": encolhe e volta como uma mola + latido/miado
+  function apertar(el, especie) {
+    if (window.NIPASom) window.NIPASom.tocar(especie);
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    el.animate([
+      { transform: "scale(1)" },
+      { transform: "scale(.86)", offset: 0.22 },
+      { transform: "scale(1.08)", offset: 0.55 },
+      { transform: "scale(.97)", offset: 0.78 },
+      { transform: "scale(1)" },
+    ], { duration: 520, easing: "ease-out" });
+  }
+
   // ---------- Folha sobreposta ----------
   const fundo = document.querySelector("[data-folha-bg]");
   const folha = document.querySelector("[data-folha]");
@@ -104,10 +117,9 @@
     const salvo = Store.estaSalvo(a.id);
     return `
       <button class="folha__fechar" type="button" data-fechar aria-label="Fechar"></button>
-      <h2 class="folha__titulo" id="folha-titulo">Sobre</h2>
       <div class="ficha__topo">
-        ${moldura(a)}
-        <h3 class="ficha__nome">${PATA}<span>${a.nome}</span></h3>
+        <button class="ficha__foto" type="button" data-apertar="${a.especie}" aria-label="${a.especie === "gato" ? "Miau!" : "Au au!"}">${moldura(a)}</button>
+        <h2 class="ficha__nome" id="folha-titulo">${PATA}<span>${a.nome}</span></h2>
         <ul class="ficha__dados">
           <li><strong>idade:</strong> ${a.idade}</li>
           <li><strong>sexo:</strong> ${String(a.sexo).toLowerCase()}</li>
@@ -392,6 +404,8 @@
     navProx.addEventListener("click", () => irPara(1));
     fundo.addEventListener("click", (e) => {
       if (e.target === fundo || e.target.closest("[data-fechar]")) return fechar();
+      const foto = e.target.closest("[data-apertar]");
+      if (foto) return apertar(foto.querySelector(".moldura"), foto.dataset.apertar);
       if (e.target.closest("[data-ver-ficha]")) return mostrar(htmlFicha(atual), "ficha");
       const salvar = e.target.closest("[data-salvar]");
       if (salvar) {
@@ -427,5 +441,5 @@
     });
   }
 
-  window.NIPAFolha = { Store, abrir, fechar, ICONES, MARCADOR, PATA, moldura, juntar, porId };
+  window.NIPAFolha = { Store, abrir, fechar, apertar, ICONES, MARCADOR, PATA, moldura, juntar, porId };
 })();

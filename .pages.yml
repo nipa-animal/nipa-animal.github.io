@@ -37,10 +37,19 @@ content:
         type: boolean
         default: false
         description: Marque quando o animal for adotado. Ele sai da lista de adoção e aparece como "Adotado." para quem o salvou.
+      - name: porte
+        label: Porte
+        type: select
+        options:
+          values: [Pequeno, Médio, Grande]
+      - name: adicionado
+        label: Data de chegada ao site
+        type: date
+        description: Usada para mostrar os animais "recentemente adicionados" primeiro.
       - name: idade
         label: Idade
         type: string
-        description: Ex.: 2 anos, 8 meses.
+        description: Escreva em anos ou meses (ex.: 2 anos, 8 meses). Usada no filtro filhote/adulto/sênior.
       - name: sexo
         label: Sexo
         type: select

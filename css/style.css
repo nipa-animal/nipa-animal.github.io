@@ -516,3 +516,110 @@ body > main, body > .footer { will-change: auto; }
 /* Missão e valores em verde (os avisos continuam em laranja) */
 .missao h2 { color: var(--verde); }
 .missao .caixa { background: var(--verde); }
+
+/* =========================================================
+   INTERATIVIDADE (bolhas, orelhas, filtros, sons)
+   ========================================================= */
+
+/* ---------- Home: cão e gato do mesmo tamanho, na frente dos cards sem cobrir o texto ---------- */
+.home-meio { height: auto; overflow: hidden; }
+.home-cards { position: relative; left: auto; right: auto; top: auto; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3.6rem; margin: 3.9rem 2.7rem 0; }
+.home-col { position: relative; display: flex; flex-direction: column; padding-bottom: 15.8rem; }
+.home-col .mini-card { flex: 1; position: relative; z-index: 2; }
+/* As imagens ficam presas ao fundo da coluna: a cabeça entra só 1,2rem no card (na margem de baixo, longe do texto e do botão) */
+.home-cao, .home-gato { position: absolute; z-index: 3; pointer-events: none; bottom: 0; top: auto; width: auto; }
+.home-cao { height: 20rem; left: 50%; transform: translateX(-50%); }
+.home-gato { height: 18.8rem; left: auto; right: -2.7rem; transform: scaleX(-1); } /* encosta na borda da tela: o corte da mão fica escondido */
+
+/* ---------- Home: Missão e valores em bolhas flutuantes ---------- */
+.missao__dica { font-size: 1.12rem; color: var(--verde-claro); margin-top: 0.6rem; }
+.bolhas { position: relative; height: 34rem; margin-top: 1.6rem; border-radius: 2rem; background: rgba(101, 117, 60, .08); overflow: hidden; }
+.bolha {
+  position: absolute; left: 0; top: 0; width: 14rem; height: 14rem; border-radius: 50%;
+  background: var(--verde); color: var(--creme); display: grid; place-items: center; padding: 1.8rem; text-align: center;
+  font-size: 1.55rem; line-height: 1.85rem; font-weight: 700; will-change: transform;
+  box-shadow: 0 0.8rem 2rem rgba(47, 56, 24, .2); transition: opacity .3s ease;
+}
+.bolha:nth-of-type(2) { width: 12.6rem; height: 12.6rem; background: var(--verde-claro); }
+.bolha:nth-of-type(3) { width: 13.4rem; height: 13.4rem; }
+.bolha__titulo { transition: transform .25s ease; }
+@media (hover: hover), (any-hover: hover), (pointer: fine) { .bolha:hover .bolha__titulo { transform: scale(1.08); } }
+.bolha:active .bolha__titulo { transform: scale(.94); }
+.bolha--apagada { opacity: .2; }
+.bolha-aberta { position: absolute; inset: 0; z-index: 5; background: var(--verde); color: var(--creme); border-radius: inherit; padding: 3.4rem 3.2rem; display: flex; flex-direction: column; justify-content: center; }
+.bolha-aberta h3 { font-size: 2.3rem; line-height: 2.6rem; }
+.bolha-aberta p { font-size: 1.36rem; line-height: 1.7rem; margin-top: 1.2rem; }
+.bolha-aberta__fechar { position: absolute; right: 1.8rem; top: 1.6rem; width: 2.1rem; height: 2.1rem; }
+.bolha-aberta__fechar::before, .bolha-aberta__fechar::after { content: ""; position: absolute; left: 0.1rem; right: 0.1rem; top: calc(50% - 0.12rem); height: 0.24rem; border-radius: 0.2rem; background: var(--creme); transform: rotate(45deg); }
+.bolha-aberta__fechar::after { transform: rotate(-45deg); }
+
+/* ---------- Ficha sem o título "Sobre" ---------- */
+.ficha__topo { margin-top: 0; height: 21rem; pointer-events: none; }
+.ficha__foto { position: absolute; left: 2.55rem; top: 4.6rem; border-radius: 50%; pointer-events: auto; }
+.ficha__foto .moldura, .ficha__topo .ficha__foto .moldura { position: relative; left: 0; top: 0; }
+.ficha__nome { top: 4.9rem; }
+.ficha__dados { top: 8.4rem; }
+
+/* ---------- Adoção: mais espaço entre o título e os animais (nada cortado) ---------- */
+.grade { padding-top: 9.4rem; }
+.grade--salvos { padding-top: 8.6rem; }
+.secao-head--adote { margin-top: 3rem; }
+
+/* ---------- Cards: menores, mais espaçados, círculo bege e orelhas ---------- */
+.cards-animais { position: relative; isolation: isolate; grid-template-columns: repeat(2, 18.4rem); column-gap: 5rem; row-gap: 7.2rem; padding-top: 6.8rem; }
+.ca { min-height: 28.6rem; padding: 2rem 1.3rem 1.9rem; }
+.ca .moldura { --d: 13.4rem; --cor: var(--creme); }
+.ca--gato .moldura, .ca--gato.ca--adotado .moldura { --cor: var(--creme); }
+.ca--adotado .moldura::before { box-shadow: inset 0 0 0 0.13rem var(--verde); }
+.ca__nome { font-size: 2rem; line-height: 2.1rem; }
+.ca__acoes { gap: 0.6rem; }
+.ca__acoes .btn { min-width: 5rem; }
+
+.orelha { position: absolute; z-index: -1; pointer-events: none; }
+.orelha::before { content: ""; position: absolute; inset: 0; background: var(--orelha); }
+.ca--cachorro { --orelha: var(--verde); }
+.ca--gato { --orelha: var(--laranja); }
+.ca--adotado { --orelha: var(--creme); }
+.ca--adotado .orelha { filter: drop-shadow(0.13rem 0 0 var(--verde)) drop-shadow(-0.13rem 0 0 var(--verde)) drop-shadow(0 -0.13rem 0 var(--verde)); }
+/* Gato: dois triângulos em cima */
+.ca--gato .orelha { top: -2.7rem; width: 5.2rem; height: 4rem; }
+.ca--gato .orelha--e { left: 1.5rem; }
+.ca--gato .orelha--d { right: 1.5rem; }
+.ca--gato .orelha--e::before { clip-path: polygon(0 100%, 24% 6%, 32% 0, 40% 6%, 100% 100%); }
+.ca--gato .orelha--d::before { clip-path: polygon(0 100%, 60% 6%, 68% 0, 76% 6%, 100% 100%); }
+/* Cachorro: orelhas caídas nas laterais */
+.ca--cachorro .orelha { top: 0.3rem; width: 4.4rem; height: 7.6rem; }
+.ca--cachorro .orelha--e { left: -1.35rem; transform: rotate(9deg); transform-origin: 100% 0; }
+.ca--cachorro .orelha--d { right: -1.35rem; transform: rotate(-9deg); transform-origin: 0 0; }
+.ca--cachorro .orelha::before { border-radius: 42% 42% 50% 50% / 26% 26% 74% 74%; }
+
+/* ---------- Filtros e ordenação (Adote Um Amigo) ---------- */
+.filtros-area { padding: 2.6rem 3.1rem 0; }
+.filtros-barra { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.filtros-contagem { margin-left: 0.2rem; }
+.ordenar { display: flex; align-items: center; gap: 0.7rem; font-size: 1.12rem; }
+.ordenar select {
+  -webkit-appearance: none; appearance: none; height: 2.05rem; padding: 0 2.4rem 0 0.9rem;
+  border: 0.13rem solid var(--verde); border-radius: 0.4rem; color: var(--verde); font: inherit; font-size: 1.12rem; font-weight: 700;
+  background: transparent url("../assets/icone-seta-baixo.svg") no-repeat right 0.7rem center / 1rem;
+}
+.filtros { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s ease; }
+.filtros.aberto { grid-template-rows: 1fr; }
+.filtros__wrap { overflow: hidden; }
+.filtros__painel { margin-top: 1.4rem; padding: 1.8rem 1.8rem 2rem; border-radius: 1.37rem; background: rgba(101, 117, 60, .09); display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem 1.4rem; }
+.filtro-grupo { border: 0; margin: 0; padding: 0; min-width: 0; }
+.filtro-grupo legend { padding: 0; font-weight: 700; font-size: 1.18rem; margin-bottom: 0.6rem; }
+.filtro-opcoes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip {
+  height: 2.1rem; padding: 0 1rem; border-radius: 99rem; border: 0.13rem solid var(--verde); color: var(--verde);
+  font-size: 1.08rem; font-weight: 700; transition: background-color .15s, color .15s, transform .12s;
+}
+.chip[aria-pressed="true"] { background: var(--verde); color: var(--creme); }
+.chip:active { transform: scale(.94); }
+@media (hover: hover), (any-hover: hover), (pointer: fine) { .chip:hover { background: rgba(101, 117, 60, .15); } .chip[aria-pressed="true"]:hover { background: var(--verde); } }
+.filtros-resultado { margin-top: 1.2rem; font-size: 1.12rem; color: var(--verde-claro); }
+.filtros-limpar { margin-left: 0.6rem; color: var(--verde); font-weight: 700; text-decoration: underline; text-underline-offset: 0.2rem; }
+
+/* ---------- Menu: liga/desliga sons ---------- */
+.menu__som { margin-top: auto; text-align: left; font-size: 1.3rem; line-height: 1.6rem; color: var(--creme); padding: 1rem 0 0.4rem; text-decoration: underline; text-underline-offset: 0.3rem; }
+.bolha-aberta[hidden] { display: none; }

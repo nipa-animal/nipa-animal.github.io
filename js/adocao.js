@@ -73,9 +73,13 @@ window.NIPA_DADOS.then((animais) => {
     abrir("ficha", cardEl.dataset.id, render, cardEl.querySelector(".moldura"), ids);
   }
 
+  // Clique: a foto encolhe e volta (com latido/miado) e logo depois a ficha abre
   document.querySelector("main").addEventListener("click", (e) => {
     const c = e.target.closest(".grade [data-id]");
-    if (c) abrirFicha(c);
+    if (!c) return;
+    const a = animais.find((x) => x.id === c.dataset.id);
+    window.NIPAFolha.apertar(c.querySelector(".moldura"), a ? a.especie : "cachorro");
+    setTimeout(() => abrirFicha(c), 260);
   });
 
   render();

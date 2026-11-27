@@ -52,19 +52,23 @@
     <section class="home-meio">
       <p class="home-intro">O Núcleo Independente de Proteção Animal (NIPA) nasceu há muitos anos, porém foi formalizado apenas em 2018. Somos um grupo de amigos incomodados com a realidade dos animais em nossa sociedade.</p>
       <div class="home-cards">
-        <article class="mini-card mini-card--verde">
-          <h2>Adoção</h2>
-          <p>Está a procura de um melhor amigo? Então você está no lugar certo! Nossos resgatados estão aguardando por famílias carinhosas.</p>
-          <a class="btn btn--creme" href="adocao.html">Adote Aqui</a>
-        </article>
-        <article class="mini-card mini-card--laranja">
-          <h2>Ajude a Ajudar</h2>
-          <p>Nós só conseguimos ajudar protetores e animais com a sua participação! É isso mesmo, faça parte desse movimento de mudança!</p>
-          <a class="btn btn--creme-l" href="ajudar.html">Ajude Aqui</a>
-        </article>
+        <div class="home-col">
+          <article class="mini-card mini-card--verde">
+            <h2>Adoção</h2>
+            <p>Está a procura de um melhor amigo? Então você está no lugar certo! Nossos resgatados estão aguardando por famílias carinhosas.</p>
+            <a class="btn btn--creme" href="adocao.html">Adote Aqui</a>
+          </article>
+          <img class="home-cao" src="assets/Asset%202Imagens.png" alt="Cachorro preto e branco sorrindo">
+        </div>
+        <div class="home-col">
+          <article class="mini-card mini-card--laranja">
+            <h2>Ajude a Ajudar</h2>
+            <p>Nós só conseguimos ajudar protetores e animais com a sua participação! É isso mesmo, faça parte desse movimento de mudança!</p>
+            <a class="btn btn--creme-l" href="ajudar.html">Ajude Aqui</a>
+          </article>
+          <img class="home-gato" src="assets/Asset%203Imagens.png" alt="Gato laranja recebendo carinho na cabeça">
+        </div>
       </div>
-      <img class="home-cao" src="assets/Asset%202Imagens.png" alt="Cachorro preto e branco sorrindo">
-      <img class="home-gato" src="assets/Asset%203Imagens.png" alt="Gato laranja recebendo carinho na cabeça">
     </section>
 
     <section class="sobre-nos" aria-labelledby="sobre-nos-titulo">
@@ -77,18 +81,15 @@
     <section class="home-extra">
       <div class="missao" aria-labelledby="missao-titulo">
         <h2 id="missao-titulo">Missão e valores</h2>
-        <div class="caixas">
-          <div class="caixa">
-            <h3>Nossa missão</h3>
-            <p>Fazer a diferença e tentar contribuir para acabarmos com o sofrimento animal, não permitindo o abandono e os maus tratos, que infelizmente são comuns em nossa sociedade.</p>
-          </div>
-          <div class="caixa">
-            <h3>Como trabalhamos</h3>
-            <p>De forma voluntária, ajudando não só os nossos animais resgatados, mas também contribuindo e compartilhando nosso conhecimento, força de trabalho e doações com protetores carentes de São Paulo.</p>
-          </div>
-          <div class="caixa">
-            <h3>Por que precisamos de você</h3>
-            <p>Dependemos apenas de doações para continuarmos na luta por eles. Precisamos muito da ajuda, seja financeira ou física.</p>
+        <p class="missao__dica">Toque em uma bolha para ler</p>
+        <div class="bolhas" data-bolhas>
+          <button class="bolha" type="button" aria-expanded="false"><span class="bolha__titulo">Nossa missão</span><span class="bolha__texto" hidden>Fazer a diferença e tentar contribuir para acabarmos com o sofrimento animal, não permitindo o abandono e os maus tratos, que infelizmente são comuns em nossa sociedade.</span></button>
+          <button class="bolha" type="button" aria-expanded="false"><span class="bolha__titulo">Como trabalhamos</span><span class="bolha__texto" hidden>De forma voluntária, ajudando não só os nossos animais resgatados, mas também contribuindo e compartilhando nosso conhecimento, força de trabalho e doações com protetores carentes de São Paulo.</span></button>
+          <button class="bolha" type="button" aria-expanded="false"><span class="bolha__titulo">Por que precisamos de você</span><span class="bolha__texto" hidden>Dependemos apenas de doações para continuarmos na luta por eles. Precisamos muito da ajuda, seja financeira ou física.</span></button>
+          <div class="bolha-aberta" role="dialog" aria-labelledby="bolha-titulo" hidden>
+            <button class="bolha-aberta__fechar" type="button" aria-label="Fechar"></button>
+            <h3 id="bolha-titulo"></h3>
+            <p></p>
           </div>
         </div>
       </div>
@@ -115,6 +116,8 @@
     </dl>
   </footer>
 
+  <script src="js/sons.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>
