@@ -2,8 +2,8 @@
  * Página de Adoção: "Adote um amigo." e "Amigos Salvos" em linhas que giram
  * sozinhas, devagar e em loop, para mostrar todos os animais.
  * - O animal na ponta esquerda fica maior; o da direita some em fade.
- * - O giro pausa quando a pessoa toca/arrasta/rola a linha, quando a ficha
- *   está aberta ou quando a linha não está na tela, e volta sozinho depois.
+ * - O giro só para enquanto a ficha está aberta (ou quando a pessoa arrasta a linha,
+ *   ou ela não está na tela) e volta sozinho depois.
  * - Ao lado do nome há o botão de salvar.
  * - Na primeira visita da sessão, a ficha do primeiro animal abre sozinha.
  */
@@ -15,7 +15,7 @@ window.NIPA_DADOS.then((animais) => {
   const gradeSalvos = document.querySelector("[data-grade-salvos]");
   const AUMENTO = 0.21;       // o da ponta fica 21% maior
   const VELOCIDADE = 16;      // px por segundo (bem devagar)
-  const ESPERA = 3200;        // ms parado depois que a pessoa mexe na linha (ou fecha a ficha)
+  const ESPERA = 900;         // ms parado depois que a pessoa arrasta/rola a linha
   const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const porId = (id) => animais.find((a) => a.id === id);
 
@@ -98,12 +98,12 @@ window.NIPA_DADOS.then((animais) => {
       else if (direcao < 0 && grade.scrollLeft <= 1) { grade.scrollLeft += estado.volta; estado.pos = grade.scrollLeft; }
     }
 
-    // Depois que a pessoa toca, arrasta ou rola a linha: fica parada uns segundos e volta a girar
+    // Tocar num animal NÃO para a linha: ela só para enquanto a ficha está aberta.
+    // Só quando a pessoa realmente arrasta/rola a linha é que ela espera um instante,
+    // para não brigar com o dedo.
     const pausar = () => { estado.pausadoAte = performance.now() + ESPERA; };
-    grade.addEventListener("pointerdown", pausar, { passive: true });
-    grade.addEventListener("wheel", pausar, { passive: true });
-    grade.addEventListener("touchstart", pausar, { passive: true });
-    grade.addEventListener("focusin", pausar);
+    grade.addEventListener("wheel", (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) pausar(); }, { passive: true });
+    grade.addEventListener("touchmove", pausar, { passive: true });
 
     let pedido = 0;
     grade.addEventListener("scroll", () => {
@@ -120,9 +120,9 @@ window.NIPA_DADOS.then((animais) => {
     function girar(t) {
       const dt = Math.min(0.25, (t - (ultimo || t)) / 1000);
       ultimo = t;
-      // Com a ficha aberta, a pausa vai se renovando: ao fechar, espera uns segundos e volta
-      if (document.body.classList.contains("travado")) estado.pausadoAte = t + ESPERA;
-      const parado = !estado.loop || !estado.visivel || document.hidden || t < estado.pausadoAte;
+      // Parada só enquanto a ficha está aberta: ao fechar, volta a andar na hora
+      if (document.body.classList.contains("travado")) estado.pausadoAte = t;
+      const parado = !estado.loop || !estado.visivel || document.hidden || t <= estado.pausadoAte;
       if (parado) estado.pos = grade.scrollLeft; // retoma de onde a pessoa deixou
       else {
         estado.pos += direcao * VELOCIDADE * dt;

@@ -749,3 +749,7 @@ img[data-som]:focus-visible { outline: 0.2rem solid var(--laranja-claro); outlin
 /* Letras (o "LOGO" do Sobre): cada letra pula para o lugar */
 .letra { display: inline-block; }
 .bolhas--espera .bolha { scale: 0; }
+
+/* ===== Rodada 5 ===== */
+.ca--espera { opacity: 0; }
+.ajuda--itens .grupo-texto { max-width: 27rem; }

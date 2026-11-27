@@ -138,6 +138,7 @@
     // Define a direção (avançar/voltar) conforme a ordem das páginas no menu
     window.addEventListener("pagereveal", (e) => {
       if (!e.viewTransition) return;
+      window.NIPA_VT = e.viewTransition.finished; // as animações de entrada esperam a troca de página terminar
       const de = window.navigation && navigation.activation && navigation.activation.from;
       if (!de) return;
       const a = pagina(de.url), b = pagina(location.href);
@@ -284,8 +285,8 @@
     const obs = new IntersectionObserver((e) => {
       if (!e[0].isIntersecting) return;
       obs.disconnect();
-      cartas.forEach((b, i) => setTimeout(() => { if (!b.dataset.mexeu) virar(b, false); }, 900 + i * 220));
-    }, { threshold: 0.6 });
+      cartas.forEach((b, i) => setTimeout(() => { if (!b.dataset.mexeu) virar(b, false); }, 120 + i * 90));
+    }, { threshold: 0.3 });
     obs.observe(grade);
   }
 

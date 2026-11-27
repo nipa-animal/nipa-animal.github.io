@@ -59,6 +59,10 @@
     const tipo = el.dataset.anim;
     const atraso = (BASE[tipo] ?? 0) + parseFloat(el.dataset.animAtraso || 0);
     el.style.setProperty("--b", atraso + "s");
+    // Primeiro coloca o elemento no estado "escondido" SEM transição (senão ele
+    // anima até a posição escondida e a entrada de quem já está na tela quase não aparece)
+    el.style.transition = "none";
+    el.classList.add("anim-pronto");
     if (tipo === "titulo" || tipo === "texto" || tipo === "correnteza") {
       envolverPalavras(el);
       numerarLinhas(el);
@@ -67,7 +71,8 @@
       el.setAttribute("aria-label", txt.trim());
       el.innerHTML = [...txt].map((c) => (c.trim() ? `<span class="letra" aria-hidden="true">${c}</span>` : c)).join("");
     }
-    el.classList.add("anim-pronto");
+    void el.offsetHeight; // aplica o estado inicial
+    el.style.transition = "";
   }
 
   function entrar(el) {
@@ -90,18 +95,29 @@
   function iniciar() {
     const alvos = [...document.querySelectorAll("[data-anim]")];
     alvos.forEach(preparar);
+    // Blocos começam totalmente recortados (área zero), então o navegador nunca os
+    // "veria" entrando na tela: para eles, observamos o elemento pai.
+    const vigiado = new Map();
     const obs = new IntersectionObserver((entradas) => {
       entradas.forEach((e) => {
         if (!e.isIntersecting) return;
         obs.unobserve(e.target);
-        entrar(e.target);
+        (vigiado.get(e.target) || []).forEach(entrar);
       });
     }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
-    alvos.forEach((el) => obs.observe(el));
+    alvos.forEach((el) => {
+      const alvo = el.dataset.anim === "bloco" ? el.parentElement : el;
+      if (!vigiado.has(alvo)) { vigiado.set(alvo, []); obs.observe(alvo); }
+      vigiado.get(alvo).push(el);
+    });
   }
 
-  // Espera as fontes para medir as linhas corretamente
-  // (no máximo 1,2s: se a fonte demorar, começa mesmo assim para o texto não ficar escondido)
-  const pronto = () => Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise((r) => setTimeout(r, 1200))]).then(iniciar);
+  // Espera as fontes (para medir as linhas) e a troca de página terminar, para que as
+  // animações de quem abre a página aconteçam à vista e não escondidas pela transição.
+  const espera = (ms) => new Promise((r) => setTimeout(r, ms));
+  const pronto = () => Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), espera(1200)])
+    .then(() => new Promise((r) => requestAnimationFrame(() => r())))
+    .then(() => window.NIPA_VT ? Promise.race([window.NIPA_VT.catch(() => {}), espera(800)]) : null)
+    .then(iniciar);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", pronto); else pronto();
 })();

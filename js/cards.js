@@ -238,4 +238,26 @@ window.NIPA_DADOS.then((animais) => {
 
   if (pagina === "adote") montarFiltros();
   render();
+
+  // Entrada: as cartas sobem uma depois da outra conforme aparecem na tela
+  if (!semMovimento() && "IntersectionObserver" in window) {
+    const cartas = [...lista.querySelectorAll("[data-card]")];
+    cartas.forEach((el) => el.classList.add("ca--espera"));
+    let fila = 0, zerar = 0;
+    const obs = new IntersectionObserver((entradas) => {
+      entradas.filter((e) => e.isIntersecting).forEach((e) => {
+        const el = e.target;
+        obs.unobserve(el);
+        el.classList.remove("ca--espera");
+        el.animate([
+          { transform: "translateY(3.5rem)", opacity: 0 },
+          { transform: "translateY(-0.3rem)", opacity: 1, offset: 0.7 },
+          { transform: "none", opacity: 1 },
+        ], { duration: 800, delay: 150 * fila++, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+      });
+      clearTimeout(zerar);
+      zerar = setTimeout(() => { fila = 0; }, 300);
+    }, { threshold: 0.12 });
+    cartas.forEach((el) => obs.observe(el));
+  }
 });
