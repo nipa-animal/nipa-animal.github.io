@@ -135,7 +135,25 @@ window.NIPA_DADOS.then((animais) => {
     if (!semMovimento) requestAnimationFrame(girar);
     window.addEventListener("resize", () => { medirVolta(); fade(); escala(); });
 
-    return { preencher, grade };
+
+    // Um animal recém-salvo: leva a linha até ele e ele entra com o quique suave
+    function destacar(id) {
+      const copias = [...grade.querySelectorAll(`.animal[data-id="${id}"]`)];
+      if (!copias.length || semMovimento) return;
+      const inicio = parseFloat(getComputedStyle(grade).paddingLeft) || 0;
+      let alvo = copias[0].offsetLeft - inicio;
+      if (estado.loop && direcao < 0 && alvo <= 1 && copias[1]) alvo = copias[1].offsetLeft - inicio;
+      grade.scrollLeft = alvo;
+      estado.pos = grade.scrollLeft;
+      estado.pausadoAte = performance.now() + 1600;
+      copias.forEach((el) => el.animate([
+        { translate: "0 2.6rem", opacity: 0 },
+        { translate: "0 -0.45rem", opacity: 1, offset: 0.6 },
+        { translate: "0 0.12rem", offset: 0.82 },
+        { translate: "0 0", opacity: 1 },
+      ], { duration: 950, easing: "cubic-bezier(.33,.7,.4,1)" }));
+    }
+    return { preencher, grade, destacar };
   }
 
   const disponiveis = () => Store.ordenar(animais.filter((a) => !a.adotado)).slice(0, 8);
@@ -143,7 +161,15 @@ window.NIPA_DADOS.then((animais) => {
   const linhaAdote = criarLinha(gradeAdote, disponiveis, "No momento todos os nossos amigos encontraram um lar!", 1);
   const linhaSalvos = criarLinha(gradeSalvos, salvos, "Toque no marcador de um amigo para salvá-lo aqui.", -1);
 
-  function render() { linhaAdote.preencher(); linhaSalvos.preencher(); }
+  // Atualiza a linha de salvos; quem acabou de ser salvo entra quicando
+  let conhecidos = new Set(Store.salvos());
+  function atualizarSalvos() {
+    linhaSalvos.preencher();
+    const novos = Store.salvos().filter((id) => !conhecidos.has(id));
+    conhecidos = new Set(Store.salvos());
+    if (novos.length) linhaSalvos.destacar(novos[novos.length - 1]);
+  }
+  function render() { linhaAdote.preencher(); atualizarSalvos(); }
 
   // Abre a ficha; as setas/deslize percorrem os animais da mesma linha (sem as cópias do loop)
   function abrirFicha(item) {
@@ -164,7 +190,7 @@ window.NIPA_DADOS.then((animais) => {
         b.setAttribute("aria-pressed", String(agora));
         b.setAttribute("aria-label", agora ? `Remover ${a.nome} dos salvos` : `Salvar ${a.nome}`);
       });
-      linhaSalvos.preencher();
+      atualizarSalvos();
       if (!semMovimento) salvar.animate([{ scale: 1 }, { scale: 1.3 }, { scale: 1 }], { duration: 320, easing: "ease-out" });
       return;
     }

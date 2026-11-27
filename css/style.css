@@ -753,3 +753,7 @@ img[data-som]:focus-visible { outline: 0.2rem solid var(--laranja-claro); outlin
 /* ===== Rodada 5 ===== */
 .ca--espera { opacity: 0; }
 .ajuda--itens .grupo-texto { max-width: 27rem; }
+/* Adoção: o texto descritivo sobe todo de uma vez */
+.adocao-texto .am, .adocao-texto .at { --i: 0 !important; }
+/* Ajudar: título dos remédios mais largo, em 2 linhas */
+.ajuda--itens h2 { white-space: nowrap; margin-left: -14rem; }
